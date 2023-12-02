@@ -1,20 +1,20 @@
-import { act, fireEvent, screen } from '@testing-library/react';
-import renderComponent from 'utils/testing';
-import MoveCopyModal from './MoveCopyModal';
-import { useCopy, useMove, useList } from 'tapis-hooks/files';
-import { useMutations } from 'tapis-hooks/utils';
-import { fileInfo } from 'fixtures/files.fixtures';
-import { Files } from '@tapis/tapis-typescript';
-import { useFilesSelect } from 'tapis-app/Files/_components/FilesContext';
+import { act, fireEvent, screen } from "@testing-library/react";
+import renderComponent from "utils/testing";
+import MoveCopyModal from "./MoveCopyModal";
+import { useCopy, useMove, useList } from "tapis-hooks/files";
+import { useMutations } from "tapis-hooks/utils";
+import { fileInfo } from "fixtures/files.fixtures";
+import { Files } from "@tapis/tapis-typescript";
+import { useFilesSelect } from "tapis-app/Files/_components/FilesContext";
 
-jest.mock('tapis-hooks/utils');
-jest.mock('tapis-hooks/files');
-jest.mock('tapis-app/Files/_components/FilesContext');
+jest.mock("tapis-hooks/utils");
+jest.mock("tapis-hooks/files");
+jest.mock("tapis-app/Files/_components/FilesContext");
 
-describe('MoveCopyModal', () => {
-  it('performs copy operations', async () => {
+describe("MoveCopyModal", () => {
+  it("performs copy operations", async () => {
     (useList as jest.Mock).mockReturnValue({
-      concatenatedResults: [{ ...fileInfo, type: 'dir' }],
+      concatenatedResults: [{ ...fileInfo, type: "dir" }],
       isLoading: false,
       error: null,
     });
@@ -41,8 +41,8 @@ describe('MoveCopyModal', () => {
     renderComponent(
       <MoveCopyModal
         toggle={() => {}}
-        systemId={'system-id'}
-        path={'/'}
+        systemId={"system-id"}
+        path={"/"}
         operation={Files.MoveCopyRequestOperationEnum.Copy}
       />
     );
@@ -53,7 +53,7 @@ describe('MoveCopyModal', () => {
       fireEvent.click(link);
     });
 
-    const button = screen.getByLabelText('Submit');
+    const button = screen.getByLabelText("Submit");
     await act(async () => {
       fireEvent.click(button);
     });
@@ -61,11 +61,11 @@ describe('MoveCopyModal', () => {
     expect((useMutations as jest.Mock).mock.calls[0][0].fn).toEqual(
       mockCopyAsync
     );
-    expect(mockRun.mock.calls[0][0][0].path).toEqual('/file1.txt');
+    expect(mockRun.mock.calls[0][0][0].path).toEqual("/file1.txt");
   });
-  it('performs move operations', async () => {
+  it("performs move operations", async () => {
     (useList as jest.Mock).mockReturnValue({
-      concatenatedResults: [{ ...fileInfo, type: 'dir' }],
+      concatenatedResults: [{ ...fileInfo, type: "dir" }],
       isLoading: false,
       error: null,
     });
@@ -92,8 +92,8 @@ describe('MoveCopyModal', () => {
     renderComponent(
       <MoveCopyModal
         toggle={() => {}}
-        systemId={'system-id'}
-        path={'/'}
+        systemId={"system-id"}
+        path={"/"}
         operation={Files.MoveCopyRequestOperationEnum.Move}
       />
     );
@@ -104,7 +104,7 @@ describe('MoveCopyModal', () => {
       fireEvent.click(link);
     });
 
-    const button = screen.getByLabelText('Submit');
+    const button = screen.getByLabelText("Submit");
     await act(async () => {
       fireEvent.click(button);
     });
@@ -112,6 +112,6 @@ describe('MoveCopyModal', () => {
     expect((useMutations as jest.Mock).mock.calls[0][0].fn).toEqual(
       mockMoveAsync
     );
-    expect(mockRun.mock.calls[0][0][0].path).toEqual('/file1.txt');
+    expect(mockRun.mock.calls[0][0][0].path).toEqual("/file1.txt");
   });
 });

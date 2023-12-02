@@ -1,4 +1,4 @@
-import { Message } from 'tapis-ui/_common';
+import { Message } from "tapis-ui/_common";
 
 type JobStartSummaryProps = {
   field?: string;
@@ -12,7 +12,7 @@ const JobStartSummary: React.FC<JobStartSummaryProps> = ({ field, error }) => {
         <div>{field}</div>
       ) : (
         <Message type="error" canDismiss={false} scope="inline">
-          {error ?? ''}
+          {error ?? ""}
         </Message>
       )}
     </div>

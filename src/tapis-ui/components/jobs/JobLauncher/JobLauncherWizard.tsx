@@ -1,16 +1,16 @@
-import React, { useCallback, useMemo } from 'react';
-import { WizardStep } from 'tapis-ui/_wrappers/Wizard';
-import { QueryWrapper, Wizard } from 'tapis-ui/_wrappers';
-import { Apps, Jobs } from '@tapis/tapis-typescript';
-import { useDetail as useAppDetail } from 'tapis-hooks/apps';
-import generateJobDefaults from 'tapis-api/utils/jobDefaults';
+import React, { useCallback, useMemo } from "react";
+import { WizardStep } from "tapis-ui/_wrappers/Wizard";
+import { QueryWrapper, Wizard } from "tapis-ui/_wrappers";
+import { Apps, Jobs } from "@tapis/tapis-typescript";
+import { useDetail as useAppDetail } from "tapis-hooks/apps";
+import generateJobDefaults from "tapis-api/utils/jobDefaults";
 import {
   useList as useSystemsList,
   useSchedulerProfiles,
-} from 'tapis-hooks/systems';
-import { useJobLauncher, JobLauncherProvider } from './components';
-import { JobStep } from '.';
-import jobSteps from './steps';
+} from "tapis-hooks/systems";
+import { useJobLauncher, JobLauncherProvider } from "./components";
+import { JobStep } from ".";
+import jobSteps from "./steps";
 
 type JobLauncherWizardProps = {
   appId: string;
@@ -79,7 +79,7 @@ const JobLauncherWizard: React.FC<JobLauncherWizardProps> = ({
     isLoading: systemsIsLoading,
     error: systemsError,
   } = useSystemsList(
-    { select: 'allAttributes' },
+    { select: "allAttributes" },
     { refetchOnWindowFocus: false }
   );
   const {

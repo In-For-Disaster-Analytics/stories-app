@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
-import { default as Archives } from '../Archives';
+import { default as Archives } from "../Archives";
 
 const Router: React.FC = () => {
   return (

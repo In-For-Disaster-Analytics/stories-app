@@ -1,27 +1,27 @@
-import React, { useCallback, useMemo } from 'react';
-import { Jobs } from '@tapis/tapis-typescript';
-import { Button } from 'reactstrap';
-import { useJobLauncher, StepSummaryField } from '../components';
-import fieldArrayStyles from '../FieldArray.module.scss';
-import { Collapse } from 'tapis-ui/_common';
-import { FieldArray, useField, useFormikContext } from 'formik';
-import { getArgMode } from 'tapis-api/utils/jobArgs';
-import { ArgField, argsSchema, assembleArgSpec } from './AppArgs';
-import { DescriptionList } from 'tapis-ui/_common';
-import * as Yup from 'yup';
-import styles from './SchedulerOptions.module.scss';
-import { JobStep } from '..';
+import React, { useCallback, useMemo } from "react";
+import { Jobs } from "@tapis/tapis-typescript";
+import { Button } from "reactstrap";
+import { useJobLauncher, StepSummaryField } from "../components";
+import fieldArrayStyles from "../FieldArray.module.scss";
+import { Collapse } from "tapis-ui/_common";
+import { FieldArray, useField, useFormikContext } from "formik";
+import { getArgMode } from "tapis-api/utils/jobArgs";
+import { ArgField, argsSchema, assembleArgSpec } from "./AppArgs";
+import { DescriptionList } from "tapis-ui/_common";
+import * as Yup from "yup";
+import styles from "./SchedulerOptions.module.scss";
+import { JobStep } from "..";
 
 const findSchedulerProfile = (values: Partial<Jobs.ReqSubmitJob>) => {
   // Look at current schedulerOptions
   const argSpecs = values.parameterSet?.schedulerOptions ?? [];
   // Find any scheduler option that has --tapis-profile set
   const profile = argSpecs.find((argSpec) =>
-    argSpec.arg?.includes('--tapis-profile')
+    argSpec.arg?.includes("--tapis-profile")
   );
   if (profile) {
     // Return the name of the profile after --tapis-profile
-    const args = profile.arg?.split(' ');
+    const args = profile.arg?.split(" ");
     if (args && args.length >= 2) {
       return args[1];
     }
@@ -42,7 +42,7 @@ const SchedulerProfiles: React.FC = () => {
           schedulerOptions: [
             newProfile,
             ...argSpecs.filter(
-              (existing) => !existing.arg?.includes('--tapis-profile')
+              (existing) => !existing.arg?.includes("--tapis-profile")
             ),
           ],
         },
@@ -70,10 +70,10 @@ const SchedulerProfiles: React.FC = () => {
         }) => (
           <Collapse
             key={`scheduler-profiles-${name}`}
-            className={fieldArrayStyles['array-group']}
-            title={`${name} ${name === currentProfile ? '(selected)' : ''}`}
+            className={fieldArrayStyles["array-group"]}
+            title={`${name} ${name === currentProfile ? "(selected)" : ""}`}
           >
-            <div className={styles['scheduler-option']}>
+            <div className={styles["scheduler-option"]}>
               <div>{description}</div>
               <DescriptionList
                 data={{
@@ -83,7 +83,7 @@ const SchedulerProfiles: React.FC = () => {
                   owner,
                   tenant,
                 }}
-                className={styles['scheduler-option-list']}
+                className={styles["scheduler-option-list"]}
               />
             </div>
             <Button
@@ -109,7 +109,7 @@ const SchedulerProfiles: React.FC = () => {
 
 const SchedulerOptionArray: React.FC = () => {
   const { app } = useJobLauncher();
-  const [field] = useField('parameterSet.schedulerOptions');
+  const [field] = useField("parameterSet.schedulerOptions");
   const args = useMemo(
     () => (field.value as Array<Jobs.JobArgSpec>) ?? [],
     [field]
@@ -126,7 +126,7 @@ const SchedulerOptionArray: React.FC = () => {
         <>
           <div className={fieldArrayStyles.array}>
             <h3>{`Scheduler Arguments`}</h3>
-            <div className={fieldArrayStyles['array-group']}>
+            <div className={fieldArrayStyles["array-group"]}>
               {args.map((arg, index) => {
                 const inputMode = arg.name
                   ? getArgMode(arg.name, schedulerOptionSpecs)
@@ -136,7 +136,7 @@ const SchedulerOptionArray: React.FC = () => {
                     index={index}
                     arrayHelpers={arrayHelpers}
                     name={`parameterSet.schedulerOptions.${index}`}
-                    argType={'scheduler option'}
+                    argType={"scheduler option"}
                     inputMode={inputMode}
                   />
                 );
@@ -145,10 +145,10 @@ const SchedulerOptionArray: React.FC = () => {
             <Button
               onClick={() =>
                 arrayHelpers.push({
-                  name: '',
-                  description: '',
+                  name: "",
+                  description: "",
                   include: true,
-                  arg: '',
+                  arg: "",
                 })
               }
               size="sm"
@@ -179,7 +179,7 @@ export const SchedulerOptionsSummary: React.FC = () => {
     <div>
       <StepSummaryField
         field={`Scheduler Profile: ${
-          findSchedulerProfile(job) ?? 'none selected'
+          findSchedulerProfile(job) ?? "none selected"
         }`}
         key={`scheduler-profile-summary`}
       />
@@ -198,8 +198,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const step: JobStep = {
-  id: 'schedulerOptions',
-  name: 'Scheduler Options',
+  id: "schedulerOptions",
+  name: "Scheduler Options",
   render: <SchedulerOptions />,
   summary: <SchedulerOptionsSummary />,
   validationSchema,

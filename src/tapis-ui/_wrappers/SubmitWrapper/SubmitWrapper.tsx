@@ -1,6 +1,6 @@
-import React from 'react';
-import { LoadingSpinner, Message } from 'tapis-ui/_common';
-import styles from './SubmitWrapper.module.scss';
+import React from "react";
+import { LoadingSpinner, Message } from "tapis-ui/_common";
+import styles from "./SubmitWrapper.module.scss";
 
 type SubmitWrapperProps = React.PropsWithChildren<{
   isLoading: boolean;
@@ -15,7 +15,7 @@ const SubmitWrapper: React.FC<SubmitWrapperProps> = ({
   error,
   success,
   children,
-  className = '',
+  className = "",
   reverse = false,
 }) => {
   return (
@@ -25,7 +25,7 @@ const SubmitWrapper: React.FC<SubmitWrapperProps> = ({
       {children}
       {isLoading && (
         <LoadingSpinner
-          className={styles['loading-spinner']}
+          className={styles["loading-spinner"]}
           placement="inline"
         />
       )}

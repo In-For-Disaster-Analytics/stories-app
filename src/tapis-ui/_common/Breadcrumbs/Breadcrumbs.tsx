@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { Button } from 'reactstrap';
-import styles from './Breadcrumbs.module.scss';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { Button } from "reactstrap";
+import styles from "./Breadcrumbs.module.scss";
 
 export type BreadcrumbType = {
   to?: string;
@@ -18,7 +18,7 @@ const BreadcrumbFragment: React.FC<BreadcrumbType> = ({
   if (onClick) {
     return (
       <span className={styles.fragment}>
-        {' '}
+        {" "}
         <Button
           color="link"
           className={styles.link}
@@ -43,7 +43,7 @@ const BreadcrumbFragment: React.FC<BreadcrumbType> = ({
 
   return (
     <span className={styles.fragment}>
-      {text}&nbsp;{`${text !== '...' ? '/' : ''}`}&nbsp;
+      {text}&nbsp;{`${text !== "..." ? "/" : ""}`}&nbsp;
     </span>
   );
 };
@@ -60,7 +60,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs, truncate }) => {
     truncatedBreadcrumbs = [...breadcrumbs.slice(0, 2)];
 
     // Ellipsis representing truncated breadcrumbs
-    truncatedBreadcrumbs.push({ text: '\u2026' });
+    truncatedBreadcrumbs.push({ text: "\u2026" });
 
     // Last 2 breadcrumbs
     truncatedBreadcrumbs.push(

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Files } from '@tapis/tapis-typescript';
-import { FilesContextType } from '.';
-import FilesContext from './FilesContext';
+import React, { useState } from "react";
+import { Files } from "@tapis/tapis-typescript";
+import { FilesContextType } from ".";
+import FilesContext from "./FilesContext";
 
 const FilesProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [selectedFiles, setSelectedFiles] = useState<Array<Files.FileInfo>>([]);

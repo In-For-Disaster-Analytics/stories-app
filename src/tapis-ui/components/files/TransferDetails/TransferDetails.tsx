@@ -1,11 +1,11 @@
-import React from 'react';
-import { useDetails } from 'tapis-hooks/files/transfers';
-import { Files } from '@tapis/tapis-typescript';
-import { DescriptionList } from 'tapis-ui/_common';
-import { QueryWrapper } from 'tapis-ui/_wrappers';
+import React from "react";
+import { useDetails } from "tapis-hooks/files/transfers";
+import { Files } from "@tapis/tapis-typescript";
+import { DescriptionList } from "tapis-ui/_common";
+import { QueryWrapper } from "tapis-ui/_wrappers";
 
 const SystemDetail: React.FC<{ transferTaskId: string; className?: string }> =
-  ({ transferTaskId, className = '' }) => {
+  ({ transferTaskId, className = "" }) => {
     const { data, isLoading, error } = useDetails(transferTaskId);
     const task: Files.TransferTask | undefined = data?.result;
     return (

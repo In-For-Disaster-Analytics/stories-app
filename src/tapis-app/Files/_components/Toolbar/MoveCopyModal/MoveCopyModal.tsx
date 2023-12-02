@@ -1,21 +1,21 @@
-import { useCallback, useState } from 'react';
-import { Button } from 'reactstrap';
-import { GenericModal, Breadcrumbs } from 'tapis-ui/_common';
-import { SubmitWrapper } from 'tapis-ui/_wrappers';
-import breadcrumbsFromPathname from 'tapis-ui/_common/Breadcrumbs/breadcrumbsFromPathname';
-import { FileListingTable } from 'tapis-ui/components/files/FileListing/FileListing';
-import { FileOperationStatus } from '../_components';
-import { FileExplorer } from 'tapis-ui/components/files';
-import { ToolbarModalProps } from '../Toolbar';
-import { useLocation } from 'react-router';
-import { focusManager } from 'react-query';
-import { useCopy, useMove } from 'tapis-hooks/files';
-import { MoveCopyHookParams } from 'tapis-hooks/files';
-import { Files } from '@tapis/tapis-typescript';
-import { Column } from 'react-table';
-import styles from './MoveCopyModal.module.scss';
-import { useFilesSelect } from '../../FilesContext';
-import { useFileOperations } from '../_hooks';
+import { useCallback, useState } from "react";
+import { Button } from "reactstrap";
+import { GenericModal, Breadcrumbs } from "tapis-ui/_common";
+import { SubmitWrapper } from "tapis-ui/_wrappers";
+import breadcrumbsFromPathname from "tapis-ui/_common/Breadcrumbs/breadcrumbsFromPathname";
+import { FileListingTable } from "tapis-ui/components/files/FileListing/FileListing";
+import { FileOperationStatus } from "../_components";
+import { FileExplorer } from "tapis-ui/components/files";
+import { ToolbarModalProps } from "../Toolbar";
+import { useLocation } from "react-router";
+import { focusManager } from "react-query";
+import { useCopy, useMove } from "tapis-hooks/files";
+import { MoveCopyHookParams } from "tapis-hooks/files";
+import { Files } from "@tapis/tapis-typescript";
+import { Column } from "react-table";
+import styles from "./MoveCopyModal.module.scss";
+import { useFilesSelect } from "../../FilesContext";
+import { useFileOperations } from "../_hooks";
 
 type MoveCopyModalProps = {
   operation: Files.MoveCopyRequestOperationEnum;
@@ -23,8 +23,8 @@ type MoveCopyModalProps = {
 
 const MoveCopyModal: React.FC<MoveCopyModalProps> = ({
   toggle,
-  systemId = '',
-  path = '/',
+  systemId = "",
+  path = "/",
   operation,
 }) => {
   const { pathname } = useLocation();
@@ -80,14 +80,14 @@ const MoveCopyModal: React.FC<MoveCopyModalProps> = ({
 
   const statusColumns: Array<Column> = [
     {
-      Header: '',
-      id: 'moveCopyStatus',
+      Header: "",
+      id: "moveCopyStatus",
       Cell: (el) => {
         const path = (el.row.original as Files.FileInfo).path!;
         if (!state[path]) {
           return (
             <span
-              className={styles['remove-file']}
+              className={styles["remove-file"]}
               onClick={() => {
                 removeFile(selectedFiles[el.row.index]);
               }}
@@ -105,11 +105,11 @@ const MoveCopyModal: React.FC<MoveCopyModalProps> = ({
     <div className="row h-100">
       <div className="col-md-6 d-flex flex-column">
         {/* Table of selected files */}
-        <div className={`${styles['col-header']}`}>
+        <div className={`${styles["col-header"]}`}>
           {`${
             operation === Files.MoveCopyRequestOperationEnum.Copy
-              ? 'Copying '
-              : 'Moving '
+              ? "Copying "
+              : "Moving "
           }`}
           {selectedFiles.length} files
         </div>
@@ -120,24 +120,24 @@ const MoveCopyModal: React.FC<MoveCopyModalProps> = ({
               .map((fragment) => ({ text: fragment.text })),
           ]}
         />
-        <div className={styles['nav-list']}>
+        <div className={styles["nav-list"]}>
           <FileListingTable
             files={selectedFiles}
-            className={`${styles['file-list-origin']} `}
-            fields={['size']}
+            className={`${styles["file-list-origin"]} `}
+            fields={["size"]}
             appendColumns={statusColumns}
           />
         </div>
       </div>
       <div className="col-md-6 d-flex flex-column">
         {/* Table of selected files */}
-        <div className={`${styles['col-header']}`}>Destination</div>
+        <div className={`${styles["col-header"]}`}>Destination</div>
         <FileExplorer
           systemId={systemId}
           path={path}
           onNavigate={onNavigate}
-          fields={['size']}
-          className={styles['file-list']}
+          fields={["size"]}
+          className={styles["file-list"]}
         />
       </div>
     </div>
@@ -149,12 +149,12 @@ const MoveCopyModal: React.FC<MoveCopyModalProps> = ({
       error={error}
       success={
         isSuccess
-          ? 'Successfully ' +
+          ? "Successfully " +
             (operation === Files.MoveCopyRequestOperationEnum.Move
-              ? 'moved'
-              : 'copied') +
-            ' files'
-          : ''
+              ? "moved"
+              : "copied") +
+            " files"
+          : ""
       }
       reverse={true}
     >

@@ -1,7 +1,7 @@
-import { FieldInputProps, Field } from 'formik';
-import { FormikInputProps } from '.';
-import { Input, FormText, FormGroup, Label } from 'reactstrap';
-import styles from './FormikCheck.module.scss';
+import { FieldInputProps, Field } from "formik";
+import { FormikInputProps } from ".";
+import { Input, FormText, FormGroup, Label } from "reactstrap";
+import styles from "./FormikCheck.module.scss";
 
 const FormikCheck: React.FC<FormikInputProps> = ({
   name,
@@ -17,7 +17,7 @@ const FormikCheck: React.FC<FormikInputProps> = ({
           name={name}
           as={(formikProps: FieldInputProps<any>) => (
             <Input
-              bsSize={props['bsSize'] ?? 'sm'}
+              bsSize={props["bsSize"] ?? "sm"}
               type="checkbox"
               {...props}
               {...formikProps}
