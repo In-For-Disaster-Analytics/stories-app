@@ -1,11 +1,7 @@
 import JobStart from "./JobStart";
 import ExecOptions from "./ExecOptions";
-// import FileInputs from "./FileInputs";
-// import FileInputArrays from "./FileInputArrays";
 import AppArgs from "./AppArgs";
-import EnvVariables from "./EnvVariables";
 import SchedulerOptions from "./SchedulerOptions";
-import Archive from "./Archive";
 import JobSubmit from "./JobSubmit";
 
 const jobSteps = [
@@ -14,9 +10,9 @@ const jobSteps = [
   // FileInputs,
   // FileInputArrays,
   AppArgs,
-  EnvVariables,
+  // EnvVariables,
   SchedulerOptions,
-  Archive,
+  // Archive,
   JobSubmit,
 ];
 

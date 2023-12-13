@@ -1,12 +1,7 @@
 import { useMemo, useEffect, useState } from "react";
 import { Apps, Jobs, Systems } from "@tapis/tapis-typescript";
 import { useJobLauncher, StepSummaryField } from "../components";
-import {
-  FormikInput,
-  // FormikCheck,
-  FormikSelect,
-  // FormikTapisFile,
-} from "tapis-ui/_common/FieldWrapperFormik";
+import { FormikInput, FormikSelect } from "tapis-ui/_common/FieldWrapperFormik";
 import { useFormikContext } from "formik";
 import { Collapse } from "tapis-ui/_common";
 import {
@@ -163,51 +158,6 @@ const SystemSelector: React.FC = () => {
   );
 };
 
-// const ExecSystemDirs: React.FC = () => {
-//   const { values } = useFormikContext();
-//   const execSystemId = useMemo(
-//     () => (values as Partial<Jobs.ReqSubmitJob>).execSystemId,
-//     [values]
-//   );
-//   return (
-//     <Collapse title="Execution System Directories">
-//       <FormikTapisFile
-//         allowSystemChange={false}
-//         systemId={execSystemId}
-//         disabled={!execSystemId}
-//         name="execSystemExecDir"
-//         label="Execution System Execution Directory"
-//         description="The directory on the selected selection system for execution files"
-//         required={false}
-//         files={false}
-//         dirs={true}
-//       />
-//       <FormikTapisFile
-//         allowSystemChange={false}
-//         systemId={execSystemId}
-//         disabled={!execSystemId}
-//         name="execSystemInputDir"
-//         label="Execution System Input Directory"
-//         description="The directory on the selected selection system for input files"
-//         required={false}
-//         files={false}
-//         dirs={true}
-//       />
-//       <FormikTapisFile
-//         allowSystemChange={false}
-//         systemId={execSystemId}
-//         disabled={!execSystemId}
-//         name="execSystemOutputDir"
-//         label="Execution System Output Directory"
-//         description="The directory on the selected selection system for output files"
-//         required={false}
-//         files={false}
-//         dirs={true}
-//       />
-//     </Collapse>
-//   );
-// };
-
 const ExecSystemQueueOptions: React.FC = () => {
   const { errors } = useFormikContext();
   const queueErrors = errors as QueueErrors;
@@ -245,38 +195,6 @@ const ExecSystemQueueOptions: React.FC = () => {
     </Collapse>
   );
 };
-
-// const MPIOptions: React.FC = () => {
-//   const { values } = useFormikContext();
-//   const isMpi = useMemo(
-//     () => (values as Partial<Jobs.ReqSubmitJob>).isMpi,
-//     [values]
-//   );
-//   return (
-//     <Collapse title="MPI Options">
-//       <FormikCheck
-//         name="isMpi"
-//         label="Is MPI?"
-//         description="If checked, this job will be run as an MPI job"
-//         required={false}
-//       />
-//       <FormikInput
-//         name="mpiCmd"
-//         label="MPI Command"
-//         description="If this is an MPI job, you may specify the MPI command"
-//         required={false}
-//         disabled={!isMpi}
-//       />
-//       <FormikInput
-//         name="cmdPrefix"
-//         label="Command Prefix"
-//         description="If this is not an MPI job, you may specify a command prefix"
-//         required={false}
-//         disabled={!!isMpi}
-//       />
-//     </Collapse>
-//   );
-// };
 
 export const ExecOptions: React.FC = () => {
   const { values } = useFormikContext();

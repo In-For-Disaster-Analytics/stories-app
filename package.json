@@ -43,8 +43,8 @@
   },
   "homepage": "https://tapis-project.github.io/tapis-ui",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider  react-scripts start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "TZ=UTC react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --max-warnings=0 . && prettier --single-quote --check src",
