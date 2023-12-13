@@ -6,6 +6,6 @@ export const resolveBasePath = () => {
   if (/127\.0\.0\.1|localhost|0\.0\.0\.0/.test(baseUrl)) {
     return "https://tacc.tapis.io";
   }
-
-  return baseUrl;
+  return "https://tacc.tapis.io";
+  // return baseUrl;
 };
