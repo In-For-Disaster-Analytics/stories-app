@@ -7,6 +7,7 @@ import Apps from "../Apps";
 import Login from "../Login";
 import Dashboard from "../Dashboard";
 import Jobs from "tapis-app/Jobs";
+import Systems from "tapis-app/Systems";
 
 const Router: React.FC = () => {
   const { logout } = useLogin();
@@ -26,9 +27,9 @@ const Router: React.FC = () => {
           return <Redirect to="/login" />;
         }}
       />
-      {/* <ProtectedRoute path="/systems">
+      <ProtectedRoute path="/systems">
         <Systems />
-      </ProtectedRoute> */}
+      </ProtectedRoute>
       <ProtectedRoute path="/apps">
         <Apps />
       </ProtectedRoute>

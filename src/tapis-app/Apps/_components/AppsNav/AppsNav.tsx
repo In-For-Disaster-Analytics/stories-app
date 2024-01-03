@@ -4,6 +4,8 @@ import { useList } from "tapis-hooks/apps";
 import { Apps } from "@tapis/tapis-typescript";
 import { Navbar, NavItem } from "tapis-ui/_wrappers/Navbar";
 import { QueryWrapper } from "tapis-ui/_wrappers";
+import { Button } from "reactstrap";
+import { AppCreate } from "./CreateApp";
 
 const AppsNav: React.FC = () => {
   const { data, isLoading, error } = useList(
@@ -29,7 +31,10 @@ const AppsNav: React.FC = () => {
               </NavItem>
             ))
         ) : (
-          <i>No apps found</i>
+          <>
+            <i>No templates found</i>
+            <AppCreate />
+          </>
         )}
       </Navbar>
     </QueryWrapper>

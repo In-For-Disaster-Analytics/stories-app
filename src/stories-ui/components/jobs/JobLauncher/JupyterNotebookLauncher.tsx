@@ -59,7 +59,7 @@ export function JupyterNotebookLauncher<T>({
     [submit, job]
   );
 
-  return (
+  return system ? (
     <div>
       <h3>Jupyter Notebook Launcher</h3>
       <div className={arrayStyles.array}>
@@ -92,5 +92,9 @@ export function JupyterNotebookLauncher<T>({
         </SubmitWrapper>
       </div>
     </div>
+  ) : (
+    <>
+      <p> No Linux system found. Please add a Linux System</p>
+    </>
   );
 }
