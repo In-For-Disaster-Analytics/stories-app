@@ -7,10 +7,6 @@ import llamaNotebookApp from "catalog/apps/llama-notebook";
 
 const CookbookCreator: React.FC = () => {
   const { isLoading, error, isSuccess, submit, data } = useCreate();
-  const onCreate = useCallback(() => {
-    llamaNotebookApp.id = `${llamaNotebookApp.id}-${Date.now()}`;
-    submit(llamaNotebookApp);
-  }, [submit]);
 
   useEffect(() => {
     llamaNotebookApp.id = `${llamaNotebookApp.id}-${Date.now()}`;

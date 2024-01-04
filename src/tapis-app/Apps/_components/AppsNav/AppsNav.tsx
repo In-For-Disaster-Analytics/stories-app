@@ -14,6 +14,7 @@ const AppsNav: React.FC = () => {
   );
   const { url } = useRouteMatch();
   const appList: Array<Apps.TapisApp> = data?.result ?? [];
+  console.log(url);
 
   return (
     <QueryWrapper isLoading={isLoading} error={error}>
@@ -23,7 +24,7 @@ const AppsNav: React.FC = () => {
             .filter((app) => app.id?.includes("jupyter"))
             .map((app) => (
               <NavItem
-                to={`${url}/${app.id}/${app.version}`}
+                to={`/apps/${app.id}/${app.version}`}
                 icon="applications"
                 key={app.id}
               >

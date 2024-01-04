@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { SectionHeader, LoadingSpinner, Icon } from "cookbooks-ui/_common";
 import {
   Card,
@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
       <div className={styles.cards}>
         {accessToken ? (
           <>
-            <Apps />
+            <Redirect to="/apps" />
           </>
         ) : (
           <Card>
