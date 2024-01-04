@@ -28,6 +28,8 @@ export function JupyterNotebookLauncher<T>({
     app.version!
   );
 
+  console.log(app.notes);
+
   const system = systems.find(
     (sys) => sys.systemType === Systems.SystemTypeEnum.Linux
   );
