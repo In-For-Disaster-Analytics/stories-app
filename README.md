@@ -45,8 +45,9 @@ flowchart
     render_create_system[Render create system component]
     system_create_status{System request success?}
     app_stories_cond{Apps? tag: stories}
+    app_stories_updated_cond{App updated? tag: stories}
     render_create_app[Render Create app component]
-    app_create_status{System request success?}
+    app_create_status{App request success?}
     render_repository_launcher[Repository launcher screen]
     render_repository_reader[Render repository details]
 
@@ -64,8 +65,12 @@ flowchart
     render_create_system --> system_create_status
     system_create_status -- Yes --> app_stories_cond
 
-    app_stories_cond -- Yes --> render_repository_launcher
+    app_stories_cond -- Yes --> app_stories_updated_cond
     app_stories_cond -- No --> render_create_app
+
+    app_stories_updated_cond -- Yes --> render_repository_launcher
+    app_stories_updated_cond -- No --> render_create_app
+
 
     render_create_app --> app_create_status
 
