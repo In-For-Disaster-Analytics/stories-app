@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 import { Input, Button } from "reactstrap";
-import { SubmitWrapper } from "tapis-ui/_wrappers";
+import { SubmitWrapper } from "cookbooks-ui/_wrappers";
 import { Form, Formik } from "formik";
-import { FormikInput, FieldWrapper, GenericModal } from "tapis-ui/_common";
+import { FormikInput, FieldWrapper, GenericModal } from "cookbooks-ui/_common";
 import { Workflows } from "@tapis/tapis-typescript";
 import * as Yup from "yup";
 import { useCreate } from "tapis-hooks/workflows/identities";

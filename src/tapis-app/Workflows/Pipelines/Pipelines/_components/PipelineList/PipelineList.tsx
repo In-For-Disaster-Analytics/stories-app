@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDetails, useList } from "tapis-hooks/workflows/pipelines";
 import { Workflows } from "@tapis/tapis-typescript";
-import { Icon } from "tapis-ui/_common";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { Icon } from "cookbooks-ui/_common";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import styles from "./PipelineList.module.scss";
-import { SectionMessage } from "tapis-ui/_common";
+import { SectionMessage } from "cookbooks-ui/_common";
 import {
   Card,
   CardHeader,

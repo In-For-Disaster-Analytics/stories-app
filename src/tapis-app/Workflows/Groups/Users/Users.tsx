@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { Workflows } from "@tapis/tapis-typescript";
 import { useList, useDelete } from "tapis-hooks/workflows/groupusers";
-import { SectionMessage, Icon } from "tapis-ui/_common";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { SectionMessage, Icon } from "cookbooks-ui/_common";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import { Toolbar } from "../../_components";
 import { useTapisConfig } from "tapis-hooks";
 import styles from "./Users.module.scss";

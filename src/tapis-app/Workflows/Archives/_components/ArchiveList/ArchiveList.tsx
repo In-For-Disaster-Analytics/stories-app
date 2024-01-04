@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useList } from "tapis-hooks/workflows/archives";
 import { Workflows } from "@tapis/tapis-typescript";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import styles from "./ArchiveList.module.scss";
-import { SectionMessage, Icon } from "tapis-ui/_common";
+import { SectionMessage, Icon } from "cookbooks-ui/_common";
 import { Toolbar } from "../../../_components";
 
 type ArchiveListParams = {

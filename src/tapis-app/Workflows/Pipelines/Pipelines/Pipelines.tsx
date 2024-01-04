@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionMessage } from "tapis-ui/_common";
+import { SectionMessage } from "cookbooks-ui/_common";
 import { PipelineList } from "./_components";
 
 type PipelinesProps = {

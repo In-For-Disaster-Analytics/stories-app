@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Sidebar } from "tapis-app/_components";
 import { Router } from "tapis-app/_Router";
-import { PageLayout } from "tapis-ui/_common";
+import { PageLayout } from "cookbooks-ui/_common";
 import { NotificationsProvider } from "tapis-app/_components/Notifications";
 import { useHistory } from "react-router-dom";
 import { useList } from "tapis-hooks/tenants";
@@ -14,7 +14,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 
 const Layout: React.FC = () => {
   const { claims } = useTapisConfig();
@@ -25,8 +25,8 @@ const Layout: React.FC = () => {
   const { logout } = useLogin();
 
   const header = (
-    <div className="tapis-ui__header">
-      <div>TapisUI</div>
+    <div className="cookbooks-ui__header">
+      <div>Cookbooks UI</div>
       <div></div>
       <div>
         {claims["sub"] && (
@@ -46,7 +46,8 @@ const Layout: React.FC = () => {
                     <DropdownItem
                       onClick={() => {
                         logout();
-                        window.location.href = tenant.base_url + "/tapis-ui/";
+                        window.location.href =
+                          tenant.base_url + "/cookbooks-ui/";
                       }}
                     >
                       {tenant.tenant_id}

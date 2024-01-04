@@ -1,8 +1,8 @@
 import { Workflows } from "@tapis/tapis-typescript";
 import React from "react";
 import { useList } from "tapis-hooks/workflows/identities";
-import { FormikSelect } from "tapis-ui/_common/FieldWrapperFormik";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { FormikSelect } from "cookbooks-ui/_common/FieldWrapperFormik";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import * as Yup from "yup";
 import { WithFormUpdates } from "../../_common";
 import { State, ValidationSchema } from "../../_common/WithFormUpdates";

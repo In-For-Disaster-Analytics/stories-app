@@ -4,7 +4,7 @@ import {
   LayoutBody,
   LayoutHeader,
   LayoutNavWrapper,
-} from "tapis-ui/_common";
+} from "cookbooks-ui/_common";
 import { SystemsNav } from "../_components";
 import { Router } from "../_Router";
 

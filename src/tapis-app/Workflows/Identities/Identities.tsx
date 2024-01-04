@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Workflows } from "@tapis/tapis-typescript";
 import { useList } from "tapis-hooks/workflows/identities";
-import { SectionMessage, Icon } from "tapis-ui/_common";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { SectionMessage, Icon } from "cookbooks-ui/_common";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import { Toolbar } from "../_components";
 import styles from "./Identities.module.scss";
 

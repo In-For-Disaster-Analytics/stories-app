@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "reactstrap";
-import { SubmitWrapper } from "tapis-ui/_wrappers";
+import { SubmitWrapper } from "cookbooks-ui/_wrappers";
 import { Form, Formik } from "formik";
-import { FormikInput, GenericModal } from "tapis-ui/_common";
+import { FormikInput, GenericModal } from "cookbooks-ui/_common";
 import { useRun } from "tapis-hooks/workflows/pipelines";
 import styles from "./RunPipelineModal.module.scss";
 import * as Yup from "yup";

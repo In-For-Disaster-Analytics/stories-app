@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { Button } from "reactstrap";
-import { SubmitWrapper } from "tapis-ui/_wrappers";
+import { SubmitWrapper } from "cookbooks-ui/_wrappers";
 import { Form, Formik, FieldArray, Field } from "formik";
-import { FormikInput, GenericModal, Icon } from "tapis-ui/_common";
+import { FormikInput, GenericModal, Icon } from "cookbooks-ui/_common";
 import { useCreate } from "tapis-hooks/workflows/groups";
 import styles from "./CreateGroupModal.module.scss";
 import { Workflows } from "@tapis/tapis-typescript";

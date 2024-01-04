@@ -1,13 +1,13 @@
 import renderComponent from "utils/testing";
 import TransferModal from "./TransferModal";
-import { TransferListing, TransferCreate } from "tapis-ui/components/files";
-import FileExplorer from "tapis-ui/components/files/FileExplorer/FileExplorer";
+import { TransferListing, TransferCreate } from "cookbooks-ui/components/files";
+import FileExplorer from "cookbooks-ui/components/files/FileExplorer/FileExplorer";
 import { useFilesSelect } from "tapis-app/Files/_components/FilesContext";
 import { fileInfo } from "fixtures/files.fixtures";
 
-jest.mock("tapis-ui/components/files");
+jest.mock("cookbooks-ui/components/files");
 jest.mock("tapis-app/Files/_components/FilesContext");
-jest.mock("tapis-ui/components/files/FileExplorer/FileExplorer");
+jest.mock("cookbooks-ui/components/files/FileExplorer/FileExplorer");
 
 describe("TransferModal", () => {
   it("renders the transfer modal", async () => {

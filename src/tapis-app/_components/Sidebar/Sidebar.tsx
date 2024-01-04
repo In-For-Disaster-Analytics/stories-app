@@ -1,7 +1,7 @@
 import React from "react";
 import { useTapisConfig } from "tapis-hooks";
 import styles from "./Sidebar.module.scss";
-import { Navbar, NavItem } from "tapis-ui/_wrappers/Navbar";
+import { Navbar, NavItem } from "cookbooks-ui/_wrappers/Navbar";
 
 const Sidebar: React.FC = () => {
   const { accessToken } = useTapisConfig();

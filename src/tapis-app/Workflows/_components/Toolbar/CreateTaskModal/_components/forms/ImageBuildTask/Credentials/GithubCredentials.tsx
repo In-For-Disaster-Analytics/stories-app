@@ -1,5 +1,5 @@
 import React from "react";
-import { FormikInput } from "tapis-ui/_common";
+import { FormikInput } from "cookbooks-ui/_common";
 import styles from "./Credentials.module.scss";
 
 type GithubCredentialsProps = {

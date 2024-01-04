@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Button } from "reactstrap";
-import { SubmitWrapper } from "tapis-ui/_wrappers";
-import { GenericModal } from "tapis-ui/_common";
+import { SubmitWrapper } from "cookbooks-ui/_wrappers";
+import { GenericModal } from "cookbooks-ui/_common";
 import { Workflows } from "@tapis/tapis-typescript";
 import { useCreate } from "tapis-hooks/workflows/pipelines";
 import styles from "./CreatePipelineModel.module.scss";

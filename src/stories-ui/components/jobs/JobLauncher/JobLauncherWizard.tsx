@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
-import { WizardStep } from "tapis-ui/_wrappers/Wizard";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { WizardStep } from "cookbooks-ui/_wrappers/Wizard";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import { Apps, Jobs } from "@tapis/tapis-typescript";
 import { useDetail as useAppDetail } from "tapis-hooks/apps";
 import generateJobDefaults from "tapis-api/utils/jobDefaults";

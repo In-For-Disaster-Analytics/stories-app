@@ -4,7 +4,7 @@ import { useListAll as useListAllPipelines } from "tapis-hooks/workflows/pipelin
 import { useListAll as useListAllArchives } from "tapis-hooks/workflows/archives";
 import { useList as useListIdentities } from "tapis-hooks/workflows/identities";
 import { Link } from "react-router-dom";
-import { LoadingSpinner, Icon } from "tapis-ui/_common";
+import { LoadingSpinner, Icon } from "cookbooks-ui/_common";
 import {
   Card,
   CardHeader,

@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { Workflows } from "@tapis/tapis-typescript";
-import { GenericModal } from "tapis-ui/_common";
+import { GenericModal } from "cookbooks-ui/_common";
 import { Button } from "reactstrap";
-import { SubmitWrapper } from "tapis-ui/_wrappers";
+import { SubmitWrapper } from "cookbooks-ui/_wrappers";
 import styles from "./CreateTaskModal.module.scss";
 import { Task } from "./_components/forms";
 import { TaskTypeSelector } from "./_components";

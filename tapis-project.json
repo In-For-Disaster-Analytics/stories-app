@@ -1,5 +1,5 @@
 {
-  "name": "tapis-ui",
+  "name": "cookbooks-ui",
   "displayName": "Tapis UI",
   "projectPattern": "polyrepo",
   "prodImageTag": "1.2",

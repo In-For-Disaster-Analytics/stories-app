@@ -3,8 +3,8 @@ import { Workflows } from "@tapis/tapis-typescript";
 import { useList as useListPipelineRuns } from "tapis-hooks/workflows/pipelineruns";
 import { useList as useListTaskExecutions } from "tapis-hooks/workflows/taskexecutions";
 import { useDetails } from "tapis-hooks/workflows/pipelines";
-import { SectionMessage, Collapse } from "tapis-ui/_common";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { SectionMessage, Collapse } from "cookbooks-ui/_common";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import styles from "./PipelineRuns.module.scss";
 import { Table, Button } from "reactstrap";
 

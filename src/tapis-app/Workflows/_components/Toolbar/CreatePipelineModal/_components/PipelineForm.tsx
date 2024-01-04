@@ -1,12 +1,12 @@
 import React from "react";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import { Form, Formik } from "formik";
-import { FormikInput, Collapse } from "tapis-ui/_common";
+import { FormikInput, Collapse } from "cookbooks-ui/_common";
 import { Workflows } from "@tapis/tapis-typescript";
 import * as Yup from "yup";
 import { useList } from "tapis-hooks/workflows/archives";
 import styles from "../CreatePipelineModel.module.scss";
-import { FormikSelect } from "tapis-ui/_common/FieldWrapperFormik";
+import { FormikSelect } from "cookbooks-ui/_common/FieldWrapperFormik";
 
 type FormProps = {
   onSubmit: (reqPipeline: Workflows.ReqPipeline) => void;

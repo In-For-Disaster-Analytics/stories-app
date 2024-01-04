@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { SectionHeader, LoadingSpinner, Icon } from "tapis-ui/_common";
+import { SectionHeader, LoadingSpinner, Icon } from "cookbooks-ui/_common";
 import {
   Card,
   CardHeader,

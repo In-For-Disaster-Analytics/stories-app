@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { ProtectedRoute } from "tapis-ui/_common";
+import { ProtectedRoute } from "cookbooks-ui/_common";
 import { useLogin } from "tapis-hooks/authenticator";
 
 import Apps from "../Apps";

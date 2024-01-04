@@ -1,8 +1,8 @@
 import React from "react";
 import { Workflows } from "@tapis/tapis-typescript";
 import { useDetails } from "tapis-hooks/workflows/pipelines";
-import { SectionMessage, SectionHeader } from "tapis-ui/_common";
-import { QueryWrapper } from "tapis-ui/_wrappers";
+import { SectionMessage, SectionHeader } from "cookbooks-ui/_common";
+import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import { Link } from "react-router-dom";
 import { Toolbar } from "../../_components";
 import styles from "./Pipeline.module.scss";
