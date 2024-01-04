@@ -18,12 +18,12 @@ The steps are:
 2. Validate that the user has a TAPIS system
    1. If the user does not have a TAPIS system, create a TAPIS system
    2. Ask the user password to the TAPIS system
-3. Validate that the user has a TAPIS application
-
-   1. If the user does not have a TAPIS application, create a TAPIS application
-   2. The TAPIS application are provided by the Stories' team. These are related to the Docker images that are used to run the Jupyter notebooks.
-
-4. The user enters the URL of the Git repository
+3. Validate that the user has the cookbooks
+   1. If the user does not have the cookbook, create a TAPIS application
+   2. If the user has the cookbook, check if the cookbook is updated
+      1. If the cookbook is not updated, update the cookbook
+      2. If the cookbook is updated, continue
+4. The user selects a cookbook
 5. UI renders the repository README.md file and a button to submit the repository as a job
 6. User submit the job
    1. UI creates the TAPIS Jobs API request using the Git repository URL as the parameter
@@ -44,8 +44,8 @@ flowchart
     system_cond{Has system?}
     render_create_system[Render create system component]
     system_create_status{System request success?}
-    app_stories_cond{Apps? tag: stories}
-    app_stories_updated_cond{App updated? tag: stories}
+    cookbooks_cond{Are cookbooks updated?}
+    cookbooks_updated_cond{App cookbooks? tag: stories}
     render_create_app[Render Create app component]
     app_create_status{App request success?}
     render_repository_launcher[Repository launcher screen]
@@ -59,29 +59,30 @@ flowchart
     login_cond -- Yes --> system_cond
     login -- No --> render_login_failed
 
-    system_cond -- Yes --> app_stories_cond
+    system_cond -- Yes --> cookbooks_cond
     system_cond -- No --> render_create_system
 
     render_create_system --> system_create_status
-    system_create_status -- Yes --> app_stories_cond
+    system_create_status -- Yes --> cookbooks_cond
 
-    app_stories_cond -- Yes --> app_stories_updated_cond
-    app_stories_cond -- No --> render_create_app
+    cookbooks_cond -- Yes --> cookbooks_updated_cond
+    cookbooks_cond -- No --> render_create_app
 
-    app_stories_updated_cond -- Yes --> render_repository_launcher
-    app_stories_updated_cond -- No --> render_create_app
+    cookbooks_updated_cond -- Yes --> render_repository_launcher
+    cookbooks_updated_cond -- No --> render_create_app
 
 
     render_create_app --> app_create_status
 
     app_create_status -- Yes --> render_repository_launcher
     render_repository_launcher -- Wait user interaction --> user
-    user -- Enter Git repository --> render_repository_reader
+    user -- Select cookbook --> render_repository_reader
 
     render_repository_reader -- Submit Job --> job_create_status
 
 
     job_create_status -- Yes --> render_status_component
+
 ```
 
 ## How to use
