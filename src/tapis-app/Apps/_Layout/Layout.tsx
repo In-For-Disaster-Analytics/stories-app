@@ -12,7 +12,7 @@ import { Router } from "../_Router";
 const Layout: React.FC = () => {
   const header = (
     <LayoutHeader>
-      <div>Notebook templates</div>
+      <div>CookBooks</div>
     </LayoutHeader>
   );
 

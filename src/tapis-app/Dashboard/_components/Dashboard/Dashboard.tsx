@@ -15,6 +15,8 @@ import { useList as useJobsList } from "tapis-hooks/jobs";
 import { useList as useAppsList } from "tapis-hooks/apps";
 import styles from "./Dashboard.module.scss";
 import "./Dashboard.scss";
+import CookbookCreator from "tapis-app/Cookbook/Creator";
+import Apps from "tapis-app/Apps";
 
 type DashboardCardProps = {
   icon: string;
@@ -67,46 +69,56 @@ const Dashboard: React.FC = () => {
   const jobs = useJobsList({});
   const apps = useAppsList({ select: "jobAttributes,version" });
 
+  const renderNoApps = () => {
+    return <CookbookCreator />;
+  };
+
+  const renderNoSystems = () => {
+    return (
+      <Card>
+        <CardHeader>
+          <div className={styles["card-header"]}>
+            <div>
+              <Icon name="data-files" className="dashboard__card-icon" />
+            </div>
+            <div>No systems available</div>
+          </div>
+        </CardHeader>
+        <CardBody>
+          <CardTitle tag="h5">
+            <div>0 systems</div>
+          </CardTitle>
+          <CardText>
+            You do not have access to any systems. Please contact your TAPIS
+            administrator.
+          </CardText>
+        </CardBody>
+      </Card>
+    );
+  };
+
+  if (apps?.isLoading || jobs?.isLoading || systems?.isLoading) {
+    return (
+      <div>
+        <p>Loading</p>
+      </div>
+    );
+  }
+
+  if (systems?.data?.result?.length === 0) {
+    return renderNoSystems();
+  }
+
+  if (apps?.data?.result?.length === 0) {
+    return renderNoApps();
+  }
+
   return (
     <div>
-      <SectionHeader className="dashboard__section-header">
-        Dashboard for {claims["tapis/tenant_id"]}
-      </SectionHeader>
       <div className={styles.cards}>
         {accessToken ? (
           <>
-            <DashboardCard
-              icon="data-files"
-              name="Systems"
-              text="View TAPIS systems"
-              link="/systems"
-              counter={`${systems?.data?.result?.length} systems`}
-              loading={systems?.isLoading}
-            />
-            <DashboardCard
-              icon="folder"
-              name="Files"
-              text="Access files available on TAPIS systems"
-              link="/files"
-              counter={`Files available on ${systems?.data?.result?.length} systems`}
-              loading={systems?.isLoading}
-            />
-            <DashboardCard
-              icon="applications"
-              name="Applications"
-              text="View TAPIS applications and launch jobs"
-              link="/apps"
-              counter={`${apps?.data?.result?.length} apps`}
-              loading={apps?.isLoading}
-            />
-            <DashboardCard
-              icon="jobs"
-              name="Jobs"
-              text="View status and details for previously launched TAPIS jobs"
-              link="/jobs"
-              counter={`${jobs?.data?.result?.length} jobs`}
-              loading={jobs?.isLoading}
-            />
+            <Apps />
           </>
         ) : (
           <Card>

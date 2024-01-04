@@ -14,7 +14,7 @@ const Router: React.FC = () => {
     <Switch>
       <Route path={`${path}`} exact>
         <SectionMessage type="info">
-          Select an notebook template from the list.
+          Select an cookbook template from the list.
         </SectionMessage>
       </Route>
 
