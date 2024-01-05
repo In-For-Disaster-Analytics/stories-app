@@ -18,18 +18,18 @@ const Sidebar: React.FC = () => {
         )}
         {accessToken && (
           <>
-            {/* <NavItem to="/systems" icon="data-files">
-              Systems
+            <NavItem to="/cookbooks/systems" icon="data-files">
+              Cookbooks Systems
             </NavItem>
-            <NavItem to="/files" icon="folder">
+            {/* <NavItem to="/files" icon="folder">
               Files
             </NavItem> */}
             <NavItem to="/apps" icon="applications">
               Cookbooks
             </NavItem>
-            {/* <NavItem to="/jobs" icon="jobs">
+            <NavItem to="/jobs" icon="jobs">
               Jobs
-            </NavItem> */}
+            </NavItem>
             {/*<NavItem to="/workflows" icon="publications">
               Workflows
             </NavItem> */}
