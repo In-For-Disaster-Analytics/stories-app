@@ -8,6 +8,7 @@ import Login from "../Login";
 import Dashboard from "../Dashboard";
 import Jobs from "tapis-app/Jobs";
 import Systems from "tapis-app/Systems";
+import SystemsCookbooks from "tapis-app/Cookbooks/Systems";
 
 const Router: React.FC = () => {
   const { logout } = useLogin();
@@ -36,6 +37,9 @@ const Router: React.FC = () => {
       <ProtectedRoute path="/jobs">
         <Jobs />
       </ProtectedRoute>
+      <Route path="/cookbooks/systems">
+        <SystemsCookbooks />
+      </Route>
       {/* <ProtectedRoute path="/files">
         <Files />
       </ProtectedRoute>
