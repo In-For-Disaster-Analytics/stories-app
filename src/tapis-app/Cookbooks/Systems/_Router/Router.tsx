@@ -5,7 +5,7 @@ import {
   RouteComponentProps,
   Switch,
 } from "react-router-dom";
-import SystemDetail from "../SystemDetail";
+import SystemDetail from "../SystemCreate";
 import { SectionMessage } from "cookbooks-ui/_common";
 
 const Router: React.FC = () => {
