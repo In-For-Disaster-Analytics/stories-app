@@ -66,16 +66,18 @@ const Dashboard: React.FC = () => {
       <div className={styles.cards}>
         {accessToken ? (
           <>
-            {systems.map((sys) => {
-              return (
-                <DashboardCard
-                  icon="data-files"
-                  name={sys.name}
-                  text={sys.description}
-                  link={`/cookbooks/systems/${sys.id}`}
-                />
-              );
-            })}
+            {systems
+              .filter((system) => system.spec.systemType === "LINUX")
+              .map((sys) => {
+                return (
+                  <DashboardCard
+                    icon="data-files"
+                    name={sys.name}
+                    text={sys.description}
+                    link={`/cookbooks/systems/${sys.id}`}
+                  />
+                );
+              })}
           </>
         ) : (
           <Card>
