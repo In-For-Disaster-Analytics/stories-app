@@ -41,6 +41,10 @@ const llamaNotebookApp: Apps.ReqPostApp = {
     helpUrl: "https://jupyterlab.readthedocs.io/en/stable/",
     hideNodeCountAndCoresPerNode: false,
     isInteractive: true,
+    gitUrl: "https://github.com/In-For-Disaster-Analytics/cookbooks-ui",
+    gitRef: "main",
+    rawReadmeUrl:
+      "https://raw.githubusercontent.com/In-For-Disaster-Analytics/sites-and-stories-nlp/jupyterenv/README.md",
     icon: "jupyter",
     category: "Data Processing",
   },
