@@ -43,7 +43,8 @@ const llamaNotebookApp: Apps.ReqPostApp = {
     isInteractive: true,
     gitUrl: "https://github.com/In-For-Disaster-Analytics/cookbooks-ui",
     gitRef: "main",
-    readmePath: "README.md",
+    rawReadmeUrl:
+      "https://raw.githubusercontent.com/In-For-Disaster-Analytics/sites-and-stories-nlp/jupyterenv/README.md",
     icon: "jupyter",
     category: "Data Processing",
   },

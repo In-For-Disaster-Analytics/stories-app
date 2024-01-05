@@ -6,15 +6,13 @@ const Layout: React.FC<{ appId: string; appVersion: string }> = ({
   appId,
   appVersion,
 }) => {
-  const header = <LayoutHeader type={"sub-header"}>Job Launcher</LayoutHeader>;
-
   const body = (
     <div style={{ flex: 1 }}>
       <JobLauncher appId={appId} appVersion={appVersion} />
     </div>
   );
 
-  return <PageLayout top={header} right={body} />;
+  return <PageLayout right={body} />;
 };
 
 export default React.memo(Layout);

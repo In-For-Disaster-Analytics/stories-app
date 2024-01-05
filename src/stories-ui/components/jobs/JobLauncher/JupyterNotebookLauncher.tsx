@@ -8,6 +8,8 @@ import { useSubmit } from "tapis-hooks/jobs";
 import { SubmitWrapper } from "cookbooks-ui/_wrappers";
 import arrayStyles from "./FieldArray.module.scss";
 import { Button } from "reactstrap";
+import ReadmeViewer from "tapis-app/Cookbook/Readme";
+import { LayoutHeader } from "cookbooks-ui/_common";
 
 const SignupSchema = Yup.object().shape({});
 
@@ -27,8 +29,6 @@ export function JupyterNotebookLauncher<T>({
     app.id!,
     app.version!
   );
-
-  console.log(app.notes);
 
   const system = systems.find(
     (sys) => sys.systemType === Systems.SystemTypeEnum.Linux
@@ -51,11 +51,6 @@ export function JupyterNotebookLauncher<T>({
 
   const onSubmit = useCallback(
     (values) => {
-      // job.parameterSet?.appArgs?.forEach((arg) => {
-      //   if (arg.name === "image_url") {
-      //     arg.arg = values.url;
-      //   }
-      // });
       submit(job as Jobs.ReqSubmitJob);
     },
     [submit, job]
@@ -63,8 +58,10 @@ export function JupyterNotebookLauncher<T>({
 
   return system ? (
     <div>
-      <h3>Jupyter Notebook Launcher</h3>
-      <div className={arrayStyles.array}>
+      <LayoutHeader type={"sub-header"}>
+        {app.id} v{app.version}
+      </LayoutHeader>
+      <LayoutHeader type={"sub-header"}>
         <SubmitWrapper
           isLoading={isLoading}
           error={error}
@@ -86,13 +83,14 @@ export function JupyterNotebookLauncher<T>({
                 {/* <Field name="url" fullWidth label="Photo URL" style={mystyle} />
                 {errors.url && touched.url ? <div>{errors.url}</div> : null} */}
                 <Button color="primary" type="submit">
-                  Submit Job
+                  Run
                 </Button>
               </Form>
             )}
           </Formik>
         </SubmitWrapper>
-      </div>
+      </LayoutHeader>
+      <ReadmeViewer id={app.id} version={app.version} notes={app.notes} />
     </div>
   ) : (
     <>
