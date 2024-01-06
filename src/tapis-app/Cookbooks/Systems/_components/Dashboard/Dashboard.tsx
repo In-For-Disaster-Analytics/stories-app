@@ -11,18 +11,16 @@ import {
 } from "reactstrap";
 import { useTapisConfig } from "tapis-hooks";
 import { useList as useSystemsList } from "tapis-hooks/systems";
-import { useList as useJobsList } from "tapis-hooks/jobs";
-import { useList as useAppsList } from "tapis-hooks/apps";
 import styles from "./Dashboard.module.scss";
 import "./Dashboard.scss";
-import systems from "catalog/systems";
-import { sys } from "typescript";
+import systemCookbooks from "catalog/systems";
 
 type DashboardCardProps = {
   icon: string;
   link: string;
   name: string;
   text: string;
+  created: boolean;
 };
 
 const DashboardCard: React.FC<DashboardCardProps> = ({
@@ -30,6 +28,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   link,
   name,
   text,
+  created,
 }) => {
   return (
     <Card className={styles.card}>
@@ -48,8 +47,11 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
         <CardText>{}</CardText>
       </CardBody>
       <CardFooter className={styles["card-footer"]}>
-        <Link to={link}>Create {name}</Link>
-        <Icon name="push-right" />
+        {created ? (
+          <span>Installed</span>
+        ) : (
+          <Link to={link}>Create {name}</Link>
+        )}
       </CardFooter>
     </Card>
   );
@@ -58,23 +60,40 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
 const Dashboard: React.FC = () => {
   const { accessToken, claims } = useTapisConfig();
 
+  const { isLoading, error, data: systems } = useSystemsList();
+
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <div>
+      {/* <SectionHeader className="dashboard__section-header">
+        Systems installable on {claims["tapis/tenant_id"]}
+      </SectionHeader> */}
       <SectionHeader className="dashboard__section-header">
-        Dashboard for {claims["tapis/tenant_id"]}
+        Install a system using cookbooks
       </SectionHeader>
       <div className={styles.cards}>
         {accessToken ? (
           <>
-            {systems
+            {systemCookbooks
               .filter((system) => system.spec.systemType === "LINUX")
+              .sort((a, b) =>
+                a.created === b.created ? 0 : a.created ? 1 : -1
+              )
               .map((sys) => {
+                sys.created = systems?.result?.find(
+                  (s) => s.host === sys.spec.host
+                )
+                  ? true
+                  : false;
                 return (
                   <DashboardCard
+                    key={sys.id}
                     icon="data-files"
                     name={sys.name}
                     text={sys.description}
                     link={`/cookbooks/systems/${sys.id}`}
+                    created={sys.created}
                   />
                 );
               })}
