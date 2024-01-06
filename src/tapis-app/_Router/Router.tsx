@@ -11,6 +11,7 @@ import Systems from "tapis-app/Systems";
 import SystemsCookbooks from "tapis-app/Cookbooks/Systems";
 import SystemDetail from "cookbooks-ui/components/systems/SystemDetail";
 import SystemCreate from "tapis-app/Cookbooks/Systems/SystemCreate";
+import CookbooksApps from "tapis-app/Cookbooks/Apps";
 
 const Router: React.FC = () => {
   const { logout } = useLogin();
@@ -54,6 +55,10 @@ const Router: React.FC = () => {
       <Route path="/cookbooks/systems">
         <SystemsCookbooks />
       </Route>
+
+      <ProtectedRoute path="/cookbooks/apps">
+        <CookbooksApps />
+      </ProtectedRoute>
 
       {/* <ProtectedRoute path="/files">
         <Files />
