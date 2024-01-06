@@ -36,27 +36,39 @@ const Layout: React.FC<{ appId: string; appVersion: string }> = ({
 
   const successText = (
     <div>
-      Successfully created {app?.name} v{app?.spec.version}
+      Successfully created {app?.name} {app?.spec.version}
     </div>
   );
 
   const errorText = (
     <div>
-      Failed to create {app?.name} v{app?.spec.version}
+      Failed to create {app?.name} {app?.spec.version}
     </div>
   );
+
+  const readmeViewer = (
+    <ReadmeViewer
+      id={app?.spec.id}
+      version={app?.spec.version}
+      notes={app?.spec.notes}
+    />
+  );
+
   const body = (
     <div style={{ flex: 1 }}>
       <LayoutHeader type={"sub-header"}>{app?.name}</LayoutHeader>
       <LayoutHeader type={"sub-header"}>
         {button} {isSuccess ? successText : <></>} {error && error.message}
       </LayoutHeader>
-
-      <ReadmeViewer
-        id={app?.spec.id}
-        version={app?.spec.version}
-        notes={app?.spec.notes}
-      />
+      {app && app.spec && app.spec.notes ? (
+        <ReadmeViewer
+          id={app?.spec.id}
+          version={app?.spec.version}
+          notes={app?.spec.notes}
+        />
+      ) : (
+        <span> No README </span>
+      )}
     </div>
   );
 
