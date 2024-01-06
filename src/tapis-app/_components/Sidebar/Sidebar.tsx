@@ -22,9 +22,6 @@ const Sidebar: React.FC = () => {
             <NavItem to="/systems" icon="systems">
               Systems
             </NavItem>
-            <NavItem to="/apps" icon="applications">
-              Apps
-            </NavItem>
             <NavItem to="/jobs" icon="jobs">
               Jobs
             </NavItem>
@@ -32,6 +29,9 @@ const Sidebar: React.FC = () => {
             <span className={styles["nav-text"]}>Cookbooks</span>
             <NavItem to="/cookbooks/systems" icon="data-files">
               Cookbooks Systems
+            </NavItem>
+            <NavItem to="/cookbooks/apps" icon="applications">
+              Cookbooks Apps
             </NavItem>
           </>
         )}
