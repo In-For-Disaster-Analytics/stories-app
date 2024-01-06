@@ -1,10 +1,10 @@
 import { Systems } from "@tapis/tapis-typescript";
 
-export const ls6System = {
-  id: "ls6-gpu-a100-dev-v0.0.1",
-  description: "System for running jobs on the LS6 cluster",
+export const fronteraSystem = {
+  id: "frontera",
+  description: "System for running jobs on the Frontera cluster",
   systemType: "LINUX",
-  host: "ls6.tacc.utexas.edu",
+  host: "frontera.tacc.utexas.edu",
   defaultAuthnMethod: "PASSWORD",
   effectiveUserId: "${apiUserId}",
   port: 22,

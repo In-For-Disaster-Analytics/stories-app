@@ -4,18 +4,38 @@ import { SubmitWrapper } from "cookbooks-ui/_wrappers";
 import { Form, Formik } from "formik";
 import React from "react";
 import { Button } from "reactstrap";
+import useCreate from "tapis-hooks/systems/useCreate";
+import useCreateCredentials from "tapis-hooks/credentials/useCreate";
 import * as Yup from "yup";
+import { ReqCreateCredential } from "tapis-hooks/credentials/types";
+import { useTapisConfig } from "tapis-hooks";
+
 const Layout: React.FC<{ systemId: string }> = ({ systemId }) => {
   const initialValues = {
     password: "",
   };
 
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
-  const [success, setSuccess] = React.useState("");
+  const { claims } = useTapisConfig();
+  const username = claims["tapis/username"];
+  const { isLoading, error, isSuccess, submit, data } = useCreate();
+  const {
+    isLoading: isLoadingCredentials,
+    error: errorCredentials,
+    submit: submitCredentials,
+    data: dataCredentials,
+  } = useCreateCredentials();
 
   const onSubmit = (values: any) => {
-    console.log(values);
+    if (!system) return;
+    system.id = `${system.id}-${username}`;
+    submit(system.spec);
+    if (isSuccess && data) {
+      submitCredentials({
+        username: username,
+        systemId: system.id,
+        request: { password: values.password },
+      });
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -42,9 +62,9 @@ const Layout: React.FC<{ systemId: string }> = ({ systemId }) => {
             description="The password for the user."
           />
           <SubmitWrapper
-            isLoading={isLoading}
-            error={error}
-            success={success && "Successfully logged in"}
+            isLoading={isLoading || isLoadingCredentials}
+            error={error || errorCredentials}
+            success={isSuccess ? "Successfully logged in" : undefined}
           >
             <Button
               type="submit"
