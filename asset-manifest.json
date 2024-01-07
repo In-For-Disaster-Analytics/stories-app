@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/cookbooks-ui/static/css/main.b8444692.chunk.css",
-    "main.js": "/cookbooks-ui/static/js/main.1502fa08.chunk.js",
-    "main.js.map": "/cookbooks-ui/static/js/main.1502fa08.chunk.js.map",
-    "runtime-main.js": "/cookbooks-ui/static/js/runtime-main.46fc840c.js",
-    "runtime-main.js.map": "/cookbooks-ui/static/js/runtime-main.46fc840c.js.map",
+    "main.css": "/cookbooks-ui/static/css/main.86aba164.chunk.css",
+    "main.js": "/cookbooks-ui/static/js/main.c899dde4.chunk.js",
+    "main.js.map": "/cookbooks-ui/static/js/main.c899dde4.chunk.js.map",
+    "runtime-main.js": "/cookbooks-ui/static/js/runtime-main.2601ef37.js",
+    "runtime-main.js.map": "/cookbooks-ui/static/js/runtime-main.2601ef37.js.map",
     "static/css/2.6e86b593.chunk.css": "/cookbooks-ui/static/css/2.6e86b593.chunk.css",
-    "static/js/2.cc1a5c8c.chunk.js": "/cookbooks-ui/static/js/2.cc1a5c8c.chunk.js",
-    "static/js/2.cc1a5c8c.chunk.js.map": "/cookbooks-ui/static/js/2.cc1a5c8c.chunk.js.map",
-    "static/js/3.7bee231b.chunk.js": "/cookbooks-ui/static/js/3.7bee231b.chunk.js",
-    "static/js/3.7bee231b.chunk.js.map": "/cookbooks-ui/static/js/3.7bee231b.chunk.js.map",
+    "static/js/2.e3037935.chunk.js": "/cookbooks-ui/static/js/2.e3037935.chunk.js",
+    "static/js/2.e3037935.chunk.js.map": "/cookbooks-ui/static/js/2.e3037935.chunk.js.map",
+    "static/js/3.b09857ef.chunk.js": "/cookbooks-ui/static/js/3.b09857ef.chunk.js",
+    "static/js/3.b09857ef.chunk.js.map": "/cookbooks-ui/static/js/3.b09857ef.chunk.js.map",
     "index.html": "/cookbooks-ui/index.html",
     "static/css/2.6e86b593.chunk.css.map": "/cookbooks-ui/static/css/2.6e86b593.chunk.css.map",
-    "static/css/main.b8444692.chunk.css.map": "/cookbooks-ui/static/css/main.b8444692.chunk.css.map",
-    "static/js/2.cc1a5c8c.chunk.js.LICENSE.txt": "/cookbooks-ui/static/js/2.cc1a5c8c.chunk.js.LICENSE.txt",
+    "static/css/main.86aba164.chunk.css.map": "/cookbooks-ui/static/css/main.86aba164.chunk.css.map",
+    "static/js/2.e3037935.chunk.js.LICENSE.txt": "/cookbooks-ui/static/js/2.e3037935.chunk.js.LICENSE.txt",
     "static/media/index.css": "/cookbooks-ui/static/media/Cortal-Icons-1.2.a0d8332a.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.46fc840c.js",
+    "static/js/runtime-main.2601ef37.js",
     "static/css/2.6e86b593.chunk.css",
-    "static/js/2.cc1a5c8c.chunk.js",
-    "static/css/main.b8444692.chunk.css",
-    "static/js/main.1502fa08.chunk.js"
+    "static/js/2.e3037935.chunk.js",
+    "static/css/main.86aba164.chunk.css",
+    "static/js/main.c899dde4.chunk.js"
   ]
 }
