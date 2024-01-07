@@ -1,7 +1,7 @@
 import { Apps } from "@tapis/tapis-typescript";
 
 const imgClassifyApp: Apps.ReqPostApp = {
-  id: "img-classify-mosorio",
+  id: "img-classify",
   version: "v1",
   description: "Image classifier run using Singularity in batch mode",
   jobType: Apps.JobTypeEnum.Batch,

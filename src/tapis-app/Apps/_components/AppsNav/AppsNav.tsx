@@ -20,21 +20,18 @@ const AppsNav: React.FC = () => {
     <QueryWrapper isLoading={isLoading} error={error}>
       <Navbar>
         {appList.length ? (
-          appList
-            .filter((app) => app.id?.includes("jupyter"))
-            .map((app) => (
-              <NavItem
-                to={`/apps/${app.id}/${app.version}`}
-                icon="applications"
-                key={app.id}
-              >
-                {`${app.id} v${app.version}`}
-              </NavItem>
-            ))
+          appList.map((app) => (
+            <NavItem
+              to={`/apps/${app.id}/${app.version}`}
+              icon="applications"
+              key={app.id}
+            >
+              {`${app.id} v${app.version}`}
+            </NavItem>
+          ))
         ) : (
           <>
             <i>No templates found</i>
-            <AppCreate />
           </>
         )}
       </Navbar>

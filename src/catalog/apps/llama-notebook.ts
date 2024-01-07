@@ -1,8 +1,8 @@
 import { Apps } from "@tapis/tapis-typescript";
 
 const llamaNotebookApp: Apps.ReqPostApp = {
-  id: "jupyter-lab-hpc",
-  version: "0.7.8",
+  id: "llama-index-environment",
+  version: "1.0.0",
   description:
     "Run an interactive Jupyter Lab session on an HPC compute node. For the LLama Index Environment",
   owner: "${apiUserId}",

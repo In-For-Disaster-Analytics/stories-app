@@ -1,7 +1,7 @@
 import { Systems } from "@tapis/tapis-typescript";
 
 export const ls6System = {
-  id: "ls6-gpu-a100-dev-v0.0.1",
+  id: "ls6-gpu-a100-dev-v0.0.5",
   description: "System for running jobs on the LS6 cluster",
   systemType: "LINUX",
   host: "ls6.tacc.utexas.edu",
