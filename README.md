@@ -6,40 +6,19 @@ The React app will run Jupyter notebooks stored on Git repository on TACC's HPC 
 
 ## Capabilities
 
-- [x] Login to TAPIS.
-- [x] Create an TAPIS application
-- [x] UI to submit a TAPIS Jobs API request (Git repository has been hardcoded)
+- [x] Login to TAPIS
+- [x] Catalog of TAPIS systems and applications [src/catalog.js](src/catalog.js)
+- [x] Create a TAPIS system from catalog
+- [x] Create a TAPIS application from catalog
+- [x] UI to submit a TAPIS Jobs API request
 
 ## Design (under development)
 
-The steps are:
-
-1. Login to TAPIS
-2. Validate that the user has a TAPIS system
-   1. If the user does not have a TAPIS system, create a TAPIS system
-   2. Ask the user password to the TAPIS system
-3. Validate that the user has the cookbooks
-   1. If the user does not have the cookbook, create a TAPIS application
-   2. If the user has the cookbook, check if the cookbook is updated
-      1. If the cookbook is not updated, update the cookbook
-      2. If the cookbook is updated, continue
-4. The user selects a cookbook
-5. UI renders the repository README.md file and a button to submit the repository as a job
-6. User submit the job
-   1. UI creates the TAPIS Jobs API request using the Git repository URL as the parameter
-   2. UI submits the TAPIS Jobs API request
-   3. UI displays the status of the job
-   4. UI displays the output of the job
-
-The following diagram shows the flow of the application.
-
-```mermaid
 flowchart
-    user[User]
-    login[login]
-    login_cond{login success?}
-    render_login_failed
-
+user[User]
+login[login]
+login_cond{login success?}
+render_login_failed
 
     system_cond{Has system?}
     render_create_system[Render create system component]
@@ -96,3 +75,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+```
