@@ -6,8 +6,8 @@ export const resolveBasePath = () => {
   // .replace(/^https:\/\/ui\./, 'https://');
   // Direct request from local dev env to dev.develop
   if (/127\.0\.0\.1|localhost|0\.0\.0\.0/.test(baseUrl)) {
-    return "https://tacc.tapis.io";
+    return "https://portals.tapis.io";
   }
-  return "https://tacc.tapis.io";
+  return "https://portals.tapis.io";
   // return baseUrl;
 };

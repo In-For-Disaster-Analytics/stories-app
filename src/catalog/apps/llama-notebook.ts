@@ -2,14 +2,14 @@ import { Apps } from "@tapis/tapis-typescript";
 
 const llamaNotebookApp: Apps.ReqPostApp = {
   id: "llama-index-environment",
-  version: "1.0.0",
+  version: "sha-21437c6",
   description:
     "Run an interactive Jupyter Lab session on an HPC compute node. For the LLama Index Environment",
   owner: "${apiUserId}",
   enabled: true,
   runtime: Apps.RuntimeEnum.Singularity,
   runtimeOptions: [Apps.RuntimeOptionEnum.SingularityRun],
-  containerImage: "docker://ghcr.io/mosoriob/llmrepository-docker:sha-013877",
+  containerImage: "docker://ghcr.io/mosoriob/llmrepository-docker:sha-21437c6",
   jobType: Apps.JobTypeEnum.Batch,
   maxJobs: -1,
   maxJobsPerUser: -1,

@@ -41,7 +41,11 @@ const convertSets = (obj: any): any => {
   if (typeof obj === "object") {
     const result: any = {};
     Object.entries(obj).forEach(([key, value]) => {
-      result[key] = convertSets(value);
+      if (value === null) {
+        result[key] = null;
+      } else {
+        result[key] = convertSets(value);
+      }
     });
     return result;
   }

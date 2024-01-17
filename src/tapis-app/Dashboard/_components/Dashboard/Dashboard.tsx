@@ -17,6 +17,7 @@ import styles from "./Dashboard.module.scss";
 import "./Dashboard.scss";
 import CookbookCreator from "tapis-app/Cookbook/Creator";
 import Apps from "tapis-app/Apps";
+import { AppsAdd } from "tapis-app/Apps/_components/AppsAdd/AppsAdd";
 
 type DashboardCardProps = {
   icon: string;
@@ -65,60 +66,13 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
 
 const Dashboard: React.FC = () => {
   const { accessToken, claims } = useTapisConfig();
-  const systems = useSystemsList({});
-  const jobs = useJobsList({});
-  const apps = useAppsList({ select: "jobAttributes,version" });
-
-  const renderNoApps = () => {
-    return <CookbookCreator />;
-  };
-
-  const renderNoSystems = () => {
-    return (
-      <Card>
-        <CardHeader>
-          <div className={styles["card-header"]}>
-            <div>
-              <Icon name="data-files" className="dashboard__card-icon" />
-            </div>
-            <div>No systems available</div>
-          </div>
-        </CardHeader>
-        <CardBody>
-          <CardTitle tag="h5">
-            <div>0 systems</div>
-          </CardTitle>
-          <CardText>
-            You do not have access to any systems. Please contact your TAPIS
-            administrator.
-          </CardText>
-        </CardBody>
-      </Card>
-    );
-  };
-
-  if (apps?.isLoading || jobs?.isLoading || systems?.isLoading) {
-    return (
-      <div>
-        <p>Loading</p>
-      </div>
-    );
-  }
-
-  if (systems?.data?.result?.length === 0) {
-    return renderNoSystems();
-  }
-
-  if (apps?.data?.result?.length === 0) {
-    return renderNoApps();
-  }
 
   return (
     <div>
       <div className={styles.cards}>
         {accessToken ? (
           <>
-            <Redirect to="/apps" />
+            <AppsAdd />
           </>
         ) : (
           <Card>

@@ -81,11 +81,11 @@ const Dashboard: React.FC = () => {
                 a.created === b.created ? 0 : a.created ? 1 : -1
               )
               .map((sys) => {
-                // sys.created = systems?.result?.find(
-                //   (s) => s.host === sys.spec.host
-                // )
-                //   ? true
-                //   : false;
+                sys.created = systems?.result?.find(
+                  (s) => s.host === sys.spec.host
+                )
+                  ? true
+                  : false;
                 return (
                   <DashboardCard
                     key={sys.id}
