@@ -6,12 +6,13 @@
  */
 import { Apps } from "@tapis/tapis-typescript";
 import { JSONDisplay } from "cookbooks-ui/_common";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import styles from "./AppsAdd.module.scss";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import { useCreate } from "tapis-hooks/apps";
 import { SubmitWrapper } from "cookbooks-ui/_wrappers";
+import { set } from "js-cookie";
 
 export const AppsAdd: React.FC = () => {
   const { isLoading, error, isSuccess, submit, data } = useCreate();
@@ -31,9 +32,17 @@ export const AppsAdd: React.FC = () => {
   }, [file]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("file changed");
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
+  };
+
+  const handleFileClick = (
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+  ) => {
+    const element = e.target as HTMLInputElement;
+    element.value = "";
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +51,7 @@ export const AppsAdd: React.FC = () => {
       submit(app);
     }
   };
+  const inputFile = useRef(null);
 
   return (
     <div className={styles.container}>
@@ -54,7 +64,9 @@ export const AppsAdd: React.FC = () => {
               type="file"
               name="file"
               id="file"
+              ref={inputFile}
               onChange={(e) => handleFileChange(e)}
+              onClick={(e) => handleFileClick(e)}
             />
           </FormGroup>
 
