@@ -1,9 +1,10 @@
 import React from "react";
 import { SectionHeader as CommonSectionHeader } from "cookbooks-ui/_common";
 import styles from "./LayoutSections.module.scss";
+import { ReactNodeLike } from "prop-types";
 
 export const LayoutHeader: React.FC<
-  React.PropsWithChildren<{ type?: string }>
+  React.PropsWithChildren<{ type?: string; children: ReactNodeLike }>
 > = ({ children, type }) => {
   return (
     <div className={type && styles[type]}>

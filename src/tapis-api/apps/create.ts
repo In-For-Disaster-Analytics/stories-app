@@ -8,9 +8,10 @@ const create = (request: Apps.ReqPostApp, basePath: string, jwt: string) => {
     basePath,
     jwt
   );
-  return errorDecoder<Apps.RespResourceUrl>(() =>
-    api.createAppVersion({ reqPostApp: request })
-  );
+  return errorDecoder<Apps.RespResourceUrl>(() => {
+    console.log("Creating app version v2", request);
+    return api.createAppVersion({ reqPostApp: request });
+  });
 };
 
 export default create;

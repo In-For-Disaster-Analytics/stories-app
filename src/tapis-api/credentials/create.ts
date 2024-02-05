@@ -4,7 +4,7 @@ import { apiGenerator, errorDecoder } from "tapis-api/utils";
 const create = (
   username: string,
   systemId: string,
-  request: Systems.ReqCreateCredential,
+  request: Systems.ReqUpdateCredential,
   basePath: string,
   jwt: string
 ) => {
@@ -19,7 +19,7 @@ const create = (
     api.createUserCredential({
       systemId: systemId,
       userName: username,
-      reqCreateCredential: request,
+      reqUpdateCredential: request,
     })
   );
 };

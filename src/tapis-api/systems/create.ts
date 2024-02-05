@@ -2,7 +2,7 @@ import { Systems } from "@tapis/tapis-typescript";
 import { apiGenerator, errorDecoder } from "tapis-api/utils";
 
 const create = (
-  request: Systems.ReqCreateSystem,
+  request: Systems.ReqPostSystem,
   basePath: string,
   jwt: string
 ) => {
@@ -13,7 +13,7 @@ const create = (
     jwt
   );
   return errorDecoder<Systems.RespResourceUrl>(() =>
-    api.createSystem({ reqCreateSystem: request })
+    api.createSystem({ reqPostSystem: request })
   );
 };
 

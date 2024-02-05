@@ -46,4 +46,4 @@ export const ls6System = {
       maxMinutes: 120,
     },
   ],
-} as Systems.ReqCreateSystem;
+} as Systems.ReqPostSystem;

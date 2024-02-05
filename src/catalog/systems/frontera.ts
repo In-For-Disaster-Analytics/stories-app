@@ -46,4 +46,4 @@ export const fronteraSystem = {
       maxMinutes: 120,
     },
   ],
-} as Systems.ReqCreateSystem;
+} as Systems.ReqPostSystem;

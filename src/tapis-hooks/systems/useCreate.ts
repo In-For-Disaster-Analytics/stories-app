@@ -14,9 +14,9 @@ const useCreate = () => {
   //
   // In this case, submit helper is called to perform the operation
   const { mutate, isLoading, isError, isSuccess, data, error, reset } =
-    useMutation<Systems.RespResourceUrl, Error, Systems.ReqCreateSystem>(
+    useMutation<Systems.RespResourceUrl, Error, Systems.ReqPostSystem>(
       [QueryKeys, basePath, jwt],
-      (request: Systems.ReqCreateSystem) => create(request, basePath, jwt)
+      (request: Systems.ReqPostSystem) => create(request, basePath, jwt)
     );
   //   useMutation<Jobs.RespSubmitJob, Error, Jobs.ReqSubmitJob>(
   //   [QueryKeys.submit, appId, appVersion, basePath, jwt],
@@ -35,7 +35,7 @@ const useCreate = () => {
     data,
     error,
     reset,
-    submit: (request: Systems.ReqCreateSystem) => {
+    submit: (request: Systems.ReqPostSystem) => {
       // Call mutate to trigger a single post-like API operation
       return mutate(request);
     },

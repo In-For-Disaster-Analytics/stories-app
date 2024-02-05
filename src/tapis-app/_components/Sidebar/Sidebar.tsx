@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
         )}
         {accessToken && (
           <>
-            {/* <NavItem to="/systems" icon="data-files">
+            <NavItem to="/systems" icon="data-files">
               Systems
             </NavItem>
             <NavItem to="/apps" icon="applications">
@@ -28,14 +28,7 @@ const Sidebar: React.FC = () => {
             <NavItem to="/jobs" icon="jobs">
               Jobs
             </NavItem>
-            <Divider /> */}
-            {/* <span className={styles["nav-text"]}>Cookbooks</span>
-            <NavItem to="/cookbooks/systems" icon="data-files">
-              Cookbooks Systems
-            </NavItem>
-            <NavItem to="/cookbooks/apps" icon="applications">
-              Cookbooks Apps
-            </NavItem> */}
+            <Divider />
           </>
         )}
       </Navbar>
