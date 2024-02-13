@@ -5,8 +5,8 @@ import {
   RouteComponentProps,
   Switch,
 } from "react-router-dom";
-import JobLauncher from "../JobLauncher";
 import { SectionMessage } from "cookbooks-ui/_common";
+import { JobLauncher } from "cookbooks-ui/components/jobs";
 
 const Router: React.FC = () => {
   const { path } = useRouteMatch();
