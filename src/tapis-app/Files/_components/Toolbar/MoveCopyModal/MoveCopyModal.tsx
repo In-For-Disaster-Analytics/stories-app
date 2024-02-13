@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import { Button } from "reactstrap";
-import { GenericModal, Breadcrumbs } from "cookbooks-ui/_common";
-import { SubmitWrapper } from "cookbooks-ui/_wrappers";
-import breadcrumbsFromPathname from "cookbooks-ui/_common/Breadcrumbs/breadcrumbsFromPathname";
-import { FileListingTable } from "cookbooks-ui/components/files/FileListing/FileListing";
+import { GenericModal, Breadcrumbs } from "tapis-ui/_common";
+import { SubmitWrapper } from "tapis-ui/_wrappers";
+import breadcrumbsFromPathname from "tapis-ui/_common/Breadcrumbs/breadcrumbsFromPathname";
+import { FileListingTable } from "tapis-ui/components/files/FileListing/FileListing";
 import { FileOperationStatus } from "../_components";
-import { FileExplorer } from "cookbooks-ui/components/files";
+import { FileExplorer } from "tapis-ui/components/files";
 import { ToolbarModalProps } from "../Toolbar";
 import { useLocation } from "react-router";
 import { focusManager } from "react-query";

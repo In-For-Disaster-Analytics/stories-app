@@ -2,8 +2,8 @@ import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useList } from "tapis-hooks/apps";
 import { Apps } from "@tapis/tapis-typescript";
-import { Navbar, NavItem } from "cookbooks-ui/_wrappers/Navbar";
-import { QueryWrapper } from "cookbooks-ui/_wrappers";
+import { Navbar, NavItem } from "tapis-ui/_wrappers/Navbar";
+import { QueryWrapper } from "tapis-ui/_wrappers";
 import { Button } from "reactstrap";
 import { AppCreate } from "./CreateApp";
 

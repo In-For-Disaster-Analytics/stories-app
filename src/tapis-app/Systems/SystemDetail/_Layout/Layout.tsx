@@ -1,5 +1,5 @@
-import { SystemDetail } from "cookbooks-ui/components/systems";
-import { PageLayout, LayoutHeader } from "cookbooks-ui/_common";
+import { SystemDetail } from "tapis-ui/components/systems";
+import { PageLayout, LayoutHeader } from "tapis-ui/_common";
 
 const Layout: React.FC<{ systemId: string }> = ({ systemId }) => {
   const header = (

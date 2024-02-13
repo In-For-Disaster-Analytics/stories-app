@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, NavItem } from "cookbooks-ui/_wrappers/Navbar";
+import { Navbar, NavItem } from "tapis-ui/_wrappers/Navbar";
 import { AppCreate } from "./CreateApp";
 import appList from "../../../../../catalog/apps";
 

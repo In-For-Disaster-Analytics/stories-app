@@ -1,8 +1,8 @@
 import { useEffect, useCallback } from "react";
 import { Button } from "reactstrap";
-import { GenericModal } from "cookbooks-ui/_common";
-import { SubmitWrapper } from "cookbooks-ui/_wrappers";
-import { FileListingTable } from "cookbooks-ui/components/files/FileListing/FileListing";
+import { GenericModal } from "tapis-ui/_common";
+import { SubmitWrapper } from "tapis-ui/_wrappers";
+import { FileListingTable } from "tapis-ui/components/files/FileListing/FileListing";
 import { ToolbarModalProps } from "../Toolbar";
 import { focusManager } from "react-query";
 import { useDelete } from "tapis-hooks/files";

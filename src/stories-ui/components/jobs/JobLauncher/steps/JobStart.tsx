@@ -1,5 +1,5 @@
 import { StepSummaryField, useJobLauncher } from "../components";
-import { FormikInput } from "cookbooks-ui/_common";
+import { FormikInput } from "tapis-ui/_common";
 import * as Yup from "yup";
 import { JobStep, JobLauncherProviderParams } from "../";
 import { Jobs } from "@tapis/tapis-typescript";

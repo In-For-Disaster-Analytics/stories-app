@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
-import { ProtectedRoute } from "cookbooks-ui/_common";
+import { ProtectedRoute } from "tapis-ui/_common";
 import { useLogin } from "tapis-hooks/authenticator";
 
 import Apps from "../Apps";
@@ -9,7 +9,7 @@ import Dashboard from "../Dashboard";
 import Jobs from "tapis-app/Jobs";
 import Systems from "tapis-app/Systems";
 import SystemsCookbooks from "tapis-app/Cookbooks/Systems";
-import SystemDetail from "cookbooks-ui/components/systems/SystemDetail";
+import SystemDetail from "tapis-ui/components/systems/SystemDetail";
 import SystemCreate from "tapis-app/Cookbooks/Systems/SystemCreate";
 import CookbooksApps from "tapis-app/Cookbooks/Apps";
 

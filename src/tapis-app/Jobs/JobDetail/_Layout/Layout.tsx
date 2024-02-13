@@ -1,6 +1,6 @@
 import React from "react";
-import { JobDetail } from "cookbooks-ui/components/jobs";
-import { PageLayout, LayoutHeader } from "cookbooks-ui/_common";
+import { JobDetail } from "tapis-ui/components/jobs";
+import { PageLayout, LayoutHeader } from "tapis-ui/_common";
 
 interface JobDetailProps {
   jobUuid: string;

@@ -6,7 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import SystemDetail from "../SystemDetail";
-import { SectionMessage } from "cookbooks-ui/_common";
+import { SectionMessage } from "tapis-ui/_common";
 
 const Router: React.FC = () => {
   const { path } = useRouteMatch();

@@ -1,6 +1,6 @@
 import React from "react";
 import { JobLauncher } from "stories-ui/components/jobs";
-import { PageLayout, LayoutHeader } from "cookbooks-ui/_common";
+import { PageLayout, LayoutHeader } from "tapis-ui/_common";
 
 const Layout: React.FC<{ appId: string; appVersion: string }> = ({
   appId,

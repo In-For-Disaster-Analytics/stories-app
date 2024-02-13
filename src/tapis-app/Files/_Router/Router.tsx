@@ -7,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import FileListing from "../FileListing";
-import { SectionMessage } from "cookbooks-ui/_common";
+import { SectionMessage } from "tapis-ui/_common";
 
 export const backLocation = (
   systemPath: string | undefined,

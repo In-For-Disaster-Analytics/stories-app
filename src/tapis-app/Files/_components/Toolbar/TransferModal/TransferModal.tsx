@@ -1,20 +1,20 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { GenericModal, Breadcrumbs } from "cookbooks-ui/_common";
-import breadcrumbsFromPathname from "cookbooks-ui/_common/Breadcrumbs/breadcrumbsFromPathname";
-import { FileListingTable } from "cookbooks-ui/components/files/FileListing/FileListing";
-import FileExplorer from "cookbooks-ui/components/files/FileExplorer/FileExplorer";
+import { GenericModal, Breadcrumbs } from "tapis-ui/_common";
+import breadcrumbsFromPathname from "tapis-ui/_common/Breadcrumbs/breadcrumbsFromPathname";
+import { FileListingTable } from "tapis-ui/components/files/FileListing/FileListing";
+import FileExplorer from "tapis-ui/components/files/FileExplorer/FileExplorer";
 import { ToolbarModalProps } from "../Toolbar";
 import { useLocation } from "react-router";
 import { Files } from "@tapis/tapis-typescript";
 import styles from "./TransferModal.module.scss";
 import { useFilesSelect } from "../../FilesContext";
-import { Tabs } from "cookbooks-ui/_common";
+import { Tabs } from "tapis-ui/_common";
 import {
   TransferListing,
   TransferDetails,
   TransferCreate,
   TransferCancel,
-} from "cookbooks-ui/components/files";
+} from "tapis-ui/components/files";
 import { useList } from "tapis-hooks/files/transfers";
 
 const TransferModal: React.FC<ToolbarModalProps> = ({

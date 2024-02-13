@@ -3,7 +3,7 @@ import PermissionsModal from "./PermissionsModal";
 import { usePermissions } from "tapis-hooks/files";
 import { fileInfo } from "fixtures/files.fixtures";
 import { useFilesSelect } from "tapis-app/Files/_components/FilesContext";
-import { FileStat, FileOperation } from "cookbooks-ui/components/files";
+import { FileStat, FileOperation } from "tapis-ui/components/files";
 import { Files } from "@tapis/tapis-typescript";
 
 jest.mock("tapis-hooks/files");

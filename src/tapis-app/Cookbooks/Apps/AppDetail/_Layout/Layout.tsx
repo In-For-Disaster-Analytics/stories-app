@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { JobLauncher } from "stories-ui/components/jobs";
-import { PageLayout, LayoutHeader, LoadingSpinner } from "cookbooks-ui/_common";
+import { PageLayout, LayoutHeader, LoadingSpinner } from "tapis-ui/_common";
 import cookbookApps from "../../../../../catalog/apps";
 import ReadmeViewer from "tapis-app/Cookbook/Readme";
 import { Button } from "reactstrap";
 import useCreate from "tapis-hooks/apps/useCreate";
 import { useList } from "tapis-hooks/apps";
 import { Link } from "react-router-dom";
-import { SubmitWrapper } from "cookbooks-ui/_wrappers";
+import { SubmitWrapper } from "tapis-ui/_wrappers";
 import { useQueryClient } from "react-query";
 import queryKeys from "tapis-hooks/systems/queryKeys";
 

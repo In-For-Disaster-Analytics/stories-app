@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import { Button } from "reactstrap";
-import { GenericModal } from "cookbooks-ui/_common";
-import { SubmitWrapper } from "cookbooks-ui/_wrappers";
+import { GenericModal } from "tapis-ui/_common";
+import { SubmitWrapper } from "tapis-ui/_wrappers";
 import { ToolbarModalProps } from "../Toolbar";
 import { Form, Formik } from "formik";
-import { FormikInput } from "cookbooks-ui/_common";
+import { FormikInput } from "tapis-ui/_common";
 import { useMove } from "tapis-hooks/files";
 import { focusManager } from "react-query";
 import { useEffect } from "react";

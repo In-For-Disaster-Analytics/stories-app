@@ -1,6 +1,6 @@
 import cookbooksSystems from "catalog/systems";
-import { FormikInput, LoadingSpinner } from "cookbooks-ui/_common";
-import { SubmitWrapper } from "cookbooks-ui/_wrappers";
+import { FormikInput, LoadingSpinner } from "tapis-ui/_common";
+import { SubmitWrapper } from "tapis-ui/_wrappers";
 import { Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import { Button } from "reactstrap";

@@ -1,12 +1,12 @@
-import { GenericModal } from "cookbooks-ui/_common";
+import { GenericModal } from "tapis-ui/_common";
 import { ToolbarModalProps } from "../Toolbar";
 import { useFilesSelect } from "../../FilesContext";
 import { usePermissions } from "tapis-hooks/files";
-import { FileStat, FileOperation } from "cookbooks-ui/components/files";
+import { FileStat, FileOperation } from "tapis-ui/components/files";
 import { useTapisConfig } from "tapis-hooks";
-import { QueryWrapper } from "cookbooks-ui/_wrappers";
+import { QueryWrapper } from "tapis-ui/_wrappers";
 import { Files } from "@tapis/tapis-typescript";
-import { Tabs } from "cookbooks-ui/_common";
+import { Tabs } from "tapis-ui/_common";
 import styles from "./PermissionsModal.module.scss";
 import React from "react";
 

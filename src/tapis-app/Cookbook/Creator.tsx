@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { Card, CardHeader, CardBody, CardTitle, CardText } from "reactstrap";
-import { Icon } from "cookbooks-ui/_common";
+import { Icon } from "tapis-ui/_common";
 import styles from "./Creator.module.scss";
 import useCreate from "tapis-hooks/apps/useCreate";
 import llamaNotebookApp from "catalog/apps/llama-notebook";

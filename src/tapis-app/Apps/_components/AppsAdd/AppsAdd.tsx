@@ -5,13 +5,13 @@
  *
  */
 import { Apps } from "@tapis/tapis-typescript";
-import { JSONDisplay } from "cookbooks-ui/_common";
+import { JSONDisplay } from "tapis-ui/_common";
 import React, { useEffect, useRef, useState } from "react";
 
 import styles from "./AppsAdd.module.scss";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import { useCreate } from "tapis-hooks/apps";
-import { SubmitWrapper } from "cookbooks-ui/_wrappers";
+import { SubmitWrapper } from "tapis-ui/_wrappers";
 import { set } from "js-cookie";
 
 export const AppsAdd: React.FC = () => {

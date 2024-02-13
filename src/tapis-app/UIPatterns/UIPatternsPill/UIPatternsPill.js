@@ -1,5 +1,5 @@
 import React from "react";
-import { Pill } from "cookbooks-ui/_common";
+import { Pill } from "tapis-ui/_common";
 
 function UIPatternsPill() {
   return (

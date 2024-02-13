@@ -1,5 +1,5 @@
 import React from "react";
-import { DescriptionList, Icon } from "cookbooks-ui/_common";
+import { DescriptionList, Icon } from "tapis-ui/_common";
 
 import styles from "./UIPatternsDescriptionList.module.css";
 
