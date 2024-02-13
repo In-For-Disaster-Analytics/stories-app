@@ -6,7 +6,7 @@ import {
   LayoutBody,
   LayoutHeader,
   LayoutNavWrapper,
-} from "tapis-ui/_common";
+} from "cookbooks-ui/_common";
 
 const Layout: React.FC = () => {
   const header = (

@@ -1,5 +1,5 @@
 import React from "react";
-import { InlineMessage, SectionMessage } from "tapis-ui/_common";
+import { InlineMessage, SectionMessage } from "cookbooks-ui/_common";
 import styles from "./UIPatternsMessage.module.scss";
 
 const EXAMPLE_LINK = {

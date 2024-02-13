@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownSelector } from "tapis-ui/_common";
+import { DropdownSelector } from "cookbooks-ui/_common";
 
 function UIPatternsDropdownSelector() {
   return (

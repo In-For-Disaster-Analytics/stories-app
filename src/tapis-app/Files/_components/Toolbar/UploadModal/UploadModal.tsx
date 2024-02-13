@@ -1,19 +1,19 @@
 import { useEffect, useState, useCallback, useReducer } from "react";
 import { Button } from "reactstrap";
-import { GenericModal } from "tapis-ui/_common";
-import { SubmitWrapper } from "tapis-ui/_wrappers";
+import { GenericModal } from "cookbooks-ui/_common";
+import { SubmitWrapper } from "cookbooks-ui/_wrappers";
 import { ToolbarModalProps } from "../Toolbar";
 import { useUpload } from "tapis-hooks/files";
 import { focusManager } from "react-query";
 import { useDropzone } from "react-dropzone";
 import styles from "./UploadModal.module.scss";
-import { FileListingTable } from "tapis-ui/components/files/FileListing";
+import { FileListingTable } from "cookbooks-ui/components/files/FileListing";
 import { Files } from "@tapis/tapis-typescript";
 import { Column } from "react-table";
 import sizeFormat from "utils/sizeFormat";
 import { useFileOperations } from "../_hooks";
 import { InsertHookParams } from "tapis-hooks/files/useUpload";
-import Progress from "tapis-ui/_common/Progress";
+import Progress from "cookbooks-ui/_common/Progress";
 import { FileOpEventStatusEnum } from "../_hooks/useFileOperations";
 import { FileOperationStatus } from "../_components";
 
