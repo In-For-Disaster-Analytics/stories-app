@@ -5,16 +5,12 @@ import { Apps } from "@tapis/tapis-typescript";
 import { Navbar, NavItem } from "cookbooks-ui/_wrappers/Navbar";
 import { QueryWrapper } from "cookbooks-ui/_wrappers";
 import { Button } from "reactstrap";
-import { AppCreate } from "./CreateApp";
-
 const AppsNav: React.FC = () => {
   const { data, isLoading, error } = useList(
     {},
     { refetchOnWindowFocus: false }
   );
-  const { url } = useRouteMatch();
   const appList: Array<Apps.TapisApp> = data?.result ?? [];
-  console.log(url);
 
   return (
     <QueryWrapper isLoading={isLoading} error={error}>

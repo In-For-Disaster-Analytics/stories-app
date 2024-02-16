@@ -15,7 +15,6 @@ import { useList as useJobsList } from "tapis-hooks/jobs";
 import { useList as useAppsList } from "tapis-hooks/apps";
 import styles from "./Dashboard.module.scss";
 import "./Dashboard.scss";
-import CookbookCreator from "tapis-app/Cookbook/Creator";
 import Apps from "tapis-app/Apps";
 import { AppsAdd } from "tapis-app/Apps/_components/AppsAdd/AppsAdd";
 
