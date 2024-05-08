@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import JobLauncher from '../JobLauncher';
 import { SectionMessage } from 'tapis-ui/_common';
+import AppCreator from '../AppsCreator';
 
 const Router: React.FC = () => {
   const { path } = useRouteMatch();
@@ -17,6 +18,8 @@ const Router: React.FC = () => {
           Select an app from the list.
         </SectionMessage>
       </Route>
+
+      <Route path={`${path}/new`} render={() => <AppCreator />}></Route>
 
       <Route
         path={`${path}/:appId/:appVersion`}
