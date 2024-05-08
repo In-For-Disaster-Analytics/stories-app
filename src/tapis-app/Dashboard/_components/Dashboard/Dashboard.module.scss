@@ -1,45 +1,31 @@
-.container {
+.cards {
   display: flex;
-}
-
-.container > * {
-  flex: 50%;
-  background-color: var(--global-color-primary--x-light);
-  border: 1px solid var(--global-color-primary--light);
-  margin-right: 1em;
-  padding: 1em 1em 1em 1em;
-}
-
-.step-summary {
-  padding-bottom: 1em;
-  .name {
-    display: flex;
-    justify-content: space-between;
-  }
-  .content {
-    font-size: smaller;
-    padding-left: 1em;
-  }
-  .edit {
-    padding: 0 0 0 0 !important;
-  }
-}
-
-.step {
   padding-top: 1em;
+  flex-wrap: wrap;
 }
 
-.controls {
+.card {
+  width: 25em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+.card-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: baseline;
+  div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+  }
 }
 
-.controls > * {
-  margin-left: 0.25em;
+.card-footer {
+  display: flex;
+  justify-content: space-between;
 }
 
-.submit {
-  border-bottom: 1px solid var(--global-color-primary--normal);
-  padding-bottom: 0.5em;
-  margin-bottom: 0.5em;
+.header {
+  padding-top: 1em;
 }
