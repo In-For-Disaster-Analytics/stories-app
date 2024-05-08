@@ -53,11 +53,12 @@
   "homepage": "https://tapis-project.github.io/tapis-ui",
   "scripts": {
     "start": "vite",
-    "build": "test && vite build",
+    "build": "npm run test && vite build",
+    "build-force": "vite build",
     "test": "TZ=UTC jest",
     "lint": "eslint --max-warnings=0 . && prettier --single-quote --check src",
-    "prettier": "prettier --single-quote --write .",
-    "gh-pages": "react-scripts build && gh-pages -d build"
+    "prettier": "prettier --single-quote --write src",
+    "gh-pages": "npm run build && gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": []

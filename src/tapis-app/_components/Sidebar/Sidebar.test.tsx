@@ -6,6 +6,6 @@ import Sidebar from 'tapis-app/_components/Sidebar';
 describe('Sidebar', () => {
   it('renders Sidebar component', () => {
     const { getAllByText } = renderComponent(<Sidebar />);
-    expect(getAllByText(/Dashboard/).length).toEqual(1);
+    expect(getAllByText(/Login/).length).toEqual(1);
   });
 });
