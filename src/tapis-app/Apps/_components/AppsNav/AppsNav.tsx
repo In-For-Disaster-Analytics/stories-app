@@ -1,11 +1,10 @@
-import React from "react";
-import { useRouteMatch } from "react-router-dom";
-import { useList } from "tapis-hooks/apps";
-import { Apps } from "@tapis/tapis-typescript";
-import { Navbar, NavItem } from "cookbooks-ui/_wrappers/Navbar";
-import { QueryWrapper } from "cookbooks-ui/_wrappers";
-import { Button } from "reactstrap";
-import { AppCreate } from "./CreateApp";
+import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import { useList } from 'tapis-hooks/apps';
+import { Apps } from '@tapis/tapis-typescript';
+import { Navbar, NavItem } from 'tapis-ui/_wrappers/Navbar';
+import { QueryWrapper } from 'tapis-ui/_wrappers';
+import { Nav } from 'reactstrap';
 
 const AppsNav: React.FC = () => {
   const { data, isLoading, error } = useList(
@@ -14,15 +13,17 @@ const AppsNav: React.FC = () => {
   );
   const { url } = useRouteMatch();
   const appList: Array<Apps.TapisApp> = data?.result ?? [];
-  console.log(url);
 
   return (
     <QueryWrapper isLoading={isLoading} error={error}>
       <Navbar>
+        <NavItem to={`${url}/new`} icon="upload">
+          New App
+        </NavItem>
         {appList.length ? (
           appList.map((app) => (
             <NavItem
-              to={`/apps/${app.id}/${app.version}`}
+              to={`${url}/${app.id}/${app.version}`}
               icon="applications"
               key={app.id}
             >
@@ -30,9 +31,7 @@ const AppsNav: React.FC = () => {
             </NavItem>
           ))
         ) : (
-          <>
-            <i>No templates found</i>
-          </>
+          <i>No apps found</i>
         )}
       </Navbar>
     </QueryWrapper>

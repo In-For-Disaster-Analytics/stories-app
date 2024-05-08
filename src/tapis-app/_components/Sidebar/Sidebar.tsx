@@ -1,17 +1,16 @@
-import React from "react";
-import { useTapisConfig } from "tapis-hooks";
-import styles from "./Sidebar.module.scss";
-import { Navbar, NavItem } from "cookbooks-ui/_wrappers/Navbar";
-import { Divider } from "@material-ui/core";
+import React from 'react';
+import { useTapisConfig } from 'tapis-hooks';
+import styles from './Sidebar.module.scss';
+import { Navbar, NavItem } from 'tapis-ui/_wrappers/Navbar';
 
 const Sidebar: React.FC = () => {
   const { accessToken } = useTapisConfig();
   return (
     <div className={styles.root}>
       <Navbar>
-        <NavItem to="/" icon="dashboard">
+        {/* <NavItem to="/" icon="dashboard">
           Dashboard
-        </NavItem>
+        </NavItem> */}
         {!accessToken && (
           <NavItem to="/login" icon="user">
             Login
@@ -19,16 +18,21 @@ const Sidebar: React.FC = () => {
         )}
         {accessToken && (
           <>
-            <NavItem to="/systems" icon="data-files">
+            {/* <NavItem to="/systems" icon="data-files">
               Systems
             </NavItem>
+            <NavItem to="/files" icon="folder">
+              Files
+            </NavItem> */}
             <NavItem to="/apps" icon="applications">
               Apps
             </NavItem>
-            <NavItem to="/jobs" icon="jobs">
+            {/* <NavItem to="/jobs" icon="jobs">
               Jobs
             </NavItem>
-            <Divider />
+            <NavItem to="/workflows" icon="publications">
+              Workflows
+            </NavItem> */}
           </>
         )}
       </Navbar>

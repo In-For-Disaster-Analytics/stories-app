@@ -1,5 +1,5 @@
-import { Apps } from "@tapis/tapis-typescript";
-import { apiGenerator, errorDecoder } from "tapis-api/utils";
+import { Apps } from '@tapis/tapis-typescript';
+import { apiGenerator, errorDecoder } from 'tapis-api/utils';
 
 const create = (request: Apps.ReqPostApp, basePath: string, jwt: string) => {
   const api: Apps.ApplicationsApi = apiGenerator<Apps.ApplicationsApi>(
@@ -9,7 +9,7 @@ const create = (request: Apps.ReqPostApp, basePath: string, jwt: string) => {
     jwt
   );
   return errorDecoder<Apps.RespResourceUrl>(() => {
-    console.log("Creating app version v2", request);
+    console.log('Creating app version v2', request);
     return api.createAppVersion({ reqPostApp: request });
   });
 };

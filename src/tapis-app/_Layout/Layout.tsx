@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Sidebar } from "tapis-app/_components";
-import { Router } from "tapis-app/_Router";
-import { PageLayout } from "cookbooks-ui/_common";
-import { NotificationsProvider } from "tapis-app/_components/Notifications";
-import { useHistory } from "react-router-dom";
-import { useList } from "tapis-hooks/tenants";
-import "./Layout.scss";
-import { useTapisConfig } from "tapis-hooks";
-import { useLogin } from "tapis-hooks/authenticator";
+import React, { useState } from 'react';
+import { Sidebar } from 'tapis-app/_components';
+import { Router } from 'tapis-app/_Router';
+import { PageLayout } from 'tapis-ui/_common';
+import { NotificationsProvider } from 'tapis-app/_components/Notifications';
+import { useHistory } from 'react-router-dom';
+import { useList } from 'tapis-hooks/tenants';
+import './Layout.scss';
+import { useTapisConfig } from 'tapis-hooks';
+import { useLogin } from 'tapis-hooks/authenticator';
 import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-} from "reactstrap";
-import { QueryWrapper } from "cookbooks-ui/_wrappers";
+} from 'reactstrap';
+import { QueryWrapper } from 'tapis-ui/_wrappers';
 
 const Layout: React.FC = () => {
   const { claims } = useTapisConfig();
@@ -25,19 +25,19 @@ const Layout: React.FC = () => {
   const { logout } = useLogin();
 
   const header = (
-    <div className="cookbooks-ui__header">
-      <div>Cookbooks UI</div>
+    <div className="tapis-ui__header">
+      <div>TapisUI</div>
       <div></div>
       <div>
-        {claims["sub"] && (
+        {claims['sub'] && (
           <ButtonDropdown
             size="sm"
             isOpen={isOpen}
             toggle={() => setIsOpen(!isOpen)}
             className="dropdown-button"
           >
-            <DropdownToggle caret>{claims["sub"]}</DropdownToggle>
-            <DropdownMenu style={{ maxHeight: "50vh", overflowY: "scroll" }}>
+            <DropdownToggle caret>{claims['sub']}</DropdownToggle>
+            <DropdownMenu style={{ maxHeight: '50vh', overflowY: 'scroll' }}>
               <DropdownItem header>Tenants</DropdownItem>
               <DropdownItem divider />
               <QueryWrapper isLoading={isLoading} error={error}>
@@ -46,8 +46,7 @@ const Layout: React.FC = () => {
                     <DropdownItem
                       onClick={() => {
                         logout();
-                        window.location.href =
-                          tenant.base_url + "/cookbooks-ui/";
+                        window.location.href = tenant.base_url + '/tapis-ui/';
                       }}
                     >
                       {tenant.tenant_id}
@@ -56,7 +55,7 @@ const Layout: React.FC = () => {
                 })}
               </QueryWrapper>
               <DropdownItem divider />
-              <DropdownItem onClick={() => history.push("/logout")}>
+              <DropdownItem onClick={() => history.push('/logout')}>
                 Logout
               </DropdownItem>
             </DropdownMenu>
@@ -74,7 +73,7 @@ const Layout: React.FC = () => {
 
   return (
     <NotificationsProvider>
-      <div style={{ display: "flex", flexGrow: 1, height: "100vh" }}>
+      <div style={{ display: 'flex', flexGrow: 1, height: '100vh' }}>
         <PageLayout top={header} left={<Sidebar />} right={workbenchContent} />
       </div>
     </NotificationsProvider>

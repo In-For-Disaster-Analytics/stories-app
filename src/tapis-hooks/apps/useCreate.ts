@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { useMutation } from "react-query";
-import { Apps, Jobs } from "@tapis/tapis-typescript";
-import { submit } from "tapis-api/jobs";
-import { useTapisConfig } from "tapis-hooks";
-import QueryKeys from "./queryKeys";
-import create from "tapis-api/apps/create";
+import { useEffect } from 'react';
+import { useMutation } from 'react-query';
+import { Apps, Jobs } from '@tapis/tapis-typescript';
+import { submit } from 'tapis-api/jobs';
+import { useTapisConfig } from 'tapis-hooks';
+import QueryKeys from './queryKeys';
+import create from 'tapis-api/apps/create';
 
 const useCreate = () => {
   const { basePath, accessToken } = useTapisConfig();
-  const jwt = accessToken?.access_token || "";
+  const jwt = accessToken?.access_token || '';
 
   // The useMutation react-query hook is used to call operations that make server-side changes
   // (Other hooks would be used for data retrieval)
