@@ -1,6 +1,6 @@
 {
-  "short_name": "Tapis-UI",
-  "name": "Tapis-UI",
+  "short_name": "cookbooks-ui",
+  "name": "cookbooks-ui",
   "icons": [
     {
       "src": "favicon.ico",
