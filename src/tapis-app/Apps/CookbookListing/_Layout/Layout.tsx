@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { FileListing } from 'tapis-ui/components/files';
 import { PageLayout } from 'tapis-ui/_common';
-import { useFilesSelect } from 'tapis-app/Files/_components/FilesContext';
 import styles from './Layout.module.scss';
 import { useAppsSelect } from 'tapis-app/Apps/_components/AppsContext';
 import CookbookListing from 'tapis-ui/components/cookbooks/CookbookListing';
