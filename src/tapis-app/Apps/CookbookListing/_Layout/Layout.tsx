@@ -3,6 +3,8 @@ import { FileListing } from 'tapis-ui/components/files';
 import { PageLayout } from 'tapis-ui/_common';
 import { useFilesSelect } from 'tapis-app/Files/_components/FilesContext';
 import styles from './Layout.module.scss';
+import { useAppsSelect } from 'tapis-app/Apps/_components/AppsContext';
+import CookbookListing from 'tapis-ui/components/cookbooks/CookbookListing';
 
 type LayoutProps = {
   systemId: string;
@@ -11,26 +13,24 @@ type LayoutProps = {
 };
 
 const Layout: React.FC<LayoutProps> = ({ systemId, path, location }) => {
-  const { selectedFiles, select, unselect, clear } = useFilesSelect();
+  // const { selectedFiles, select, unselect, clear } = useFilesSelect();
+  const { selectedApps, select, unselect, clear } = useAppsSelect();
   useEffect(() => {
     clear();
   }, [systemId, path, clear]);
 
-  console.log(systemId);
-  console.log(path);
-  console.log(location);
   const body = (
     <div className={styles.body}>
-      <FileListing
+      <CookbookListing
         className={styles.container}
         systemId={systemId}
         path={path}
         location={location}
-        selectMode={{ mode: 'multi', types: ['dir', 'file'] }}
-        selectedFiles={selectedFiles}
-        onSelect={(files) => select(files, 'multi')}
+        selectMode={{ mode: 'multi', types: ['dir', 'app'] }}
+        selectedApps={selectedApps}
+        onSelect={(apps) => select(apps, 'multi')}
         onUnselect={unselect}
-      ></FileListing>
+      ></CookbookListing>
     </div>
   );
 
