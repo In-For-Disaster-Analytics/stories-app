@@ -5,22 +5,17 @@ import { SubmitWrapper } from 'tapis-ui/_wrappers';
 import { FileListingTable } from 'tapis-ui/components/files/FileListing/FileListing';
 import { ToolbarModalProps } from '../Toolbar';
 import { focusManager } from 'react-query';
-import { useDelete } from 'tapis-hooks/files';
 import { Column } from 'react-table';
 import styles from './DeleteModal.module.scss';
 import { useAppsSelect } from '../../AppsContext';
 import { Apps } from '@tapis/tapis-typescript';
-import { DeleteHookParams } from 'tapis-hooks/files/useDelete';
-import { useFileOperations } from '../_hooks';
-import { FileOperationStatus } from '../_components';
+import useDelete, { DeleteHookParams } from 'tapis-hooks/apps/useDelete';
+import useAppsOperations from '../_hooks';
+import AppsOperationStatus from '../_components';
 
-const DeleteModal: React.FC<ToolbarModalProps> = ({
-  toggle,
-  systemId = '',
-  path = '/',
-}) => {
+const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
-  const { deleteFileAsync, reset } = useDelete();
+  const { deleteAppAsync, reset } = useDelete();
 
   useEffect(() => {
     reset();
@@ -32,24 +27,23 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({
     focusManager.setFocused(true);
   }, []);
 
-  const { run, state, isLoading, isSuccess, error } = useFileOperations<
+  const { run, state, isLoading, isSuccess, error } = useAppsOperations<
     DeleteHookParams,
-    Apps.FileStringResponse
+    Apps.RespChangeCount
   >({
-    fn: deleteFileAsync,
+    fn: deleteAppAsync,
     onComplete,
   });
 
   const onSubmit = useCallback(() => {
-    const operations: Array<DeleteHookParams> = selectedApps.map((file) => ({
-      systemId,
-      path: file.path!,
+    const operations: Array<DeleteHookParams> = selectedApps.map((app) => ({
+      id: app.id!,
     }));
     run(operations);
-  }, [selectedApps, run, systemId]);
+  }, [selectedApps, run]);
 
-  const removeFile = useCallback(
-    (file: Apps.FileInfo) => {
+  const removeApps = useCallback(
+    (file: Apps.TapisApp) => {
       unselect([file]);
       if (selectedApps.length === 1) {
         toggle();
@@ -64,19 +58,19 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({
       id: 'deleteStatus',
       Cell: (el) => {
         const file = selectedApps[el.row.index];
-        if (!state[file.path!]) {
+        if (!state[file.id!]) {
           return (
             <span
               className={styles['remove-file']}
               onClick={() => {
-                removeFile(selectedApps[el.row.index]);
+                removeApps(selectedApps[el.row.index]);
               }}
             >
               &#x2715;
             </span>
           );
         }
-        return <FileOperationStatus status={state[file.path!].status} />;
+        return <AppsOperationStatus status={state[file.id!].status} />;
       },
     },
   ];
@@ -90,9 +84,7 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({
       title={`Delete apps`}
       body={
         <div>
-          <h3>
-            {systemId}/{path}
-          </h3>
+          <h3>Holi</h3>
           <div className={styles['files-list-container']}>
             <FileListingTable
               files={selectedApps}

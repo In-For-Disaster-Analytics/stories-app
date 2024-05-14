@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { renderHook } from '@testing-library/react-hooks';
 import { MutationFunction } from 'tapis-hooks/utils/useMutations';
 import { act } from '@testing-library/react';
-import useFileOperations from './useFileOperations';
+import useFileOperations from './useAppsOperations';
 
 jest.mock('tapis-hooks/systems');
 jest.mock('tapis-hooks/files');

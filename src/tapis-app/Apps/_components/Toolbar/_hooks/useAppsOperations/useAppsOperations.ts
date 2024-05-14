@@ -1,33 +1,33 @@
 import { useMutations } from 'tapis-hooks/utils';
 import { useReducer, useState } from 'react';
 import { MutationFunction } from 'tapis-hooks/utils/useMutations';
-import { FileOpEventStatusEnum, FileOpState } from '.';
+import { AppsOpEventStatusEnum, AppsOpState } from '.';
 
-type UseFileOperationsParams<T, ResponseType> = {
+type UseAppsOperationsParams<T, ResponseType> = {
   fn: MutationFunction<T, ResponseType>;
   key?: (item: T) => string;
   onComplete?: () => void;
 };
 
-interface FileParamType {
-  path?: string;
+interface AppsParamType {
+  id?: string;
 }
 
-const useFileOperations = <
-  T extends FileParamType,
+const useAppsOperations = <
+  T extends AppsParamType,
   ResponseType extends unknown
 >({
   // Mutation function to run
   fn,
   // Optional identifier function for the state dictionary
-  key = (item: T) => item.path!,
+  key = (item: T) => item.id!,
   onComplete,
-}: UseFileOperationsParams<T, ResponseType>) => {
+}: UseAppsOperationsParams<T, ResponseType>) => {
   const [started, setStarted] = useState(false);
 
   const reducer = (
-    state: FileOpState,
-    action: { item: T; status: FileOpEventStatusEnum; error?: Error }
+    state: AppsOpState,
+    action: { item: T; status: AppsOpEventStatusEnum; error?: Error }
   ) => {
     const { item, status, error } = action;
     return {
@@ -36,22 +36,22 @@ const useFileOperations = <
     };
   };
 
-  const [state, dispatch] = useReducer(reducer, {} as FileOpState);
+  const [state, dispatch] = useReducer(reducer, {} as AppsOpState);
 
   const onStart = (item: T) =>
     dispatch({
       item,
-      status: FileOpEventStatusEnum.loading,
+      status: AppsOpEventStatusEnum.loading,
     });
   const onSuccess = (item: T) =>
     dispatch({
       item,
-      status: FileOpEventStatusEnum.success,
+      status: AppsOpEventStatusEnum.success,
     });
   const onError = (item: T, error: Error) =>
     dispatch({
       item,
-      status: FileOpEventStatusEnum.error,
+      status: AppsOpEventStatusEnum.error,
       error,
     });
 
@@ -80,4 +80,4 @@ const useFileOperations = <
   };
 };
 
-export default useFileOperations;
+export default useAppsOperations;

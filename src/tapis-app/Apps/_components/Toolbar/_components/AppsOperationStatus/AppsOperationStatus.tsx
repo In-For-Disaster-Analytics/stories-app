@@ -1,19 +1,19 @@
 import React from 'react';
-import { FileOpEventStatusEnum } from '../../_hooks/useFileOperations';
+import { AppsOpEventStatusEnum } from '../../_hooks/useAppsOperations';
 import { LoadingSpinner, Icon } from 'tapis-ui/_common';
 
-const FileOperationStatus: React.FC<{ status: FileOpEventStatusEnum }> = ({
+const AppsOperationStatus: React.FC<{ status: AppsOpEventStatusEnum }> = ({
   status,
 }) => {
   switch (status) {
-    case FileOpEventStatusEnum.loading:
+    case AppsOpEventStatusEnum.loading:
       return <LoadingSpinner placement="inline" />;
-    case FileOpEventStatusEnum.success:
+    case AppsOpEventStatusEnum.success:
       return <Icon name="approved-reverse" className="success" />;
-    case FileOpEventStatusEnum.error:
+    case AppsOpEventStatusEnum.error:
       return <Icon name="alert" />;
   }
   return <div>Unknown status!</div>;
 };
 
-export default FileOperationStatus;
+export default AppsOperationStatus;

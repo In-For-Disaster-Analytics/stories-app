@@ -17,8 +17,6 @@ type ToolbarButtonProps = {
 
 export type ToolbarModalProps = {
   toggle: () => void;
-  systemId?: string;
-  path?: string;
 };
 
 export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
@@ -214,13 +212,7 @@ const Toolbar: React.FC = () => {
               path={currentPath}
             />
           )} */}
-          {modal === 'delete' && (
-            <DeleteModal
-              toggle={toggle}
-              systemId={systemId}
-              path={currentPath}
-            />
-          )}
+          {modal === 'delete' && <DeleteModal toggle={toggle} />}
         </div>
       )}
     </div>

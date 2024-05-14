@@ -4,8 +4,8 @@ import { deleteApp } from 'tapis-api/apps';
 import { useTapisConfig } from 'tapis-hooks/context';
 import QueryKeys from './queryKeys';
 
-type DeleteAppHookParams = {
-  appId: string;
+export type DeleteHookParams = {
+  id: string;
 };
 
 const useDelete = () => {
@@ -25,9 +25,9 @@ const useDelete = () => {
     data,
     error,
     reset,
-  } = useMutation<Apps.RespChangeCount, Error, DeleteAppHookParams>(
+  } = useMutation<Apps.RespChangeCount, Error, DeleteHookParams>(
     [QueryKeys.delete, basePath, jwt],
-    (params) => deleteApp(params.appId, basePath, jwt)
+    (params) => deleteApp(params.id, basePath, jwt)
   );
 
   // Return hook object with loading states and login function
@@ -39,14 +39,14 @@ const useDelete = () => {
     error,
     reset,
     deleteApp: (
-      params: DeleteAppHookParams,
-      options?: MutateOptions<Apps.RespChangeCount, Error, DeleteAppHookParams>
+      params: DeleteHookParams,
+      options?: MutateOptions<Apps.RespChangeCount, Error, DeleteHookParams>
     ) => {
       return mutate(params, options);
     },
     deleteAppAsync: (
-      params: DeleteAppHookParams,
-      options?: MutateOptions<Apps.RespChangeCount, Error, DeleteAppHookParams>
+      params: DeleteHookParams,
+      options?: MutateOptions<Apps.RespChangeCount, Error, DeleteHookParams>
     ) => mutateAsync(params, options),
   };
 };
