@@ -1,8 +1,8 @@
-import { useMutation, MutateOptions } from "react-query";
-import { Apps } from "@tapis/tapis-typescript";
-import { deleteApp } from "tapis-api/apps";
-import { useTapisConfig } from "tapis-hooks/context";
-import QueryKeys from "./queryKeys";
+import { useMutation, MutateOptions } from 'react-query';
+import { Apps } from '@tapis/tapis-typescript';
+import { deleteApp } from 'tapis-api/apps';
+import { useTapisConfig } from 'tapis-hooks/context';
+import QueryKeys from './queryKeys';
 
 type DeleteAppHookParams = {
   appId: string;
@@ -10,7 +10,7 @@ type DeleteAppHookParams = {
 
 const useDelete = () => {
   const { basePath, accessToken } = useTapisConfig();
-  const jwt = accessToken?.access_token || "";
+  const jwt = accessToken?.access_token || '';
 
   // The useMutation react-query hook is used to call operations that make server-side changes
   // (Other hooks would be used for data retrieval)
