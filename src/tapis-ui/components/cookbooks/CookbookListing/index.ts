@@ -1,3 +1,2 @@
-import CookbookListing from "./CookbookListing";
-
-export default CookbookListing;
+export { default } from "./CookbookListing";
+export { FileListingTable } from "./CookbookListing";

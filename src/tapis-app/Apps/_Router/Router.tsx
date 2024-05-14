@@ -15,7 +15,7 @@ const Router: React.FC = () => {
   return (
     <Switch>
       <Route path={`${path}`} exact>
-        <CookbookListing />
+        <CookbookListing systemId="ls6-gpu-a100-dev-v0.0.5" path="/" />
       </Route>
 
       <Route path={`${path}/new`} render={() => <AppCreator />}></Route>
