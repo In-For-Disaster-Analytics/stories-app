@@ -1,12 +1,11 @@
 import { useMutation, MutateOptions } from "react-query";
-import { Files } from "@tapis/tapis-typescript";
-import { deleteFile } from "tapis-api/files";
-import { useTapisConfig } from "tapis-hooks";
+import { Apps } from "@tapis/tapis-typescript";
+import { deleteApp } from "tapis-api/apps";
+import { useTapisConfig } from "tapis-hooks/context";
 import QueryKeys from "./queryKeys";
 
-export type DeleteHookParams = {
-  systemId: string;
-  path: string;
+type DeleteAppHookParams = {
+  appId: string;
 };
 
 const useDelete = () => {
@@ -26,9 +25,9 @@ const useDelete = () => {
     data,
     error,
     reset,
-  } = useMutation<Files.FileStringResponse, Error, DeleteHookParams>(
+  } = useMutation<Apps.RespChangeCount, Error, DeleteAppHookParams>(
     [QueryKeys.delete, basePath, jwt],
-    ({ systemId, path }) => deleteFile(systemId, path, basePath, jwt)
+    (params) => deleteApp(params.appId, basePath, jwt)
   );
 
   // Return hook object with loading states and login function
@@ -39,17 +38,15 @@ const useDelete = () => {
     data,
     error,
     reset,
-    deleteFile: (
-      params: DeleteHookParams,
-      // react-query options to allow callbacks such as onSuccess
-      options?: MutateOptions<Files.FileStringResponse, Error, DeleteHookParams>
+    deleteApp: (
+      params: DeleteAppHookParams,
+      options?: MutateOptions<Apps.RespChangeCount, Error, DeleteAppHookParams>
     ) => {
-      // Call mutate to trigger a single post-like API operation
       return mutate(params, options);
     },
-    deleteFileAsync: (
-      params: DeleteHookParams,
-      options?: MutateOptions<Files.FileStringResponse, Error, DeleteHookParams>
+    deleteAppAsync: (
+      params: DeleteAppHookParams,
+      options?: MutateOptions<Apps.RespChangeCount, Error, DeleteAppHookParams>
     ) => mutateAsync(params, options),
   };
 };

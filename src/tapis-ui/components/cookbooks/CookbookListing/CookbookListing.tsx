@@ -4,10 +4,13 @@ import styles from "./CookbookListing.module.scss";
 import { cookbookApp } from "fixtures/cookbooks.fixtures";
 import { Apps } from "@tapis/tapis-typescript";
 import { Column, Row } from "react-table";
-import { Button } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
-import { useList } from "tapis-hooks/apps";
+import { useDelete, useList } from "tapis-hooks/apps";
 import { QueryWrapper } from "tapis-ui/_wrappers";
+import { useQueryClient } from "react-query";
+import queryKeys from "tapis-hooks/apps/queryKeys";
+import RemoveAppButton from "./RemoveAppButton";
 
 type AppListItemProps = {
   app: Apps.TapisApp;
@@ -22,35 +25,15 @@ const AppListingItem: React.FC<AppListItemProps> = ({ app, onNavigate }) => {
   );
 };
 
-const AppListingButton: React.FC<AppListItemProps> = ({ app }) => {
-  return (
-    <>
-      {/*Share button*/}
-      <Button
-        color="link"
-        className={styles.link}
-        onClick={(e) => {
-          e.preventDefault();
-          onNavigate && onNavigate(app);
-        }}
-        data-testid={`href-${app.id}`}
-      >
-        <Icon name="share" />
-      </Button>
-      {/*Delete button*/}
-      <Button
-        color="link"
-        className={styles.link}
-        onClick={(e) => {
-          e.preventDefault();
-          onNavigate && onNavigate(app);
-        }}
-        data-testid={`href-${app.id}`}
-      >
-        <Icon name="trash" />
-      </Button>
-    </>
-  );
+const AppListingButtons: React.FC<AppListItemProps> = ({ app }) => {
+  if (app.id)
+    return (
+      <>
+        {/*Share button*/}
+        <RemoveAppButton appId={app.id} />
+      </>
+    );
+  return null;
 };
 
 type AppListingProps = {
@@ -65,6 +48,7 @@ const CookbookListing: React.FC<AppListingProps> = ({
   className,
 }) => {
   const [selectedApp, setSelectedApp] = useState<Apps.TapisApp | null>(null);
+  const { deleteFileAsync, reset } = useDelete();
   const selectWrapper = useCallback(
     (app: Apps.TapisApp) => {
       console.log(app);
@@ -94,9 +78,7 @@ const CookbookListing: React.FC<AppListingProps> = ({
     {
       Header: "Actions",
       accessor: "actions",
-      Cell: (el) => (
-        <AppListingButton app={el.row.original} onNavigate={onNavigate} />
-      ),
+      Cell: (el) => <RemoveAppButton app={el.row.original} />,
     },
   ];
 
