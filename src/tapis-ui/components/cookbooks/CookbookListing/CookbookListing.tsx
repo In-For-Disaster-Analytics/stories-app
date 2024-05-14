@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useList } from 'tapis-hooks/files';
-import { Files } from '@tapis/tapis-typescript';
+import { useList } from 'tapis-hooks/apps';
+import { Apps } from '@tapis/tapis-typescript';
 import { Icon, InfiniteScrollTable } from 'tapis-ui/_common';
 import { QueryWrapper } from 'tapis-ui/_wrappers';
 import { Row, Column, CellProps } from 'react-table';
@@ -14,54 +14,54 @@ import {
   faSquare as filledSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
-import styles from './FileListing.module.scss';
+import styles from './CookbookListing.module.scss';
 
-export type OnSelectCallback = (files: Array<Files.FileInfo>) => any;
-export type OnNavigateCallback = (file: Files.FileInfo) => any;
+export type OnSelectCallback = (apps: Array<Apps.TapisApp>) => any;
+export type OnNavigateCallback = (app: Apps.TapisApp) => any;
 
-interface FileListingDirProps {
-  file: Files.FileInfo;
-  onNavigate?: OnNavigateCallback;
-  location?: string;
-}
+// interface AppListingDirProps {
+//   app: Apps.TapisApp;
+//   onNavigate?: OnNavigateCallback;
+//   location?: string;
+// }
 
-const FileListingDir: React.FC<FileListingDirProps> = ({
-  file,
-  onNavigate = undefined,
-  location = undefined,
-}) => {
-  if (location) {
-    return (
-      <NavLink to={`${location}${file.name ?? ''}/`} className={styles.dir}>
-        {file.name}/
-      </NavLink>
-    );
-  }
-  if (onNavigate) {
-    return (
-      <Button
-        color="link"
-        className={styles.link}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          onNavigate(file);
-        }}
-        data-testid={`btn-link-${file.name}`}
-      >
-        {file.name}/
-      </Button>
-    );
-  }
-  return <span>{file.name}/</span>;
-};
+// const AppListingDir: React.FC<AppListingDirProps> = ({
+//   app,
+//   onNavigate = undefined,
+//   location = undefined,
+// }) => {
+//   if (location) {
+//     return (
+//       <NavLink to={`${location}${app.id ?? ''}/`} className={styles.dir}>
+//         {app.id}/
+//       </NavLink>
+//     );
+//   }
+//   if (onNavigate) {
+//     return (
+//       <Button
+//         color="link"
+//         className={styles.link}
+//         onClick={(e) => {
+//           e.preventDefault();
+//           e.stopPropagation();
+//           onNavigate(app);
+//         }}
+//         data-testid={`btn-link-${app.id}`}
+//       >
+//         {app.id}/
+//       </Button>
+//     );
+//   }
+//   return <span>{app.name}/</span>;
+// };
 
-type FileListingCheckboxCell = {
+type AppListingCheckboxCell = {
   selected: boolean;
 };
 
 /* eslint-disable-next-line */
-export const FileListingCheckboxCell: React.FC<FileListingCheckboxCell> =
+export const AppListingCheckboxCell: React.FC<AppListingCheckboxCell> =
   React.memo(({ selected }) => {
     return (
       <span className="fa-layers fa-fw">
@@ -75,33 +75,28 @@ export const FileListingCheckboxCell: React.FC<FileListingCheckboxCell> =
     );
   });
 
-interface FileListingItemProps {
-  file: Files.FileInfo;
+interface AppListingItemProps {
+  app: Apps.TapisApp;
   onNavigate?: OnNavigateCallback;
   location?: string;
 }
 
-const FileListingName: React.FC<FileListingItemProps> = ({
-  file,
+const AppListingName: React.FC<AppListingItemProps> = ({
+  app,
   onNavigate = undefined,
   location = undefined,
 }) => {
-  if (file.type === 'file') {
-    return <>{file.name}</>;
-  }
-  return (
-    <FileListingDir file={file} onNavigate={onNavigate} location={location} />
-  );
+  return <>{app.id}</>;
 };
 
 export type SelectMode = {
   mode: 'none' | 'single' | 'multi';
-  // If undefined, allowed selectable file types will be treated as [ "file", "dir" ]
-  types?: Array<'dir' | 'file'>;
+  // If undefined, allowed selectable app types will be treated as [ "app", "dir" ]
+  types?: Array<'dir' | 'app'>;
 };
 
-type FileListingTableProps = {
-  files: Array<Files.FileInfo>;
+type AppListingTableProps = {
+  apps: Array<Apps.TapisApp>;
   prependColumns?: Array<Column>;
   appendColumns?: Array<Column>;
   getRowProps?: (row: Row) => any;
@@ -111,12 +106,12 @@ type FileListingTableProps = {
   location?: string;
   className?: string;
   selectMode?: SelectMode;
-  fields?: Array<'size' | 'lastModified'>;
+  fields?: Array<'updated'>;
 };
 
-export const FileListingTable: React.FC<FileListingTableProps> = React.memo(
+export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
   ({
-    files,
+    apps,
     prependColumns = [],
     appendColumns = [],
     getRowProps,
@@ -129,20 +124,20 @@ export const FileListingTable: React.FC<FileListingTableProps> = React.memo(
     fields,
   }) => {
     const styleName =
-      selectMode?.mode !== 'none' ? 'file-list-select' : 'file-list';
+      selectMode?.mode !== 'none' ? 'app-list-select' : 'app-list';
 
     const tableColumns: Array<Column> = [
       ...prependColumns,
       {
         Header: '',
         accessor: 'type',
-        Cell: (el) => <Icon name={el.value === 'file' ? 'file' : 'folder'} />,
+        Cell: (el) => <Icon name={el.value === 'app' ? 'app' : 'folder'} />,
       },
       {
-        Header: 'Name',
+        Header: 'Id',
         Cell: (el) => (
-          <FileListingName
-            file={el.row.original}
+          <AppListingName
+            app={el.row.original}
             onNavigate={onNavigate}
             location={location}
           />
@@ -150,20 +145,21 @@ export const FileListingTable: React.FC<FileListingTableProps> = React.memo(
       },
     ];
 
-    if (fields?.some((field) => field === 'size')) {
-      tableColumns.push({
-        Header: 'Size',
-        accessor: 'size',
-        Cell: (el) => <span>{sizeFormat(el.value)}</span>,
-      });
-    }
+    // if (fields?.some((field) => field === 'size')) {
+    //   tableColumns.push({
+    //     Header: 'Size',
+    //     accessor: 'size',
+    //     Cell: (el) => <span>{sizeFormat(el.value)}</span>,
+    //   });
+    // }
 
-    if (fields?.some((field) => field === 'lastModified')) {
+    if (fields?.some((field) => field === 'updated')) {
       tableColumns.push({
         Header: 'Last Modified',
-        accessor: 'lastModified',
+        accessor: 'updated',
         Cell: (el) => (
-          <span>{formatDateTimeFromValue(new Date(el.value))}</span>
+          <span>{el.value}</span>
+          // <span>{formatDateTimeFromValue(new Date(el.value))}</span>
         ),
       });
     }
@@ -174,31 +170,31 @@ export const FileListingTable: React.FC<FileListingTableProps> = React.memo(
       <InfiniteScrollTable
         className={`${className} ${styles[styleName]}`}
         tableColumns={tableColumns}
-        tableData={files}
+        tableData={apps}
         onInfiniteScroll={onInfiniteScroll}
         isLoading={isLoading}
-        noDataText="No files found"
+        noDataText="No apps found"
         getRowProps={getRowProps}
       />
     );
   }
 );
 
-type FileSelectHeaderProps = {
+type AppSelectHeaderProps = {
   onSelectAll: () => void;
   onUnselectAll: () => void;
-  selectedFileDict: SelectFileDictType;
+  selectedAppDict: SelectAppDictType;
 };
 
-type SelectFileDictType = { [path: string]: boolean };
+type SelectAppDictType = { [path: string]: boolean };
 
-const FileSelectHeader: React.FC<FileSelectHeaderProps> = ({
+const AppSelectHeader: React.FC<AppSelectHeaderProps> = ({
   onSelectAll,
   onUnselectAll,
-  selectedFileDict,
+  selectedAppDict,
 }) => {
   const [checked, setChecked] = useState(false);
-  const allSelected = Object.values(selectedFileDict).some(
+  const allSelected = Object.values(selectedAppDict).some(
     (value) => value === false
   );
   const onClick = useCallback(() => {
@@ -217,12 +213,12 @@ const FileSelectHeader: React.FC<FileSelectHeaderProps> = ({
       onClick={onClick}
       data-testid="select-all"
     >
-      <FileListingCheckboxCell selected={checked && !allSelected} />
+      <AppListingCheckboxCell selected={checked && !allSelected} />
     </span>
   );
 };
 
-interface FileListingProps {
+interface AppListingProps {
   systemId: string;
   path: string;
   onSelect?: OnSelectCallback;
@@ -230,12 +226,13 @@ interface FileListingProps {
   onNavigate?: OnNavigateCallback;
   location?: string;
   className?: string;
-  fields?: Array<'size' | 'lastModified'>;
-  selectedFiles?: Array<Files.FileInfo>;
+  // fields?: Array<'size' | 'updated'>;
+  fields?: Array<'updated'>;
+  selectedApps?: Array<Apps.TapisApp>;
   selectMode?: SelectMode;
 }
 
-const FileListing: React.FC<FileListingProps> = ({
+const AppListing: React.FC<AppListingProps> = ({
   systemId,
   path,
   onSelect = undefined,
@@ -243,61 +240,42 @@ const FileListing: React.FC<FileListingProps> = ({
   onNavigate = undefined,
   location = undefined,
   className,
-  fields = ['size', 'lastModified'],
-  selectedFiles = [],
+  // fields = ['size', 'updated'],
+  fields = ['updated'],
+  selectedApps = [],
   selectMode,
 }) => {
-  const {
-    hasNextPage,
-    isLoading,
-    error,
-    fetchNextPage,
-    concatenatedResults,
-    isFetchingNextPage,
-  } = useList({ systemId, path });
+  const { isLoading, error, data } = useList();
 
-  const infiniteScrollCallback = useCallback(() => {
-    if (hasNextPage) {
-      fetchNextPage();
-    }
-  }, [hasNextPage, fetchNextPage]);
+  const apps: Array<Apps.TapisApp> = data?.result ?? [];
 
-  const files: Array<Files.FileInfo> = useMemo(
-    () => concatenatedResults ?? [],
-    [concatenatedResults]
-  );
-
-  const selectedFileDict: SelectFileDictType = React.useMemo(() => {
-    const result: SelectFileDictType = {};
-    const selectedDict: SelectFileDictType = {};
-    selectedFiles.forEach((file) => {
-      selectedDict[file.path ?? ''] = true;
+  const selectedAppDict: SelectAppDictType = React.useMemo(() => {
+    const result: SelectAppDictType = {};
+    const selectedDict: SelectAppDictType = {};
+    selectedApps.forEach((app) => {
+      selectedDict[app.id ?? ''] = true;
     });
-    concatenatedResults?.forEach((file) => {
-      result[file.path ?? ''] = selectedDict[file.path ?? ''] ?? false;
+    apps?.forEach((app) => {
+      result[app.id ?? ''] = selectedDict[app.id ?? ''] ?? false;
     });
     return result;
-  }, [selectedFiles, concatenatedResults]);
+  }, [selectedApps, apps]);
 
   const prependColumns = selectMode?.types?.length
     ? [
         {
           Header: (
-            <FileSelectHeader
-              onSelectAll={() =>
-                onSelect && onSelect(concatenatedResults ?? [])
-              }
-              onUnselectAll={() =>
-                onUnselect && onUnselect(concatenatedResults ?? [])
-              }
-              selectedFileDict={selectedFileDict}
+            <AppSelectHeader
+              onSelectAll={() => onSelect && onSelect(apps ?? [])}
+              onUnselectAll={() => onUnselect && onUnselect(apps ?? [])}
+              selectedAppDict={selectedAppDict}
             />
           ),
           id: 'multiselect',
           Cell: (el: React.PropsWithChildren<CellProps<{}, any>>) => (
-            <FileListingCheckboxCell
+            <AppListingCheckboxCell
               selected={
-                selectedFileDict[(el.row.original as Files.FileInfo).path ?? '']
+                selectedAppDict[(el.row.original as Apps.TapisApp).id ?? '']
               }
             />
           ),
@@ -305,39 +283,40 @@ const FileListing: React.FC<FileListingProps> = ({
       ]
     : [];
 
-  const fileSelectCallback = useCallback(
-    (file: Files.FileInfo) => {
-      if (!selectMode?.types?.some((allowed) => allowed === file.type)) {
-        return;
-      }
-      if (selectedFileDict[file.path ?? ''] && onUnselect) {
-        onUnselect([file]);
+  const appSelectCallback = useCallback(
+    (app: Apps.TapisApp) => {
+      // if (!selectMode?.types?.some((allowed) => allowed === app.type)) {
+      //   return;
+      // }
+      console.log('appSelectCallback' + app.id);
+      if (selectedAppDict[app.id ?? ''] && onUnselect) {
+        onUnselect([app]);
       } else {
-        onSelect && onSelect([file]);
+        console.log('onSelect' + app.id);
+        onSelect && onSelect([app]);
       }
     },
-    [selectMode, onUnselect, selectedFileDict, onSelect]
+    [selectMode, onUnselect, selectedAppDict, onSelect]
   );
 
   // Maps rows to row properties, such as classNames
   const getRowProps = (row: Row) => {
-    const file: Files.FileInfo = row.original as Files.FileInfo;
+    const app: Apps.TapisApp = row.original as Apps.TapisApp;
     return {
-      onClick: () => fileSelectCallback(file),
-      'data-testid': file.name,
-      className: selectedFileDict[file.path ?? ''] ? styles.selected : '',
+      onClick: () => appSelectCallback(app),
+      'data-testid': app.id,
+      className: selectedAppDict[app.id ?? ''] ? styles.selected : '',
     };
   };
 
   return (
     <QueryWrapper isLoading={isLoading} error={error} className={className}>
-      <FileListingTable
-        files={files}
+      <AppListingTable
+        apps={apps}
         prependColumns={prependColumns}
-        onInfiniteScroll={infiniteScrollCallback}
-        isLoading={isFetchingNextPage}
+        // onInfiniteScroll={infiniteScrollCallback}
+        // isLoading={isFetchingNextPage}
         getRowProps={getRowProps}
-        location={location}
         onNavigate={onNavigate}
         fields={fields}
         selectMode={selectMode}
@@ -346,4 +325,4 @@ const FileListing: React.FC<FileListingProps> = ({
   );
 };
 
-export default FileListing;
+export default AppListing;
