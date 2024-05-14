@@ -72,37 +72,37 @@ describe('Cookbooks', () => {
     expect(mockOnUnselect).toHaveBeenLastCalledWith([tapisApp]);
   });
 
-  // it('performs select all', () => {
-  //   const concatenatedResults: Array<Files.FileInfo> = [
-  //     { ...fileInfo },
-  //     { ...fileInfo, name: 'file2.txt' },
-  //   ];
-  //   (useList as jest.Mock).mockReturnValue({
-  //     concatenatedResults,
-  //     isLoading: false,
-  //     error: null,
-  //   });
-  //   const mockOnSelect = jest.fn();
-  //   const mockOnUnselect = jest.fn();
-  //   const { getByTestId } = renderComponent(
-  //     <FileListing
-  //       systemId={'system'}
-  //       path={'/'}
-  //       selectMode={{ mode: 'multi', types: ['dir', 'file'] }}
-  //       selectedFiles={[fileInfo]}
-  //       onSelect={mockOnSelect}
-  //       onUnselect={mockOnUnselect}
-  //     />
-  //   );
-  //   // Find the file1.txt and file2.txt rows
-  //   const selectAll = getByTestId('select-all');
-  //   expect(selectAll).toBeDefined();
+  it('performs select all', () => {
+    const concatenatedResults: Array<Apps.TapisApp> = [
+      tapisApp,
+      { ...tapisApp, uuid: 'd3412826-13fc-4709-b9d9-26ccbc0ecbd4' },
+    ];
+    (useList as jest.Mock).mockReturnValue({
+      data: {
+        result: concatenatedResults,
+      },
+      isLoading: false,
+      error: null,
+    });
+    const mockOnSelect = jest.fn();
+    const mockOnUnselect = jest.fn();
+    const { getByTestId } = renderComponent(
+      <CookbookListing
+        selectMode={{ mode: 'multi', types: ['dir', 'app'] }}
+        selectedApps={[tapisApp]}
+        onSelect={mockOnSelect}
+        onUnselect={mockOnUnselect}
+      />
+    );
+    // Find the file1.txt and file2.txt rows
+    const selectAll = getByTestId('select-all');
+    expect(selectAll).toBeDefined();
 
-  //   // Click on file1.txt and expect the unselect callback to have run
-  //   selectAll.click();
-  //   expect(mockOnSelect).toHaveBeenCalledWith(concatenatedResults);
+    // Click on file1.txt and expect the unselect callback to have run
+    selectAll.click();
+    expect(mockOnSelect).toHaveBeenCalledWith(concatenatedResults);
 
-  //   selectAll.click();
-  //   expect(mockOnUnselect).toHaveBeenCalledWith(concatenatedResults);
-  // });
+    selectAll.click();
+    expect(mockOnUnselect).toHaveBeenCalledWith(concatenatedResults);
+  });
 });
