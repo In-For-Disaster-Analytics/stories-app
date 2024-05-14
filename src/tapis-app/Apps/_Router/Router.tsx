@@ -1,21 +1,25 @@
-import React from "react";
+import React from 'react';
 import {
   Route,
   useRouteMatch,
   RouteComponentProps,
   Switch,
-} from "react-router-dom";
-import JobLauncher from "../JobLauncher";
-import { SectionMessage } from "tapis-ui/_common";
-import AppCreator from "../AppsCreator";
-import CookbookListing from "tapis-ui/components/cookbooks/CookbookListing";
+} from 'react-router-dom';
+import JobLauncher from '../JobLauncher';
+import { SectionMessage } from 'tapis-ui/_common';
+import AppCreator from '../AppsCreator';
+import CookbookListing from '../CookbookListing';
 
 const Router: React.FC = () => {
   const { path } = useRouteMatch();
   return (
     <Switch>
       <Route path={`${path}`} exact>
-        <CookbookListing systemId="ls6-gpu-a100-dev-v0.0.5" path="/" />
+        <CookbookListing
+          systemId="ls6-gpu-a100-dev-v0.0.5"
+          path="/"
+          location="/files/ls6-gpu-a100-dev-v0.0.5/"
+        />
       </Route>
 
       <Route path={`${path}/new`} render={() => <AppCreator />}></Route>

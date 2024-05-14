@@ -1,25 +1,29 @@
-import React from "react";
-import { AppsNav } from "../_components";
+import React from 'react';
+import { AppsNav } from '../_components';
 import {
   PageLayout,
   LayoutBody,
   LayoutHeader,
-  LayoutNavWrapper,
-} from "tapis-ui/_common";
+  Breadcrumbs,
+} from 'tapis-ui/_common';
 
-import { Router } from "../_Router";
+import { Router } from '../_Router';
+import Toolbar from 'tapis-app/Files/_components/Toolbar';
+import { useLocation } from 'react-router-dom';
+import breadcrumbsFromPathname from 'tapis-ui/_common/Breadcrumbs/breadcrumbsFromPathname';
+import styles from './Layout.module.scss';
 
 const Layout: React.FC = () => {
+  const { pathname } = useLocation();
+  const crumbs = breadcrumbsFromPathname(pathname).splice(1);
   const header = (
     <LayoutHeader>
       <div>Apps</div>
+      <div className={styles.breadcrumbs}>
+        <Breadcrumbs breadcrumbs={[{ text: 'Files' }, ...crumbs]} />
+      </div>
+      <Toolbar />
     </LayoutHeader>
-  );
-
-  const sidebar = (
-    <LayoutNavWrapper>
-      <AppsNav />
-    </LayoutNavWrapper>
   );
 
   const body = (
