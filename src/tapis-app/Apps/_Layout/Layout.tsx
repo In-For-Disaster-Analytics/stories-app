@@ -8,7 +8,7 @@ import {
 } from 'tapis-ui/_common';
 
 import { Router } from '../_Router';
-import Toolbar from 'tapis-app/Files/_components/Toolbar';
+import Toolbar from '../_components/Toolbar';
 import { useLocation } from 'react-router-dom';
 import breadcrumbsFromPathname from 'tapis-ui/_common/Breadcrumbs/breadcrumbsFromPathname';
 import styles from './Layout.module.scss';
