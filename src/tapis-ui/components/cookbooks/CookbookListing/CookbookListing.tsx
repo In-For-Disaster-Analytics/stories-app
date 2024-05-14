@@ -1,13 +1,9 @@
 import React, { useCallback, useState, useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useList } from 'tapis-hooks/apps';
 import { Apps } from '@tapis/tapis-typescript';
 import { Icon, InfiniteScrollTable } from 'tapis-ui/_common';
 import { QueryWrapper } from 'tapis-ui/_wrappers';
 import { Row, Column, CellProps } from 'react-table';
-import sizeFormat from 'utils/sizeFormat';
-import { Button } from 'reactstrap';
-import { formatDateTimeFromValue } from 'utils/timeFormat';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheckSquare,
@@ -219,12 +215,9 @@ const AppSelectHeader: React.FC<AppSelectHeaderProps> = ({
 };
 
 interface AppListingProps {
-  systemId: string;
-  path: string;
   onSelect?: OnSelectCallback;
   onUnselect?: OnSelectCallback;
   onNavigate?: OnNavigateCallback;
-  location?: string;
   className?: string;
   // fields?: Array<'size' | 'updated'>;
   fields?: Array<'updated'>;
@@ -233,12 +226,9 @@ interface AppListingProps {
 }
 
 const AppListing: React.FC<AppListingProps> = ({
-  systemId,
-  path,
   onSelect = undefined,
   onUnselect = undefined,
   onNavigate = undefined,
-  location = undefined,
   className,
   // fields = ['size', 'updated'],
   fields = ['updated'],
