@@ -6,6 +6,11 @@ import { useTapisConfig } from 'tapis-hooks';
 import QueryKeys from './queryKeys';
 import create from 'tapis-api/apps/create';
 
+export type InsertHookParams = {
+  req: Apps.ReqPostApp;
+  progressCallback?: (progress: number, file: File) => void;
+};
+
 const useCreate = () => {
   const { basePath, accessToken } = useTapisConfig();
   const jwt = accessToken?.access_token || '';

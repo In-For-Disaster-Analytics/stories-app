@@ -3,9 +3,7 @@ import UploadModal from './UploadModal';
 
 describe('UploadModal', () => {
   it('renders the upload modal', async () => {
-    renderComponent(
-      <UploadModal toggle={() => {}} systemId={'system-id'} path={'/'} />
-    );
+    renderComponent(<UploadModal toggle={() => {}} />);
   });
   it.todo('uploads files');
 });

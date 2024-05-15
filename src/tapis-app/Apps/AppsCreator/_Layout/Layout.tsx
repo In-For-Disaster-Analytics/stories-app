@@ -5,14 +5,12 @@
  *
  */
 import { Apps } from '@tapis/tapis-typescript';
-import { JSONDisplay } from 'tapis-ui/_common';
 import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './AppCreator.module.css';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { useCreate } from 'tapis-hooks/apps';
 import { SubmitWrapper } from 'tapis-ui/_wrappers';
-import { set } from 'js-cookie';
 
 export const Layout: React.FC = () => {
   const { isLoading, error, isSuccess, submit, data } = useCreate();
@@ -84,13 +82,6 @@ export const Layout: React.FC = () => {
             </Button>
           </SubmitWrapper>
         </Form>
-      </div>
-      <div>
-        {app !== null && app !== undefined ? (
-          <JSONDisplay json={app} />
-        ) : (
-          <p>Load the file to see the app specification </p>
-        )}
       </div>
     </div>
   );

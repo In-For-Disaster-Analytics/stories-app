@@ -1,21 +1,12 @@
-import { useEffect, useState, useCallback, useReducer } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { GenericModal } from 'tapis-ui/_common';
 import { SubmitWrapper } from 'tapis-ui/_wrappers';
 import { ToolbarModalProps } from '../Toolbar';
-import { useUpload } from 'tapis-hooks/files';
-import { focusManager } from 'react-query';
-import { useDropzone } from 'react-dropzone';
 import styles from './UploadModal.module.scss';
-import { FileListingTable } from 'tapis-ui/components/files/FileListing';
-import { Files } from '@tapis/tapis-typescript';
-import { Column } from 'react-table';
-import sizeFormat from 'utils/sizeFormat';
-import { useFileOperations } from '../_hooks';
-import { InsertHookParams } from 'tapis-hooks/files/useUpload';
-import Progress from 'tapis-ui/_common/Progress';
-import { FileOpEventStatusEnum } from '../_hooks/useFileOperations';
-import { FileOperationStatus } from '../_components';
+import { useCreate } from 'tapis-hooks/apps';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Apps } from '@tapis/tapis-typescript';
+import { focusManager } from 'react-query';
 
 export enum FileOpEventStatus {
   loading = 'loading',
@@ -33,190 +24,85 @@ type UploadModalProps = ToolbarModalProps & {
   maxFileSizeBytes?: number;
 };
 
-const UploadModal: React.FC<UploadModalProps> = ({
-  toggle,
-  path,
-  systemId,
-  maxFileSizeBytes = 524288000,
-}) => {
-  const [files, setFiles] = useState<Array<File>>([]);
+const UploadModal: React.FC<UploadModalProps> = ({ toggle }) => {
+  const { isLoading, error, isSuccess, submit, data } = useCreate();
 
-  const reducer = (
-    state: FileProgressState,
-    action: { name: string; progress: number }
-  ) => {
-    const { name, progress } = action;
-    return {
-      ...state,
-      [name]: progress,
-    };
-  };
-
-  const [fileProgressState, dispatch] = useReducer(
-    reducer,
-    {} as FileProgressState
-  );
-
-  const onProgress = (uploadProgress: number, file: File) => {
-    dispatch({
-      name: file.name,
-      progress: uploadProgress,
-    });
-  };
-
-  const onDrop = useCallback(
-    (selectedFiles: Array<File>) => {
-      // Create an array of files unique File objects. This prevents
-      // a user from trying to upload 2 or more of the same file.
-      const uniqueFiles = selectedFiles.filter(
-        (selectedFile) =>
-          // The some function contains the selection logic for
-          // the filter function. All files that have the same name
-          // as any file in the uniqueFiles array or exceeds the max
-          // file size will not be added to the final array.
-          !files.some(
-            (existingFile) =>
-              existingFile.name === selectedFile.name ||
-              selectedFile.size > maxFileSizeBytes
-          )
-      );
-
-      setFiles([...files, ...uniqueFiles]);
-    },
-    [files, setFiles, maxFileSizeBytes]
-  );
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-  });
-
-  const removeFile = useCallback(
-    (file: Files.FileInfo) => {
-      setFiles([...files.filter((checkFile) => file.name !== checkFile.name)]);
-    },
-    [files, setFiles]
-  );
-
-  const { uploadAsync, reset } = useUpload();
-
-  const key = (params: InsertHookParams) => params.file.name;
-  const onComplete = useCallback(() => {
-    focusManager.setFocused(true);
-  }, []);
-
-  const { state, run, isLoading, isSuccess, error } = useFileOperations<
-    InsertHookParams,
-    Files.FileStringResponse
-  >({
-    fn: uploadAsync,
-    key,
-    onComplete,
-  });
+  const [file, setFile] = useState<File | null>(null);
+  const [app, setApp] = useState<Apps.ReqPostApp | null>(null);
 
   useEffect(() => {
-    reset();
-  }, [reset, path]);
+    const readerFile = async () => {
+      if (file) {
+        const contents = await file.text();
+        const data = JSON.parse(contents) as Apps.ReqPostApp;
+        setApp(data);
+      }
+    };
+    readerFile();
+  }, [file]);
 
-  const onSubmit = useCallback(() => {
-    const operations: Array<InsertHookParams> = files.map((file) => ({
-      systemId: systemId!,
-      path: path!,
-      file,
-      progressCallback: onProgress,
-    }));
-    run(operations);
-  }, [files, run, systemId, path]);
+  useEffect(() => {
+    if (isSuccess) {
+      focusManager.setFocused(true);
+    }
+    setFile(null);
+  }, [isSuccess]);
 
-  const filesToFileInfo = (filesArr: Array<File>): Array<Files.FileInfo> => {
-    return filesArr.map((file) => {
-      return { name: file.name, size: file.size, type: 'file' };
-    });
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('file changed');
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
   };
 
-  const statusColumn: Array<Column> = [
-    {
-      Header: '',
-      id: 'deleteStatus',
-      Cell: (el) => {
-        const file = el.row.original as Files.FileInfo;
-        const status = state[file.name!]?.status;
-        if (!status) {
-          return (
-            <span
-              className={styles['remove-file']}
-              onClick={() => {
-                removeFile(filesToFileInfo(files)[el.row.index]);
-              }}
-            >
-              &#x2715;
-            </span>
-          );
-        }
-        if (
-          status === FileOpEventStatusEnum.loading &&
-          fileProgressState[file.name!] !== undefined
-        ) {
-          return (
-            <div className={styles['progress-bar-container']}>
-              <Progress value={fileProgressState[file.name!]} />
-            </div>
-          );
-        }
-        return <FileOperationStatus status={status} />;
-      },
-    },
-  ];
+  const handleFileClick = (
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+  ) => {
+    const element = e.target as HTMLInputElement;
+    element.value = '';
+  };
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (app !== null) {
+      submit(app);
+    }
+  };
+  const inputFile = useRef(null);
   return (
     <GenericModal
       toggle={toggle}
-      title={`Upload files`}
+      title={`Create new application`}
       body={
         <div>
-          {!(isLoading || isSuccess) && (
-            <div
-              aria-label="Dropzone"
-              className={styles['file-dropzone']}
-              {...getRootProps()}
+          <h3> Upload a JSON file with the application specification </h3>
+          <Form onSubmit={onSubmit}>
+            <FormGroup>
+              <Input
+                type="file"
+                name="file"
+                id="file"
+                ref={inputFile}
+                onChange={(e) => handleFileChange(e)}
+                onClick={(e) => handleFileClick(e)}
+              />
+            </FormGroup>
+
+            <SubmitWrapper
+              isLoading={isLoading}
+              error={error}
+              success={isSuccess ? `Application created` : ''}
             >
-              <input aria-label="File Input" {...getInputProps()} />
-              <Button aria-label="File Select">Select files</Button>
-              <div>
-                <p>or drag and drop</p>
-                <b>Max file size: {sizeFormat(maxFileSizeBytes)}</b>
-              </div>
-            </div>
-          )}
-          <h3 className={styles['files-list-header']}>
-            Uploading to {systemId}/{path}
-          </h3>
-          {error && <p className={styles['upload-error']}>{error.message}</p>}
-          <div className={styles['files-list-container']}>
-            <FileListingTable
-              files={filesToFileInfo(files)}
-              fields={['size']}
-              appendColumns={statusColumn}
-              className={styles['file-list-table']}
-            />
-          </div>
+              <Button
+                className={styles.submit}
+                color="primary"
+                disabled={isLoading || isSuccess || !file}
+              >
+                Submit
+              </Button>
+            </SubmitWrapper>
+          </Form>
         </div>
-      }
-      footer={
-        <SubmitWrapper
-          isLoading={isLoading}
-          error={error}
-          success={isSuccess ? `Successfully uploaded files` : ''}
-          reverse={true}
-        >
-          <Button
-            color="primary"
-            disabled={isLoading || isSuccess || !!error || files.length === 0}
-            aria-label="Submit"
-            onClick={onSubmit}
-          >
-            Upload ({files.length})
-          </Button>
-        </SubmitWrapper>
       }
     />
   );

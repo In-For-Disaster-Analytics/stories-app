@@ -214,7 +214,13 @@ const Toolbar: React.FC = () => {
             />
           )} */}
           {modal === 'delete' && <DeleteModal toggle={toggle} />}
-          {modal === 'upload' && (UploadModal toggle={toggle} />)
+          {modal === 'upload' && (
+            <UploadModal
+              toggle={toggle}
+              systemId="ls6-gpu-a100-dev-v0.0.5"
+              path="/"
+            />
+          )}
         </div>
       )}
     </div>
