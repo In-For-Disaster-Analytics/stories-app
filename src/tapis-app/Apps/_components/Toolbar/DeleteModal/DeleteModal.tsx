@@ -12,6 +12,7 @@ import { Apps } from '@tapis/tapis-typescript';
 import useDelete, { DeleteHookParams } from 'tapis-hooks/apps/useDelete';
 import useAppsOperations from '../_hooks';
 import AppsOperationStatus from '../_components';
+import { AppListingTable } from 'tapis-ui/components/apps/AppListing';
 
 const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
@@ -84,11 +85,11 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
       title={`Delete apps`}
       body={
         <div>
-          <h3>Holi</h3>
+          <h3>Deleting apps</h3>
           <div className={styles['files-list-container']}>
-            <FileListingTable
-              files={selectedApps}
-              fields={['size']}
+            <AppListingTable
+              apps={selectedApps}
+              fields={['updated']}
               appendColumns={statusColumn}
               className={styles['file-list-table']}
             />
