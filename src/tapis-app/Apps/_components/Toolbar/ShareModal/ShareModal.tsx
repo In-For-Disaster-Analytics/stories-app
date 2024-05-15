@@ -1,21 +1,25 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { Button } from 'reactstrap';
-import { GenericModal } from 'tapis-ui/_common';
+import { DropdownSelector, GenericModal } from 'tapis-ui/_common';
 import { SubmitWrapper } from 'tapis-ui/_wrappers';
 import { FileListingTable } from 'tapis-ui/components/files/FileListing/FileListing';
 import { ToolbarModalProps } from '../Toolbar';
 import { focusManager } from 'react-query';
 import { Column } from 'react-table';
-import styles from './DeleteModal.module.scss';
+import styles from './ShareModal.module.scss';
 import { useAppsSelect } from '../../AppsContext';
 import { Apps } from '@tapis/tapis-typescript';
-import useDelete, { DeleteHookParams } from 'tapis-hooks/apps/useDelete';
 import useAppsOperations from '../_hooks';
 import AppsOperationStatus from '../_components';
+import useSharePublic, {
+  ShareHookParams,
+} from 'tapis-hooks/apps/useSharePublic';
+import { AppListingTable } from 'tapis-ui/components/apps/AppListing';
 
-const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
+const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
-  const { deleteAppAsync, reset } = useDelete();
+  const { shareAppPublicAsync, reset } = useSharePublic();
+  const [isPublishedApp, setIsPublishedApp] = useState(true);
 
   useEffect(() => {
     reset();
@@ -28,15 +32,15 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
   }, []);
 
   const { run, state, isLoading, isSuccess, error } = useAppsOperations<
-    DeleteHookParams,
+    ShareHookParams,
     Apps.RespChangeCount
   >({
-    fn: deleteAppAsync,
+    fn: shareAppPublicAsync,
     onComplete,
   });
 
   const onSubmit = useCallback(() => {
-    const operations: Array<DeleteHookParams> = selectedApps.map((app) => ({
+    const operations: Array<ShareHookParams> = selectedApps.map((app) => ({
       id: app.id!,
     }));
     run(operations);
@@ -81,25 +85,41 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
         toggle();
         unselect(selectedApps);
       }}
-      title={`Delete apps`}
+      title={`Share apps`}
       body={
         <div>
-          <h3>Holi</h3>
           <div className={styles['files-list-container']}>
-            <FileListingTable
-              files={selectedApps}
-              fields={['size']}
+            <AppListingTable
+              apps={selectedApps}
+              fields={['updated']}
               appendColumns={statusColumn}
               className={styles['file-list-table']}
             />
           </div>
+          <h3> General access </h3>
+
+          <DropdownSelector
+            type={undefined}
+            onChange={(e: any) => {
+              const value = e.target.value;
+              if (value === 'public') {
+                setIsPublishedApp(true);
+              }
+              if (value === 'private') {
+                setIsPublishedApp(false);
+              }
+            }}
+          >
+            <option value="private">Private</option>
+            <option value="public">Public</option>
+          </DropdownSelector>
         </div>
       }
       footer={
         <SubmitWrapper
           isLoading={false}
           error={error}
-          success={isSuccess ? `Successfully deleted files` : ''}
+          success={isSuccess ? `Visibility changed` : ''}
           reverse={true}
         >
           <Button
@@ -108,7 +128,7 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
             aria-label="Submit"
             onClick={onSubmit}
           >
-            Confirm delete ({selectedApps.length})
+            Confirm ({selectedApps.length})
           </Button>
           {!isSuccess && (
             <Button
@@ -128,4 +148,4 @@ const DeleteModal: React.FC<ToolbarModalProps> = ({ toggle }) => {
   );
 };
 
-export default DeleteModal;
+export default ShareModel;

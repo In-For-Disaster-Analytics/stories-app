@@ -1,6 +1,6 @@
 import { act, fireEvent, screen } from '@testing-library/react';
 import renderComponent from 'utils/testing';
-import DeleteModal from './ShareModal';
+import ShareModel from './ShareModal';
 import { useDelete } from 'tapis-hooks/apps';
 import { useMutations } from 'tapis-hooks/utils';
 import { tapisApp } from 'fixtures/apps.fixtures';
@@ -31,7 +31,7 @@ describe('DeleteModal', () => {
       selectedApps: [tapisApp],
     });
 
-    renderComponent(<DeleteModal toggle={() => {}} />);
+    renderComponent(<ShareModel toggle={() => {}} />);
 
     const button = screen.getByLabelText('Submit');
     await act(async () => {

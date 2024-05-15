@@ -1,3 +1,3 @@
-import DeleteModal from './ShareModal';
+import ShareModel from './ShareModal';
 
-export default DeleteModal;
+export default ShareModel;

@@ -8,6 +8,7 @@ import { useDownload, usePermissions } from 'tapis-hooks/files';
 import { useNotifications } from 'tapis-app/_components/Notifications';
 import { useAppsSelect } from '../AppsContext';
 import UploadModal from 'tapis-app/Apps/_components/Toolbar/UploadModal';
+import ShareModal from './ShareModal';
 
 type ToolbarButtonProps = {
   text: string;
@@ -91,54 +92,12 @@ const Toolbar: React.FC = () => {
     <div id="file-operation-toolbar">
       {pathname !== '/files' && (
         <div className={styles['toolbar-wrapper']}>
-          {/* <ToolbarButton
-            text="Rename"
-            icon="rename"
-            disabled={
-              selectedApps.length !== 1 ||
-              permission !== Apps.FilePermissionPermissionEnum.Modify
-            }
-            onClick={() => setModal('rename')}
-            aria-label="Rename"
-          />
           <ToolbarButton
-            text="Move"
-            icon="move"
-            disabled={
-              selectedApps.length === 0 ||
-              permission !== Apps.FilePermissionPermissionEnum.Modify
-            }
-            onClick={() => setModal('move')}
-            aria-label="Move"
-          />
-          <ToolbarButton
-            text="Copy"
-            icon="copy"
-            disabled={selectedApps.length === 0}
-            onClick={() => setModal('copy')}
-            aria-label="Copy"
-          /> */}
-          {/*
-              <ToolbarButton
-                text="Permissions"
-                icon="gear"
-                disabled={selectedApps.length !== 1 || permission !== Apps.FilePermissionPermissionEnum.Modify}
-                onClick={() => setModal('permissions')}
-              />
-            */}
-          {/* <ToolbarButton
             text="Transfers"
             icon="globe"
             disabled={false}
-            onClick={() => setModal('transfer')}
+            onClick={() => setModal('share')}
           />
-          <ToolbarButton
-            text="Download"
-            icon="download"
-            disabled={selectedApps.length === 0}
-            onClick={onDownload}
-            aria-label="Download"
-          /> */}
           <ToolbarButton
             text="Create"
             icon="add"
@@ -148,13 +107,6 @@ const Toolbar: React.FC = () => {
             }}
             aria-label="Add"
           />
-          {/* <ToolbarButton
-            text="Folder"
-            icon="add"
-            disabled={permission !== Apps.FilePermissionPermissionEnum.Modify}
-            onClick={() => setModal('createdir')}
-            aria-label="Add"
-          /> */}
           <ToolbarButton
             text="Delete"
             icon="trash"
@@ -162,59 +114,9 @@ const Toolbar: React.FC = () => {
             onClick={() => setModal('delete')}
             aria-label="Delete"
           />
-          {/* {modal === 'createdir' && (
-            <CreateDirModal
-              toggle={toggle}
-              systemId={systemId}
-              path={currentPath}
-            />
-          )}
-          {modal === 'copy' && (
-            <MoveCopyModal
-              toggle={toggle}
-              systemId={systemId}
-              path={currentPath}
-              operation={Apps.MoveCopyRequestOperationEnum.Copy}
-            />
-          )}
-          {modal === 'move' && (
-            <MoveCopyModal
-              toggle={toggle}
-              systemId={systemId}
-              path={currentPath}
-              operation={Apps.MoveCopyRequestOperationEnum.Move}
-            />
-          )}
-          {modal === 'rename' && (
-            <RenameModal
-              toggle={toggle}
-              systemId={systemId}
-              path={currentPath}
-            />
-          )}
-          {modal === 'transfer' && (
-            <TransferModal
-              toggle={toggle}
-              systemId={systemId}
-              path={currentPath}
-            />
-          )}
-          {modal === 'upload' && (
-            <UploadModal
-              toggle={toggle}
-              path={currentPath}
-              systemId={systemId}
-            />
-          )}
-          {modal === 'permissions' && (
-            <PermissionsModal
-              toggle={toggle}
-              systemId={systemId}
-              path={currentPath}
-            />
-          )} */}
           {modal === 'delete' && <DeleteModal toggle={toggle} />}
           {modal === 'upload' && <UploadModal toggle={toggle} />}
+          {modal === 'share' && <ShareModal toggle={toggle} />}
         </div>
       )}
     </div>
