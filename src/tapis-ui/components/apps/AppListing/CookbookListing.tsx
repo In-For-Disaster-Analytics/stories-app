@@ -230,7 +230,6 @@ const AppListing: React.FC<AppListingProps> = ({
   onUnselect = undefined,
   onNavigate = undefined,
   className,
-  // fields = ['size', 'updated'],
   fields = ['updated'],
   selectedApps = [],
   selectMode,
