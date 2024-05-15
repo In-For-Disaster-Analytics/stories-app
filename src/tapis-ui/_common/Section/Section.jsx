@@ -134,9 +134,8 @@ function Section({
     <section className={`${className} ${styles.root}`}>
       {/* eslint-disable */}
       <SectionMessages
-        className={styles.messages}
+        className={(styles.messages, messagesClassName)}
         routeName={routeName}
-        className={messagesClassName}
         welcomeText={welcomeMessageText}
       >
         {messages}
