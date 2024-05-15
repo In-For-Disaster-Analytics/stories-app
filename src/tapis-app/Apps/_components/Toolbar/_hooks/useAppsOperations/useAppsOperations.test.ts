@@ -10,7 +10,7 @@ jest.mock('tapis-hooks/files');
 describe('useFileOperations', () => {
   it('runs a sequence of file operations', async () => {
     type MockType = {
-      path: string;
+      id: string;
     };
     const mockOperation: MutationFunction<MockType, any> = (item) =>
       new Promise((resolve) => resolve({}));
@@ -26,7 +26,7 @@ describe('useFileOperations', () => {
     const { run } = hook.result.current;
 
     await act(async () => {
-      run([{ path: 'path1' }, { path: 'path2' }]);
+      run([{ id: 'path1' }, { id: 'path2' }]);
     });
     hook.rerender();
     expect(hook.result.current.state).toEqual({
