@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import styles from './CookbookListing.module.scss';
+import { formatDateTimeFromValue } from 'utils/timeFormat';
 
 export type OnSelectCallback = (apps: Array<Apps.TapisApp>) => any;
 export type OnNavigateCallback = (app: Apps.TapisApp) => any;
@@ -102,7 +103,7 @@ type AppListingTableProps = {
   location?: string;
   className?: string;
   selectMode?: SelectMode;
-  fields?: Array<'updated'>;
+  fields?: Array<'updated' | 'isPublic'>;
 };
 
 export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
@@ -141,21 +142,21 @@ export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
       },
     ];
 
-    // if (fields?.some((field) => field === 'size')) {
-    //   tableColumns.push({
-    //     Header: 'Size',
-    //     accessor: 'size',
-    //     Cell: (el) => <span>{sizeFormat(el.value)}</span>,
-    //   });
-    // }
+    if (fields?.some((field) => field === 'isPublic')) {
+      tableColumns.push({
+        Header: 'Visibility',
+        accessor: 'Visibility',
+        Cell: (el) => <span>{el.value ? `Public` : `Private`}</span>,
+      });
+    }
 
     if (fields?.some((field) => field === 'updated')) {
       tableColumns.push({
         Header: 'Last Modified',
         accessor: 'updated',
         Cell: (el) => (
-          <span>{el.value}</span>
-          // <span>{formatDateTimeFromValue(new Date(el.value))}</span>
+          // <span>{el.value}</span>
+          <span>{formatDateTimeFromValue(new Date(el.value))}</span>
         ),
       });
     }
@@ -219,8 +220,7 @@ interface AppListingProps {
   onUnselect?: OnSelectCallback;
   onNavigate?: OnNavigateCallback;
   className?: string;
-  // fields?: Array<'size' | 'updated'>;
-  fields?: Array<'updated'>;
+  fields?: Array<'updated' | 'isPublic'>;
   selectedApps?: Array<Apps.TapisApp>;
   selectMode?: SelectMode;
 }
@@ -230,7 +230,7 @@ const AppListing: React.FC<AppListingProps> = ({
   onUnselect = undefined,
   onNavigate = undefined,
   className,
-  fields = ['updated'],
+  fields = ['updated', 'isPublic'],
   selectedApps = [],
   selectMode,
 }) => {
