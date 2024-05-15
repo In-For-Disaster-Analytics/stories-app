@@ -146,7 +146,7 @@ export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
       tableColumns.push({
         Header: 'Visibility',
         accessor: 'isPublic',
-        Cell: (el) => <span>{el.value ? `Public` : `Private`}</span>,
+        Cell: (el) => <span>{el.value === 'true' ? `Public` : `Private`}</span>,
       });
     }
 

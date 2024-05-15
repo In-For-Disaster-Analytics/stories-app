@@ -93,12 +93,6 @@ const Toolbar: React.FC = () => {
       {pathname !== '/files' && (
         <div className={styles['toolbar-wrapper']}>
           <ToolbarButton
-            text="Transfers"
-            icon="globe"
-            disabled={false}
-            onClick={() => setModal('share')}
-          />
-          <ToolbarButton
             text="Create"
             icon="add"
             disabled={false}
@@ -113,6 +107,12 @@ const Toolbar: React.FC = () => {
             disabled={selectedApps.length === 0}
             onClick={() => setModal('delete')}
             aria-label="Delete"
+          />
+          <ToolbarButton
+            text="Share"
+            icon="globe"
+            disabled={selectedApps.length === 0}
+            onClick={() => setModal('share')}
           />
           {modal === 'delete' && <DeleteModal toggle={toggle} />}
           {modal === 'upload' && <UploadModal toggle={toggle} />}

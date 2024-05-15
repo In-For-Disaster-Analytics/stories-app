@@ -15,15 +15,21 @@ import useSharePublic, {
   ShareHookParams,
 } from 'tapis-hooks/apps/useSharePublic';
 import { AppListingTable } from 'tapis-ui/components/apps/AppListing';
+import useUnsharePublic from 'tapis-hooks/apps/useUnsharePublic';
 
 const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
   const { shareAppPublicAsync, reset } = useSharePublic();
-  const [isPublishedApp, setIsPublishedApp] = useState(true);
+  const { unShareAppPublicAsync, reset: resetUnshare } = useUnsharePublic();
+  const [isPublishedApp, setIsPublishedApp] = useState(false);
 
   useEffect(() => {
     reset();
   }, [reset]);
+
+  useEffect(() => {
+    resetUnshare();
+  }, [resetUnshare]);
 
   const onComplete = useCallback(() => {
     // Calling the focus manager triggers react-query's
@@ -39,12 +45,28 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     onComplete,
   });
 
+  const {
+    run: runUnshare,
+    state: stateUnshare,
+    isLoading: isLoadingUnshare,
+    isSuccess: isSuccessUnshare,
+    error: errorUnshare,
+  } = useAppsOperations<ShareHookParams, Apps.RespChangeCount>({
+    fn: unShareAppPublicAsync,
+    onComplete,
+  });
+
   const onSubmit = useCallback(() => {
     const operations: Array<ShareHookParams> = selectedApps.map((app) => ({
       id: app.id!,
     }));
-    run(operations);
-  }, [selectedApps, run]);
+    if (isPublishedApp) {
+      run(operations);
+    }
+    if (!isPublishedApp) {
+      runUnshare(operations);
+    }
+  }, [selectedApps, run, runUnshare]);
 
   const removeApps = useCallback(
     (file: Apps.TapisApp) => {
