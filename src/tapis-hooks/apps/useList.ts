@@ -5,7 +5,7 @@ import { useTapisConfig } from 'tapis-hooks';
 import QueryKeys from './queryKeys';
 
 export const defaultParams: Apps.GetAppsRequest = {
-  select: 'jobAttributes,version',
+  select: 'jobAttributes,version,updated',
 };
 
 const useList = (

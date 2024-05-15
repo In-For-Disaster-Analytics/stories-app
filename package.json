@@ -12,7 +12,7 @@
     "@mui/material": "^5.15.16",
     "@mui/styles": "^5.15.16",
     "@reduxjs/toolkit": "^1.5.1",
-    "@tapis/tapis-typescript": "^0.0.18",
+    "@tapis/tapis-typescript": "^0.0.27",
     "@vitejs/plugin-react": "^4.2.1",
     "axios": "^1.6.8",
     "bootstrap": "^4.6.0",
