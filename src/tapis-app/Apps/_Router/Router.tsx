@@ -6,9 +6,8 @@ import {
   Switch,
 } from 'react-router-dom';
 import JobLauncher from '../JobLauncher';
-import { SectionMessage } from 'tapis-ui/_common';
 import AppCreator from '../AppsCreator';
-import CookbookListing from '../CookbookListing';
+import CookbookListing from '../AppListing';
 
 const Router: React.FC = () => {
   const { path } = useRouteMatch();

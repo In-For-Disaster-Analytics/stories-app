@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { PageLayout } from 'tapis-ui/_common';
 import styles from './Layout.module.scss';
 import { useAppsSelect } from 'tapis-app/Apps/_components/AppsContext';
-import CookbookListing from 'tapis-ui/components/cookbooks/CookbookListing';
+import CookbookListing from 'tapis-ui/components/apps/AppListing';
 
 const Layout: React.FC = () => {
   // const { selectedFiles, select, unselect, clear } = useFilesSelect();
