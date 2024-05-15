@@ -16,13 +16,9 @@ import Toolbar from '../_components/Toolbar';
 
 const Layout: React.FC = () => {
   const { pathname } = useLocation();
-  const crumbs = breadcrumbsFromPathname(pathname).splice(1);
   const header = (
     <LayoutHeader>
       <div>Apps</div>
-      <div className={styles.breadcrumbs}>
-        <Breadcrumbs breadcrumbs={[{ text: 'Files' }, ...crumbs]} />
-      </div>
       <Toolbar />
     </LayoutHeader>
   );
