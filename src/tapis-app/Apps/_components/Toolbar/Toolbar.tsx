@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { useDownload, usePermissions } from 'tapis-hooks/files';
 import { useNotifications } from 'tapis-app/_components/Notifications';
 import { useAppsSelect } from '../AppsContext';
+import UploadModal from 'tapis-app/Apps/_components/Toolbar/UploadModal';
 
 type ToolbarButtonProps = {
   text: string;
@@ -138,16 +139,16 @@ const Toolbar: React.FC = () => {
             onClick={onDownload}
             aria-label="Download"
           /> */}
-          {/* <ToolbarButton
-            text="Upload"
-            icon="upload"
-            disabled={permission !== Apps.FilePermissionPermissionEnum.Modify}
+          <ToolbarButton
+            text="Create"
+            icon="add"
+            disabled={false}
             onClick={() => {
               setModal('upload');
             }}
-            aria-label="Upload"
+            aria-label="Add"
           />
-          <ToolbarButton
+          {/* <ToolbarButton
             text="Folder"
             icon="add"
             disabled={permission !== Apps.FilePermissionPermissionEnum.Modify}
@@ -213,6 +214,7 @@ const Toolbar: React.FC = () => {
             />
           )} */}
           {modal === 'delete' && <DeleteModal toggle={toggle} />}
+          {modal === 'upload' && <UploadModal toggle={toggle} />}
         </div>
       )}
     </div>
