@@ -14,11 +14,19 @@ const useCreate = () => {
   // (Other hooks would be used for data retrieval)
   //
   // In this case, submit helper is called to perform the operation
-  const { mutate, isLoading, isError, isSuccess, data, error, reset } =
-    useMutation<Apps.RespResourceUrl, Error, Apps.ReqPostApp>(
-      [QueryKeys, basePath, jwt],
-      (request: Apps.ReqPostApp) => create(request, basePath, jwt)
-    );
+  const {
+    mutate,
+    mutateAsync,
+    isLoading,
+    isError,
+    isSuccess,
+    data,
+    error,
+    reset,
+  } = useMutation<Apps.RespResourceUrl, Error, Apps.ReqPostApp>(
+    [QueryKeys, basePath, jwt],
+    (request: Apps.ReqPostApp) => create(request, basePath, jwt)
+  );
   //   useMutation<Jobs.RespSubmitJob, Error, Jobs.ReqSubmitJob>(
   //   [QueryKeys.submit, appId, appVersion, basePath, jwt],
   //   (request: Jobs.ReqSubmitJob) => submit(request, basePath, jwt)
@@ -36,6 +44,14 @@ const useCreate = () => {
     data,
     error,
     reset,
+    createAsync: (
+      request: Apps.ReqPostApp,
+      // react-query options to allow callbacks such as onSuccess
+      options?: any
+    ) => {
+      // Call mutate to trigger a single post-like API operation
+      return mutateAsync(request, options);
+    },
     submit: (request: Apps.ReqPostApp) => {
       // Call mutate to trigger a single post-like API operation
       return mutate(request);
