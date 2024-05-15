@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Workflows } from "@tapis/tapis-typescript";
-import { useList } from "tapis-hooks/workflows/pipelineruns";
-import { SectionMessage, SectionHeader } from "tapis-ui/_common";
-import { QueryWrapper } from "tapis-ui/_wrappers";
-import styles from "./PipelineRuns.module.scss";
-import { Table } from "reactstrap";
-import { Link } from "react-router-dom";
-import { Toolbar } from "../../_components";
-import { RunPipelineModal } from "../../_components/Toolbar/RunPipelineModal";
+import React, { useState } from 'react';
+import { Workflows } from '@tapis/tapis-typescript';
+import { useList } from 'tapis-hooks/workflows/pipelineruns';
+import { SectionMessage, SectionHeader } from 'tapis-ui/_common';
+import { QueryWrapper } from 'tapis-ui/_wrappers';
+import styles from './PipelineRuns.module.scss';
+import { Table } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Toolbar } from '../../_components';
+import { RunPipelineModal } from '../../_components/Toolbar/RunPipelineModal';
 
 type PipelineRunProps = {
   order: number;
@@ -24,12 +24,12 @@ const PipelineRun: React.FC<PipelineRunProps> = ({
 }) => {
   return (
     <tr>
-      <td className={styles["center"]}>{order}</td>
+      <td className={styles['center']}>{order}</td>
       <td>{pipelineRun.status}</td>
       <td>{pipelineRun.started_at}</td>
       <td>{pipelineRun.last_modified}</td>
       <td>{pipelineRun.uuid}</td>
-      <td className={styles["center"]}>
+      <td className={styles['center']}>
         <Link
           to={`/workflows/pipelines/${groupId}/${pipelineId}/runs/${pipelineRun.uuid}`}
         >
@@ -60,10 +60,10 @@ const PipelineRuns: React.FC<PipelineRunsProps> = ({ groupId, pipelineId }) => {
   };
 
   return (
-    <div className={styles["grid"]}>
+    <div className={styles['grid']}>
       <SectionHeader>{pipelineId}</SectionHeader>
       <Toolbar
-        buttons={["runpipeline"]}
+        buttons={['runpipeline']}
         pipelineId={pipelineId}
         groupId={groupId}
       />
@@ -73,7 +73,7 @@ const PipelineRuns: React.FC<PipelineRunsProps> = ({ groupId, pipelineId }) => {
             <Table dark bordered style={{ margin: 0 }}>
               <thead>
                 <tr>
-                  <th className={styles["center"]}>#</th>
+                  <th className={styles['center']}>#</th>
                   <th>status</th>
                   <th>started at</th>
                   <th>last modified</th>
