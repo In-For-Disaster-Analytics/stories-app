@@ -1,8 +1,8 @@
 export const KEYBOARD_KEY = {
   enter: 'Enter',
-  backspace: 'Backspace'
-}
+  backspace: 'Backspace',
+};
 
 export const KEYBOARD_KEYCODE = {
-  ime: 229
-}
+  ime: 229,
+};
