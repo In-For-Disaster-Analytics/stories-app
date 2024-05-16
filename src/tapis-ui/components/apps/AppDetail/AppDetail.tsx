@@ -7,16 +7,28 @@ type AppDetailProps = {
   appVersion: string;
 };
 
+type AppDetailNotes = {
+  icon: string;
+  label: string;
+  helpUrl: string;
+  category: string;
+  helpText: string;
+  queueFilter: string[];
+  isInteractive: boolean;
+  hideNodeCountAndCoresPerNode: boolean;
+};
+
 const AppDetail: React.FC<AppDetailProps> = ({ appId, appVersion }) => {
   const { data, isLoading, error } = useAppDetail(
     { appId, appVersion },
     { refetchOnWindowFocus: true }
   );
   const app = data?.result;
+  const notes = app?.notes as AppDetailNotes;
 
   return (
     <QueryWrapper isLoading={isLoading} error={error}>
-      {app && JSON.stringify(app)}
+      {notes && notes.helpText ? notes.helpText : 'No notes found'}
     </QueryWrapper>
   );
 };

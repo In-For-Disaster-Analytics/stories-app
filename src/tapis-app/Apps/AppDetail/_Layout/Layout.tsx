@@ -1,5 +1,4 @@
 import React from 'react';
-import { JobLauncher } from 'tapis-ui/components/jobs';
 import { PageLayout, LayoutHeader } from 'tapis-ui/_common';
 import AppDetail from 'tapis-ui/components/apps/AppDetail';
 
