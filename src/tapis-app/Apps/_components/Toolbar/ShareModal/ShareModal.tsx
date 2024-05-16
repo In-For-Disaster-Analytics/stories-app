@@ -17,6 +17,7 @@ import { AppListingTable } from 'tapis-ui/components/apps/AppListing';
 import useUnsharePublic from 'tapis-hooks/apps/useUnsharePublic';
 import useShare, { ShareUserHookParams } from 'tapis-hooks/apps/useShare';
 import { Form, Formik } from 'formik';
+import { MuiChipsInput } from 'tapis-ui/_common/MuiChipsInput';
 
 const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
@@ -172,6 +173,8 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
                 <option value="private">Private</option>
                 <option value="public">Public</option>
               </DropdownSelector>
+              <h3> Add users </h3>
+              <MuiChipsInput value={users} onChange={setUsers} />
             </Form>
           </Formik>
         </div>
