@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from 'react';
 import { Button } from 'reactstrap';
-import { DropdownSelector, GenericModal } from 'tapis-ui/_common';
+import { DropdownSelector, FormikInput, GenericModal } from 'tapis-ui/_common';
 import { SubmitWrapper } from 'tapis-ui/_wrappers';
 import { ToolbarModalProps } from '../Toolbar';
 import { focusManager } from 'react-query';
@@ -16,6 +16,7 @@ import useSharePublic, {
 import { AppListingTable } from 'tapis-ui/components/apps/AppListing';
 import useUnsharePublic from 'tapis-hooks/apps/useUnsharePublic';
 import useShare, { ShareUserHookParams } from 'tapis-hooks/apps/useShare';
+import { Form, Formik } from 'formik';
 
 const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
@@ -132,6 +133,10 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     },
   ];
 
+  const initialValues = {
+    visibility: 'private',
+  };
+
   return (
     <GenericModal
       toggle={() => {
@@ -149,25 +154,26 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
               className={styles['file-list-table']}
             />
           </div>
-          <h3> General access </h3>
-          <DropdownSelector
-            type={undefined}
-            onChange={(e: any) => {
-              const value = e.target.value;
-              reset();
-              resetUnshare();
-              resetShare();
-              if (value === 'public') {
-                setIsPublishedApp(true);
-              }
-              if (value === 'private') {
-                setIsPublishedApp(false);
-              }
-            }}
-          >
-            <option value="private">Private</option>
-            <option value="public">Public</option>
-          </DropdownSelector>
+          <Formik initialValues={initialValues} onSubmit={onSubmit}>
+            <Form id="share-form">
+              <h3> General access </h3>
+              <DropdownSelector
+                type={undefined}
+                onChange={(e: any) => {
+                  const value = e.target.value;
+                  if (value === 'public') {
+                    setIsPublishedApp(true);
+                  }
+                  if (value === 'private') {
+                    setIsPublishedApp(false);
+                  }
+                }}
+              >
+                <option value="private">Private</option>
+                <option value="public">Public</option>
+              </DropdownSelector>
+            </Form>
+          </Formik>
         </div>
       }
       footer={
