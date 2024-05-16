@@ -103,7 +103,7 @@ type AppListingTableProps = {
   location?: string;
   className?: string;
   selectMode?: SelectMode;
-  fields?: Array<'updated' | 'isPublic'>;
+  fields?: Array<'updated' | 'isPublic' | 'owner'>;
 };
 
 export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
@@ -141,6 +141,13 @@ export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
         ),
       },
     ];
+
+    if (fields?.some((field) => field === 'owner')) {
+      tableColumns.push({
+        Header: 'Owner',
+        accessor: 'owner',
+      });
+    }
 
     if (fields?.some((field) => field === 'isPublic')) {
       tableColumns.push({
@@ -220,7 +227,7 @@ interface AppListingProps {
   onUnselect?: OnSelectCallback;
   onNavigate?: OnNavigateCallback;
   className?: string;
-  fields?: Array<'updated' | 'isPublic'>;
+  fields?: Array<'updated' | 'isPublic' | 'owner'>;
   selectedApps?: Array<Apps.TapisApp>;
   selectMode?: SelectMode;
 }
@@ -230,7 +237,7 @@ const AppListing: React.FC<AppListingProps> = ({
   onUnselect = undefined,
   onNavigate = undefined,
   className,
-  fields = ['updated', 'isPublic'],
+  fields = ['updated', 'isPublic', 'owner'],
   selectedApps = [],
   selectMode,
 }) => {

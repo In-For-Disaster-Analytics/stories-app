@@ -19,14 +19,18 @@
     }
     /* name */
     tr > *:nth-child(2) {
-      width: 62%;
+      width: 47%;
     }
-    /* size */
+    /* owner */
     tr > *:nth-child(3) {
       width: 15%;
     }
-    /* lastModified */
+    /* visibility */
     tr > *:nth-child(4) {
+      width: 15%;
+    }
+    /* lastModified */
+    tr > *:nth-child(5) {
       width: 20%;
     }
   }
@@ -39,14 +43,18 @@
     }
     /* name */
     tr > *:nth-child(2) {
-      width: 62%;
+      width: 47%;
     }
-    /* size */
+    /* owner */
     tr > *:nth-child(3) {
       width: 15%;
     }
-    /* lastModified */
+    /* visibility */
     tr > *:nth-child(4) {
+      width: 15%;
+    }
+    /* lastModified */
+    tr > *:nth-child(5) {
       width: 20%;
     }
   }
@@ -61,7 +69,7 @@
     tr > *:nth-child(2) {
       width: 57%;
     }
-    /* size */
+    /* visibility */
     tr > *:nth-child(3) {
       width: 17.5%;
     }
@@ -81,7 +89,7 @@
     tr > *:nth-child(2) {
       width: 62%;
     }
-    /* size */
+    /* visibility */
     tr > *:nth-child(3) {
       width: 15.5%;
     }
@@ -105,15 +113,15 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 61%;
+      width: 40%;
     }
-    /* size */
+    /* visibility */
     tr > *:nth-child(4) {
-      width: 14%;
+      width: 20%;
     }
     /* lastModified */
     tr > *:nth-child(5) {
-      width: 19%;
+      width: 14%;
     }
   }
 }
@@ -129,15 +137,15 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 61%;
+      width: 40%;
     }
-    /* size */
+    /* visibility */
     tr > *:nth-child(4) {
-      width: 14%;
+      width: 20%;
     }
     /* lastModified */
     tr > *:nth-child(5) {
-      width: 19%;
+      width: 14%;
     }
   }
 }
@@ -153,9 +161,9 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 57%;
+      width: 30%;
     }
-    /* size */
+    /* visibility */
     tr > *:nth-child(4) {
       width: 16.5%;
     }
@@ -179,7 +187,7 @@
     tr > *:nth-child(3) {
       width: 59%;
     }
-    /* size */
+    /* visibility */
     tr > *:nth-child(4) {
       width: 14.5%;
     }
@@ -201,9 +209,13 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 59%;
+      width: 45.5%;
     }
-    /* size */
+    /* owner */
+    tr > *:nth-child(4) {
+      width: 14.5%;
+    }
+    /* visibility */
     tr > *:nth-child(4) {
       width: 14.5%;
     }
