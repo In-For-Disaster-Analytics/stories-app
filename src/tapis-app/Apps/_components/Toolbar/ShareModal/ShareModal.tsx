@@ -2,7 +2,6 @@ import { useEffect, useCallback, useState } from 'react';
 import { Button } from 'reactstrap';
 import { DropdownSelector, GenericModal } from 'tapis-ui/_common';
 import { SubmitWrapper } from 'tapis-ui/_wrappers';
-import { FileListingTable } from 'tapis-ui/components/files/FileListing/FileListing';
 import { ToolbarModalProps } from '../Toolbar';
 import { focusManager } from 'react-query';
 import { Column } from 'react-table';
@@ -16,13 +15,16 @@ import useSharePublic, {
 } from 'tapis-hooks/apps/useSharePublic';
 import { AppListingTable } from 'tapis-ui/components/apps/AppListing';
 import useUnsharePublic from 'tapis-hooks/apps/useUnsharePublic';
+import useShare, { ShareUserHookParams } from 'tapis-hooks/apps/useShare';
 
 const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
   const { shareAppPublicAsync, reset } = useSharePublic();
   const { unShareAppPublicAsync, reset: resetUnshare } = useUnsharePublic();
+  const { shareAppAsync, reset: resetShare } = useShare();
   const [isPublishedApp, setIsPublishedApp] = useState(false);
 
+  const [users, setUsers] = useState<Array<string>>(['wmobley']);
   useEffect(() => {
     reset();
   }, [reset]);
@@ -31,16 +33,23 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     resetUnshare();
   }, [resetUnshare]);
 
+  useEffect(() => {
+    resetShare();
+  }, [resetShare]);
+
   const onComplete = useCallback(() => {
     // Calling the focus manager triggers react-query's
     // automatic refetch on window focus
     focusManager.setFocused(true);
   }, []);
 
-  const { run, state, isLoading, isSuccess, error } = useAppsOperations<
-    ShareHookParams,
-    Apps.RespChangeCount
-  >({
+  const {
+    run: runSharePublic,
+    state: stateSharePublic,
+    isLoading: isLoadingSharePublic,
+    isSuccess: isSuccessSharePublic,
+    error: errorSharePublic,
+  } = useAppsOperations<ShareHookParams, Apps.RespChangeCount>({
     fn: shareAppPublicAsync,
     onComplete,
   });
@@ -56,17 +65,37 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     onComplete,
   });
 
+  const {
+    run: runShare,
+    state: stateShare,
+    isLoading: isLoadingShare,
+    isSuccess: isSuccessShare,
+    error: errorShare,
+  } = useAppsOperations<ShareUserHookParams, Apps.RespChangeCount>({
+    fn: shareAppAsync,
+    onComplete,
+  });
+
   const onSubmit = useCallback(() => {
     const operations: Array<ShareHookParams> = selectedApps.map((app) => ({
       id: app.id!,
     }));
     if (isPublishedApp) {
-      run(operations);
+      runSharePublic(operations);
     }
     if (!isPublishedApp) {
       runUnshare(operations);
     }
-  }, [selectedApps, run, runUnshare]);
+    const userOperations: Array<ShareUserHookParams> = selectedApps.map(
+      (app) => ({
+        id: app.id!,
+        reqShareUpdate: {
+          users,
+        },
+      })
+    );
+    runShare(userOperations);
+  }, [selectedApps, runSharePublic, runUnshare]);
 
   const removeApps = useCallback(
     (file: Apps.TapisApp) => {
@@ -84,7 +113,7 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
       id: 'deleteStatus',
       Cell: (el) => {
         const file = selectedApps[el.row.index];
-        if (!state[file.id!]) {
+        if (!stateSharePublic[file.id!]) {
           return (
             <span
               className={styles['remove-file']}
@@ -96,7 +125,9 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
             </span>
           );
         }
-        return <AppsOperationStatus status={state[file.id!].status} />;
+        return (
+          <AppsOperationStatus status={stateSharePublic[file.id!].status} />
+        );
       },
     },
   ];
@@ -119,11 +150,13 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
             />
           </div>
           <h3> General access </h3>
-
           <DropdownSelector
             type={undefined}
             onChange={(e: any) => {
               const value = e.target.value;
+              reset();
+              resetUnshare();
+              resetShare();
               if (value === 'public') {
                 setIsPublishedApp(true);
               }
@@ -140,22 +173,36 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
       footer={
         <SubmitWrapper
           isLoading={false}
-          error={error}
-          success={isSuccess ? `Visibility changed` : ''}
+          error={errorSharePublic || errorShare || errorUnshare}
+          success={
+            isSuccessSharePublic || isSuccessUnshare ? `Visibility changed` : ''
+          }
           reverse={true}
         >
           <Button
             color="primary"
-            disabled={isLoading || isSuccess || selectedApps.length === 0}
+            disabled={
+              isLoadingSharePublic ||
+              isSuccessSharePublic ||
+              isLoadingShare ||
+              isSuccessShare ||
+              isLoadingUnshare ||
+              isSuccessUnshare ||
+              selectedApps.length === 0
+            }
             aria-label="Submit"
             onClick={onSubmit}
           >
             Confirm ({selectedApps.length})
           </Button>
-          {!isSuccess && (
+          {!isSuccessSharePublic && (
             <Button
               color="danger"
-              disabled={isLoading || isSuccess || selectedApps.length === 0}
+              disabled={
+                isLoadingSharePublic ||
+                isSuccessSharePublic ||
+                selectedApps.length === 0
+              }
               aria-label="Cancel"
               onClick={() => {
                 toggle();
