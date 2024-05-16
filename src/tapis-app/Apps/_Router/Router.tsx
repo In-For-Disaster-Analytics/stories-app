@@ -5,9 +5,9 @@ import {
   RouteComponentProps,
   Switch,
 } from 'react-router-dom';
-import JobLauncher from '../JobLauncher';
 import AppCreator from '../AppsCreator';
 import CookbookListing from '../AppListing';
+import AppDetail from '../AppDetail';
 
 const Router: React.FC = () => {
   const { path } = useRouteMatch();
@@ -28,7 +28,7 @@ const Router: React.FC = () => {
         }: RouteComponentProps<{
           appId: string;
           appVersion: string;
-        }>) => <JobLauncher appId={appId} appVersion={appVersion} />}
+        }>) => <AppDetail appId={appId} appVersion={appVersion} />}
       />
     </Switch>
   );
