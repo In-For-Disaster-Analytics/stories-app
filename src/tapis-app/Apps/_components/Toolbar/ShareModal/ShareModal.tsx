@@ -25,8 +25,10 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { unShareAppPublicAsync, reset: resetUnshare } = useUnsharePublic();
   const { shareAppAsync, reset: resetShare } = useShare();
   const [isPublishedApp, setIsPublishedApp] = useState(false);
-
-  const [users, setUsers] = useState<Array<string>>(['wmobley']);
+  const getAllUsers = selectedApps.map((app) => app.sharedWithUsers);
+  const [users, setUsers] = useState<Array<string>>(
+    getAllUsers.filter(String).flat() as Array<string>
+  );
   useEffect(() => {
     reset();
   }, [reset]);
