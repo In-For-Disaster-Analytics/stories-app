@@ -5,6 +5,9 @@ import Editor from '@monaco-editor/react';
 import { Button } from 'reactstrap';
 import Markdown from 'react-markdown';
 import { set } from 'js-cookie';
+import { text } from '@fortawesome/fontawesome-svg-core';
+import { Apps } from '@tapis/tapis-typescript';
+import { Tabs } from 'tapis-ui/_common';
 
 type AppDetailProps = {
   appId: string;
@@ -22,41 +25,43 @@ type AppDetailNotes = {
   hideNodeCountAndCoresPerNode: boolean;
 };
 
-const AppEdit: React.FC<AppDetailProps> = ({ appId, appVersion }) => {
-  const { data, isLoading, error } = useAppDetail(
-    { appId, appVersion },
-    { refetchOnWindowFocus: true }
-  );
-  const app = data?.result;
-  const notes = app?.notes as AppDetailNotes;
-  const [notesContent, setNotesContent] = React.useState(notes.helpText);
+type AppEditorProps = {
+  app: Apps.TapisApp;
+};
 
-  const [toggle, setToggle] = React.useState('editor');
+const AppEditor = ({ app }: AppEditorProps) => {
+  const tabs: { [name: string]: React.ReactNode } = {};
+
+  const notes = app.notes as AppDetailNotes;
+  const [text, setText] = React.useState(notes.helpText);
+
+  const editorTab = (
+    <Editor
+      height="90vh"
+      defaultLanguage="markdown"
+      defaultValue={text}
+      onChange={(value) => value && setText(value)}
+    />
+  );
+
+  const previewTab = <Markdown>{text}</Markdown>;
+
+  tabs['Editor'] = editorTab;
+  tabs['Preview'] = previewTab;
 
   return (
+    <div>
+      <Tabs tabs={tabs} />
+    </div>
+  );
+};
+
+const AppEdit: React.FC<AppDetailProps> = ({ appId, appVersion }) => {
+  const { data, isLoading, error } = useAppDetail({ appId, appVersion });
+  const app = data?.result;
+  return (
     <QueryWrapper isLoading={isLoading} error={error}>
-      {notes && notes.helpText ? (
-        <>
-          <Button color="primary" onClick={() => setToggle('editor')}>
-            Editor Mode
-          </Button>
-          <Button color="primary" onClick={() => setToggle('preview')}>
-            Preview Mode
-          </Button>
-          {toggle === 'preview' ? (
-            <Markdown>{notesContent}</Markdown>
-          ) : (
-            <Editor
-              height="90vh"
-              defaultLanguage="markdown"
-              defaultValue={notesContent}
-              onChange={(value) => value && setNotesContent(value)}
-            />
-          )}
-        </>
-      ) : (
-        'No notes found'
-      )}
+      {app ? <AppEditor app={app} /> : 'No notes found'}
     </QueryWrapper>
   );
 };
