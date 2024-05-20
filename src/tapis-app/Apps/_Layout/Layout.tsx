@@ -15,7 +15,6 @@ import { AppsProvider } from '../_components/AppsContext';
 import Toolbar from '../_components/Toolbar';
 
 const Layout: React.FC = () => {
-  const { pathname } = useLocation();
   const header = (
     <LayoutHeader>
       <div>Apps</div>

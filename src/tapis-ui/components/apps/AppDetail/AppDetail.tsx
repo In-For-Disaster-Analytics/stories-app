@@ -1,21 +1,15 @@
 import React from 'react';
 import { QueryWrapper } from 'tapis-ui/_wrappers';
 import { useDetail as useAppDetail } from 'tapis-hooks/apps';
+import Markdown from 'react-markdown';
 
 type AppDetailProps = {
   appId: string;
   appVersion: string;
 };
 
-type AppDetailNotes = {
-  icon: string;
-  label: string;
-  helpUrl: string;
-  category: string;
-  helpText: string;
-  queueFilter: string[];
-  isInteractive: boolean;
-  hideNodeCountAndCoresPerNode: boolean;
+const Viewer = ({ text }: { text: string }) => {
+  return <Markdown>{text}</Markdown>;
 };
 
 const AppDetail: React.FC<AppDetailProps> = ({ appId, appVersion }) => {
@@ -25,10 +19,15 @@ const AppDetail: React.FC<AppDetailProps> = ({ appId, appVersion }) => {
   );
   const app = data?.result;
   const notes = app?.notes as AppDetailNotes;
-
   return (
     <QueryWrapper isLoading={isLoading} error={error}>
-      {notes && notes.helpText ? notes.helpText : 'No notes found'}
+      {notes && notes.helpTextMarkdown ? (
+        <Viewer text={notes.helpTextMarkdown} />
+      ) : (
+        (notes && notes.helpText) ||
+        (notes && notes.helpTextHtml) ||
+        'No notes found'
+      )}
     </QueryWrapper>
   );
 };
