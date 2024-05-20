@@ -5,9 +5,10 @@ import {
   RouteComponentProps,
   Switch,
 } from 'react-router-dom';
-import JobLauncher from '../JobLauncher';
 import AppCreator from '../AppsCreator';
 import CookbookListing from '../AppListing';
+import AppDetail from '../AppDetail';
+import AppEdit from 'tapis-ui/components/apps/AppNotesEdit';
 
 const Router: React.FC = () => {
   const { path } = useRouteMatch();
@@ -21,6 +22,7 @@ const Router: React.FC = () => {
 
       <Route
         path={`${path}/:appId/:appVersion`}
+        exact
         render={({
           match: {
             params: { appVersion, appId },
@@ -28,7 +30,19 @@ const Router: React.FC = () => {
         }: RouteComponentProps<{
           appId: string;
           appVersion: string;
-        }>) => <JobLauncher appId={appId} appVersion={appVersion} />}
+        }>) => <AppDetail appId={appId} appVersion={appVersion} />}
+      />
+
+      <Route
+        path={`${path}/:appId/:appVersion/edit`}
+        render={({
+          match: {
+            params: { appVersion, appId },
+          },
+        }: RouteComponentProps<{
+          appId: string;
+          appVersion: string;
+        }>) => <AppEdit appId={appId} appVersion={appVersion} />}
       />
     </Switch>
   );

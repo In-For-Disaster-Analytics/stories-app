@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import { Icon } from 'tapis-ui/_common';
 import styles from './Toolbar.module.scss';
 import DeleteModal from './DeleteModal';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDownload, usePermissions } from 'tapis-hooks/files';
 import { useNotifications } from 'tapis-app/_components/Notifications';
 import { useAppsSelect } from '../AppsContext';
@@ -47,8 +47,9 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
 const Toolbar: React.FC = () => {
   const [modal, setModal] = useState<string | undefined>(undefined);
   const { selectedApps } = useAppsSelect();
-  const { download } = useDownload();
-  const { add } = useNotifications();
+  const { pathname } = useLocation();
+  console.log('pathname', pathname);
+  const [_, __, appId, appVersion] = pathname.split('/');
   const { claims } = useTapisConfig();
   const isCurrentUser = (username: string) =>
     username === claims['tapis/username'];
@@ -72,10 +73,28 @@ const Toolbar: React.FC = () => {
           }}
           aria-label="Add"
         />
+        {appId === undefined || appVersion === undefined ? null : (
+          <Link
+            to={`/apps/${appId}/${appVersion}/edit`}
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            <ToolbarButton
+              text="Edit"
+              icon="add"
+              disabled={appId === undefined || appVersion === undefined}
+              onClick={async () => {}}
+              aria-label="Save"
+            >
+              <span>
+                <Icon name="user" /> Edit
+              </span>
+            </ToolbarButton>
+          </Link>
+        )}
         <ToolbarButton
           text="Delete"
           icon="trash"
-          disabled={selectedApps.length === 0 || !hasPermissions}
+          disabled={selectedApps.length === 0 || hasPermissions === true}
           onClick={() => setModal('delete')}
           aria-label="Delete"
         />

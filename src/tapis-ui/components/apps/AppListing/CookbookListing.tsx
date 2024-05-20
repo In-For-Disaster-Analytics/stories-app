@@ -12,6 +12,7 @@ import {
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import styles from './CookbookListing.module.scss';
 import { formatDateTimeFromValue } from 'utils/timeFormat';
+import { Link } from 'react-router-dom';
 
 export type OnSelectCallback = (apps: Array<Apps.TapisApp>) => any;
 export type OnNavigateCallback = (app: Apps.TapisApp) => any;
@@ -83,7 +84,7 @@ const AppListingName: React.FC<AppListingItemProps> = ({
   onNavigate = undefined,
   location = undefined,
 }) => {
-  return <>{app.id}</>;
+  return <Link to={`/apps/${app.id}/${app.version}`}>{app.id}</Link>;
 };
 
 export type SelectMode = {
