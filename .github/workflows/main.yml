@@ -93,6 +93,33 @@ jobs:
           fi
         id: set_image_tag
 
+  Publish_Github_Pages:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs:
+      - Resolve_Image_Tag
+      - Client_Side_Linting
+      - Client_Side_Unit_Tests
+    runs-on: ubuntu-latest
+    name: Publish_Github_Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: npm ci
+        run: |
+          npm ci
+      - name: Build_Github_Pages
+        run: |
+          npm run build
+      - name: Deploy_Github_Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
   Build_Push_Image:
     if: github.event_name != 'pull_request'
     needs:
