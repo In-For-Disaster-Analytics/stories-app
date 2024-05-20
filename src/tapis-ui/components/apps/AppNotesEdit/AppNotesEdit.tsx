@@ -28,19 +28,6 @@ async function convertMarkdownToHtml(doc: string) {
   return String(file);
 }
 
-type AppDetailNotes = {
-  icon: string;
-  label: string;
-  helpUrl: string;
-  category: string;
-  helpText: string;
-  helpTextHtml: string;
-  helpTextMarkdown: string;
-  queueFilter: string[];
-  isInteractive: boolean;
-  hideNodeCountAndCoresPerNode: boolean;
-};
-
 type AppEditorProps = {
   app: Apps.TapisApp;
 };
@@ -51,7 +38,7 @@ const AppEditor = ({ app }: AppEditorProps) => {
   const { submit, isLoading, error, isSuccess, reset } = usePatch();
   const notes = app.notes as AppDetailNotes;
 
-  const initText = notes.helpTextMarkdown;
+  const initText = notes.helpTextMarkdown || notes.helpText;
   const [text, setText] = React.useState(initText);
 
   const editorTab = (
@@ -96,8 +83,8 @@ const AppEditor = ({ app }: AppEditorProps) => {
               icon="save"
               disabled={!hasPermissions}
               onClick={async () => {
-                const helpText = await convertMarkdownToHtml(text);
-                const helpTextHtml = helpText;
+                const helpTextHtml = await convertMarkdownToHtml(text);
+                const helpText = helpTextHtml;
                 const helpTextMarkdown = text;
                 submit({
                   appId: app.id as string,

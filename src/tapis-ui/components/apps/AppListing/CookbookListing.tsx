@@ -13,6 +13,7 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import styles from './CookbookListing.module.scss';
 import { formatDateTimeFromValue } from 'utils/timeFormat';
 import { Link } from 'react-router-dom';
+import { useTapisConfig } from 'tapis-hooks';
 
 export type OnSelectCallback = (apps: Array<Apps.TapisApp>) => any;
 export type OnNavigateCallback = (app: Apps.TapisApp) => any;
@@ -244,7 +245,21 @@ const AppListing: React.FC<AppListingProps> = ({
 }) => {
   const { isLoading, error, data } = useList();
 
-  const apps: Array<Apps.TapisApp> = data?.result ?? [];
+  const { claims } = useTapisConfig();
+  const username = claims['tapis/username'];
+
+  // sort the apps by the owner
+  const apps = data?.result
+    ? data?.result.sort((a, b) => {
+        if (a.owner === username) {
+          return -1;
+        }
+        if (b.owner === username) {
+          return 1;
+        }
+        return 0;
+      })
+    : [];
 
   const selectedAppDict: SelectAppDictType = React.useMemo(() => {
     const result: SelectAppDictType = {};
