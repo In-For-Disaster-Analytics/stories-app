@@ -1,5 +1,5 @@
 import React from 'react';
-import { QueryWrapper } from 'tapis-ui/_wrappers';
+import { QueryWrapper, SubmitWrapper } from 'tapis-ui/_wrappers';
 import { useDetail as useAppDetail } from 'tapis-hooks/apps';
 import Editor from '@monaco-editor/react';
 import Markdown from 'react-markdown';
@@ -9,6 +9,7 @@ import { LayoutHeader, Tabs } from 'tapis-ui/_common';
 import styles from './AppNotesEdit.module.scss';
 import { ToolbarButton } from 'tapis-app/Apps/_components/Toolbar/Toolbar';
 import Layout from 'tapis-app/Apps/AppsCreator/_Layout/Layout';
+import usePatch from 'tapis-hooks/apps/usePatch';
 
 type AppDetailProps = {
   appId: string;
@@ -21,6 +22,8 @@ type AppDetailNotes = {
   helpUrl: string;
   category: string;
   helpText: string;
+  helpTextHtml: string;
+  helpTextMarkdown: string;
   queueFilter: string[];
   isInteractive: boolean;
   hideNodeCountAndCoresPerNode: boolean;
@@ -30,24 +33,14 @@ type AppEditorProps = {
   app: Apps.TapisApp;
 };
 
-const Toolbar = () => {
-  return (
-    <div className={styles['toolbar-wrapper']}>
-      <ToolbarButton
-        text="Save"
-        icon="save"
-        disabled={false}
-        onClick={() => {}}
-        aria-label="Save"
-      />
-    </div>
-  );
-};
 const AppEditor = ({ app }: AppEditorProps) => {
   const tabs: { [name: string]: React.ReactNode } = {};
 
+  const { submit, isLoading, error, isSuccess, reset } = usePatch();
   const notes = app.notes as AppDetailNotes;
-  const [text, setText] = React.useState(notes.helpText);
+
+  const initText = notes.helpTextMarkdown || notes.helpText;
+  const [text, setText] = React.useState(initText);
 
   const editorTab = (
     <Editor
@@ -73,7 +66,30 @@ const AppEditor = ({ app }: AppEditorProps) => {
     <div>
       <LayoutHeader type={'sub-header'}>
         {app.id} - {app.version}
-        <Toolbar />
+        <SubmitWrapper
+          isLoading={isLoading}
+          error={error}
+          success={isSuccess ? `Successfully updated notes` : ''}
+          reverse={true}
+        >
+          <div className={styles['toolbar-wrapper']}>
+            <ToolbarButton
+              text="Save"
+              icon="save"
+              disabled={false}
+              onClick={() =>
+                submit({
+                  appId: app.id as string,
+                  appVersion: app.version as string,
+                  reqPatchApp: {
+                    notes: { ...notes, helpText: text },
+                  },
+                })
+              }
+              aria-label="Save"
+            />
+          </div>
+        </SubmitWrapper>
       </LayoutHeader>
       <Tabs tabs={tabs} />
     </div>
@@ -85,7 +101,11 @@ const AppEdit: React.FC<AppDetailProps> = ({ appId, appVersion }) => {
   const app = data?.result;
   return (
     <QueryWrapper isLoading={isLoading} error={error}>
-      {app ? <AppEditor app={app} /> : 'No notes found'}
+      {app && app.id !== undefined && app.version !== undefined ? (
+        <AppEditor app={app} />
+      ) : (
+        'No notes found'
+      )}
     </QueryWrapper>
   );
 };
