@@ -2,12 +2,13 @@ import React from 'react';
 import { QueryWrapper } from 'tapis-ui/_wrappers';
 import { useDetail as useAppDetail } from 'tapis-hooks/apps';
 import Editor from '@monaco-editor/react';
-import { Button } from 'reactstrap';
 import Markdown from 'react-markdown';
-import { set } from 'js-cookie';
-import { text } from '@fortawesome/fontawesome-svg-core';
 import { Apps } from '@tapis/tapis-typescript';
-import { Tabs } from 'tapis-ui/_common';
+import { LayoutHeader, Tabs } from 'tapis-ui/_common';
+
+import styles from './AppNotesEdit.module.scss';
+import { ToolbarButton } from 'tapis-app/Apps/_components/Toolbar/Toolbar';
+import Layout from 'tapis-app/Apps/AppsCreator/_Layout/Layout';
 
 type AppDetailProps = {
   appId: string;
@@ -29,6 +30,19 @@ type AppEditorProps = {
   app: Apps.TapisApp;
 };
 
+const Toolbar = () => {
+  return (
+    <div className={styles['toolbar-wrapper']}>
+      <ToolbarButton
+        text="Save"
+        icon="save"
+        disabled={false}
+        onClick={() => {}}
+        aria-label="Save"
+      />
+    </div>
+  );
+};
 const AppEditor = ({ app }: AppEditorProps) => {
   const tabs: { [name: string]: React.ReactNode } = {};
 
@@ -39,6 +53,12 @@ const AppEditor = ({ app }: AppEditorProps) => {
     <Editor
       height="90vh"
       defaultLanguage="markdown"
+      options={
+        {
+          wordWrap: 'on',
+          minimap: { enabled: false },
+        } as any
+      }
       defaultValue={text}
       onChange={(value) => value && setText(value)}
     />
@@ -51,6 +71,10 @@ const AppEditor = ({ app }: AppEditorProps) => {
 
   return (
     <div>
+      <LayoutHeader type={'sub-header'}>
+        {app.id} - {app.version}
+        <Toolbar />
+      </LayoutHeader>
       <Tabs tabs={tabs} />
     </div>
   );
