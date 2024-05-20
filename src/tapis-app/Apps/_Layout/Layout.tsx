@@ -30,7 +30,7 @@ const Layout: React.FC = () => {
 
   return (
     <AppsProvider>
-      <PageLayout top={header} right={body} />;
+      <PageLayout top={header} right={body} />
     </AppsProvider>
   );
 };
