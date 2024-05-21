@@ -54,6 +54,7 @@ const AppDetail: React.FC<AppDetailProps> = ({ appId, appVersion }) => {
           </a>
         </div>
       </LayoutHeader>
+      <p> Docker Image: {app?.containerImage}</p>
       {notes && notes.helpTextMarkdown ? (
         <Viewer text={notes.helpTextMarkdown} />
       ) : (
