@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ToolbarButton } from 'tapis-app/Apps/_components/Toolbar/Toolbar';
 import { PageLayout, LayoutHeader, Icon } from 'tapis-ui/_common';
 import AppDetail from 'tapis-ui/components/apps/AppDetail';
+import styles from './Layout.module.scss';
 
 const Layout: React.FC<{ appId: string; appVersion: string }> = ({
   appId,

@@ -73,24 +73,7 @@ const Toolbar: React.FC = () => {
           }}
           aria-label="Add"
         />
-        {appId === undefined || appVersion === undefined ? null : (
-          <Link
-            to={`/apps/${appId}/${appVersion}/edit`}
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
-            <ToolbarButton
-              text="Edit"
-              icon="add"
-              disabled={appId === undefined || appVersion === undefined}
-              onClick={async () => {}}
-              aria-label="Save"
-            >
-              <span>
-                <Icon name="user" /> Edit
-              </span>
-            </ToolbarButton>
-          </Link>
-        )}
+
         <ToolbarButton
           text="Delete"
           icon="trash"
