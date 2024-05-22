@@ -7,6 +7,7 @@ import QueryKeys from './queryKeys';
 export const defaultParams: Apps.GetAppsRequest = {
   select: 'jobAttributes,version,updated,isPublic,owner,sharedWithUsers',
   listType: Apps.ListTypeEnum.All,
+  orderBy: 'updated(desc)',
 };
 
 const useList = (
