@@ -94,7 +94,7 @@ jobs:
         id: set_image_tag
 
   Publish_Github_Pages:
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/publish-gh-pages'  }}
     needs:
       - Resolve_Image_Tag
       - Client_Side_Linting
