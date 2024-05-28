@@ -105,7 +105,7 @@ type AppListingTableProps = {
   location?: string;
   className?: string;
   selectMode?: SelectMode;
-  fields?: Array<'updated' | 'isPublic' | 'owner'>;
+  fields?: Array<'version' | 'updated' | 'isPublic' | 'owner'>;
 };
 
 export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
@@ -143,6 +143,13 @@ export const AppListingTable: React.FC<AppListingTableProps> = React.memo(
         ),
       },
     ];
+
+    if (fields?.some((field) => field === 'version')) {
+      tableColumns.push({
+        Header: 'Version',
+        accessor: 'version',
+      });
+    }
 
     if (fields?.some((field) => field === 'owner')) {
       tableColumns.push({
@@ -229,7 +236,7 @@ interface AppListingProps {
   onUnselect?: OnSelectCallback;
   onNavigate?: OnNavigateCallback;
   className?: string;
-  fields?: Array<'updated' | 'isPublic' | 'owner'>;
+  fields?: Array<'updated' | 'isPublic' | 'owner' | 'version'>;
   selectedApps?: Array<Apps.TapisApp>;
   selectMode?: SelectMode;
 }
@@ -239,7 +246,7 @@ const AppListing: React.FC<AppListingProps> = ({
   onUnselect = undefined,
   onNavigate = undefined,
   className,
-  fields = ['updated', 'isPublic', 'owner'],
+  fields = ['updated', 'isPublic', 'owner', 'version'],
   selectedApps = [],
   selectMode,
 }) => {
@@ -249,17 +256,7 @@ const AppListing: React.FC<AppListingProps> = ({
   const username = claims['tapis/username'];
 
   // sort the apps by the owner
-  const apps = data?.result
-    ? data?.result.sort((a, b) => {
-        if (a.owner === username) {
-          return -1;
-        }
-        if (b.owner === username) {
-          return 1;
-        }
-        return 0;
-      })
-    : [];
+  const apps = data?.result || [];
 
   const selectedAppDict: SelectAppDictType = React.useMemo(() => {
     const result: SelectAppDictType = {};
