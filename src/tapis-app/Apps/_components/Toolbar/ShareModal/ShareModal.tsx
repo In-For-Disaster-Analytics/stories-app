@@ -90,15 +90,17 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     if (!isPublishedApp) {
       runUnshare(operations);
     }
-    const userOperations: Array<ShareUserHookParams> = selectedApps.map(
-      (app) => ({
-        id: app.id!,
-        reqShareUpdate: {
-          users,
-        },
-      })
-    );
-    runShare(userOperations);
+    if (users.length > 0) {
+      const userOperations: Array<ShareUserHookParams> = selectedApps.map(
+        (app) => ({
+          id: app.id!,
+          reqShareUpdate: {
+            users,
+          },
+        })
+      );
+      runShare(userOperations);
+    }
   }, [selectedApps, runSharePublic, runUnshare]);
 
   const removeApps = useCallback(
