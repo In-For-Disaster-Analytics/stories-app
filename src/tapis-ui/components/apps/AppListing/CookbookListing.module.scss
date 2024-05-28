@@ -19,18 +19,22 @@
     }
     /* name */
     tr > *:nth-child(2) {
-      width: 47%;
+      width: 42%;
+    }
+    /* version */
+    tr > *:nth-child(3) {
+      width: 5%;
     }
     /* owner */
-    tr > *:nth-child(3) {
-      width: 15%;
-    }
-    /* visibility */
     tr > *:nth-child(4) {
       width: 15%;
     }
-    /* lastModified */
+    /* visibility */
     tr > *:nth-child(5) {
+      width: 15%;
+    }
+    /* lastModified */
+    tr > *:nth-child(6) {
       width: 20%;
     }
   }
@@ -43,18 +47,22 @@
     }
     /* name */
     tr > *:nth-child(2) {
-      width: 47%;
+      width: 42%;
+    }
+    /* version */
+    tr > *:nth-child(3) {
+      width: 5%;
     }
     /* owner */
-    tr > *:nth-child(3) {
-      width: 15%;
-    }
-    /* visibility */
     tr > *:nth-child(4) {
       width: 15%;
     }
-    /* lastModified */
+    /* visibility */
     tr > *:nth-child(5) {
+      width: 15%;
+    }
+    /* lastModified */
+    tr > *:nth-child(6) {
       width: 20%;
     }
   }
@@ -67,14 +75,18 @@
     }
     /* name */
     tr > *:nth-child(2) {
-      width: 57%;
+      width: 52%;
     }
-    /* visibility */
+    /* version */
     tr > *:nth-child(3) {
+      width: 5%;
+    }
+    /* owner */
+    tr > *:nth-child(4) {
       width: 17.5%;
     }
-    /* lastModified */
-    tr > *:nth-child(4) {
+    /* visibility */
+    tr > *:nth-child(5) {
       width: 19.5%;
     }
   }
@@ -87,14 +99,18 @@
     }
     /* name */
     tr > *:nth-child(2) {
-      width: 62%;
+      width: 57%;
     }
-    /* visibility */
+    /* version */
     tr > *:nth-child(3) {
+      width: 5%;
+    }
+    /* owner */
+    tr > *:nth-child(4) {
       width: 15.5%;
     }
-    /* lastModified */
-    tr > *:nth-child(4) {
+    /* visibility */
+    tr > *:nth-child(5) {
       width: 17.5%;
     }
   }
@@ -113,14 +129,18 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 40%;
+      width: 35%;
+    }
+    /* version */
+    tr > *:nth-child(4) {
+      width: 5%;
     }
     /* visibility */
-    tr > *:nth-child(4) {
+    tr > *:nth-child(5) {
       width: 20%;
     }
     /* lastModified */
-    tr > *:nth-child(5) {
+    tr > *:nth-child(6) {
       width: 14%;
     }
   }
@@ -137,14 +157,18 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 40%;
+      width: 35%;
+    }
+    /* version */
+    tr > *:nth-child(4) {
+      width: 5%;
     }
     /* visibility */
-    tr > *:nth-child(4) {
+    tr > *:nth-child(5) {
       width: 20%;
     }
     /* lastModified */
-    tr > *:nth-child(5) {
+    tr > *:nth-child(6) {
       width: 14%;
     }
   }
@@ -161,14 +185,18 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 30%;
+      width: 25%;
+    }
+    /* version */
+    tr > *:nth-child(4) {
+      width: 5%;
     }
     /* visibility */
-    tr > *:nth-child(4) {
+    tr > *:nth-child(5) {
       width: 16.5%;
     }
     /* lastModified */
-    tr > *:nth-child(5) {
+    tr > *:nth-child(6) {
       width: 18.5%;
     }
   }
@@ -185,14 +213,18 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 59%;
+      width: 54%;
+    }
+    /* version */
+    tr > *:nth-child(4) {
+      width: 5%;
     }
     /* visibility */
-    tr > *:nth-child(4) {
+    tr > *:nth-child(5) {
       width: 14.5%;
     }
     /* lastModified */
-    tr > *:nth-child(5) {
+    tr > *:nth-child(6) {
       width: 16.5%;
     }
   }
@@ -209,18 +241,22 @@
     }
     /* name */
     tr > *:nth-child(3) {
-      width: 45.5%;
+      width: 40.5%;
+    }
+    /* version */
+    tr > *:nth-child(4) {
+      width: 5%;
     }
     /* owner */
-    tr > *:nth-child(4) {
+    tr > *:nth-child(5) {
       width: 14.5%;
     }
     /* visibility */
-    tr > *:nth-child(4) {
+    tr > *:nth-child(6) {
       width: 14.5%;
     }
     /* lastModified */
-    tr > *:nth-child(5) {
+    tr > *:nth-child(7) {
       width: 16.5%;
     }
   }
