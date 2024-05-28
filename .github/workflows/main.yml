@@ -3,7 +3,7 @@ name: CI
 # Controls when the action will run. Triggers the workflow on pushes to main or on pull request events
 on:
   push:
-    branches: [dev, stage, release-*, main, publish-gh-pages]
+    branches: [dev, stage, release-*, main]
   pull_request:
     branches: ['**']
 
@@ -94,7 +94,7 @@ jobs:
         id: set_image_tag
 
   Publish_Github_Pages:
-    if: ${{ github.ref == 'refs/heads/publish-gh-pages'  }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - Resolve_Image_Tag
       - Client_Side_Linting
