@@ -90,6 +90,7 @@ const AppEditor = ({ app }: AppEditorProps) => {
                   appId: app.id as string,
                   appVersion: app.version as string,
                   reqPatchApp: {
+                    description: helpTextHtml,
                     notes: {
                       ...notes,
                       helpText,
