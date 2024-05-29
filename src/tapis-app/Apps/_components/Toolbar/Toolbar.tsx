@@ -48,7 +48,6 @@ const Toolbar: React.FC = () => {
   const [modal, setModal] = useState<string | undefined>(undefined);
   const { selectedApps } = useAppsSelect();
   const { pathname } = useLocation();
-  console.log('pathname', pathname);
   const [_, __, appId, appVersion] = pathname.split('/');
   const { claims } = useTapisConfig();
   const isCurrentUser = (username: string) =>
@@ -74,19 +73,23 @@ const Toolbar: React.FC = () => {
           aria-label="Add"
         />
 
-        <ToolbarButton
-          text="Delete"
-          icon="trash"
-          disabled={selectedApps.length === 0 || !hasPermissions}
-          onClick={() => setModal('delete')}
-          aria-label="Delete"
-        />
-        <ToolbarButton
-          text="Share"
-          icon="globe"
-          disabled={selectedApps.length === 0 || !hasPermissions}
-          onClick={() => setModal('share')}
-        />
+        {!appId && !appVersion ? (
+          <>
+            <ToolbarButton
+              text="Delete"
+              icon="trash"
+              disabled={selectedApps.length === 0 || !hasPermissions}
+              onClick={() => setModal('delete')}
+              aria-label="Delete"
+            />
+            <ToolbarButton
+              text="Share"
+              icon="globe"
+              disabled={selectedApps.length === 0 || !hasPermissions}
+              onClick={() => setModal('share')}
+            />
+          </>
+        ) : null}
         {modal === 'delete' && <DeleteModal toggle={toggle} />}
         {modal === 'upload' && <UploadModal toggle={toggle} />}
         {modal === 'share' && <ShareModal toggle={toggle} />}
