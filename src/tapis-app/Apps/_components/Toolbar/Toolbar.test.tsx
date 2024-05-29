@@ -19,6 +19,6 @@ describe('Toolbar', () => {
 
     const deleteBtn = getByLabelText('Delete');
     expect(deleteBtn).toBeDefined();
-    expect(deleteBtn.closest('button')).not.toHaveAttribute('disabled');
+    expect(deleteBtn.closest('button')).toHaveAttribute('disabled');
   });
 });

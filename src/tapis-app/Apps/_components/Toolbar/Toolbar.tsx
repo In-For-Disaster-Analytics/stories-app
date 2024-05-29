@@ -77,7 +77,7 @@ const Toolbar: React.FC = () => {
         <ToolbarButton
           text="Delete"
           icon="trash"
-          disabled={selectedApps.length === 0 || hasPermissions === true}
+          disabled={selectedApps.length === 0 || !hasPermissions}
           onClick={() => setModal('delete')}
           aria-label="Delete"
         />
