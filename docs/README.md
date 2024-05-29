@@ -27,6 +27,15 @@
 3. Click on the "Run" button
    ![Create Application](./images/app-run-1.png)
 
+## Add documentation to Application
+
+1. Go to the application's page
+2. Click on the application to add documentation
+3. Click on the "Edit" button
+4. Write the documentation using markdown
+   ![Write documentation](./images/app-doc-edit.png)
+5. Click on the "Save" button
+
 ## Delete Application
 
 1. Go to the application's page
