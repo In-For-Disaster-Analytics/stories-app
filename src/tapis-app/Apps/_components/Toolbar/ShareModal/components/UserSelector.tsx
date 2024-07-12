@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Container, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Container, FormGroup, Input, Label } from 'reactstrap';
 import { QueryWrapper } from 'tapis-ui/_wrappers';
 import { useList } from 'upstream-hooks/projects';
+import './UserSelector.css';
 
 interface UserSelectorProps {
   initialUsers: Array<string>;
@@ -26,6 +27,17 @@ const UserSelector = ({
     <div id="my-element" style={{ height: '200px', overflow: 'scroll' }}>
       <h3>Manage permissions</h3>
       Shared with {initialUsers.length} users
+      {removedUsers.length > 0 && (
+        <button
+          className="link-button"
+          onClick={() => {
+            setRemovedUsers(users);
+            setUsers([]);
+          }}
+        >
+          Remove all users
+        </button>
+      )}
       <FormGroup>
         {users &&
           users?.map((user, index) => (
