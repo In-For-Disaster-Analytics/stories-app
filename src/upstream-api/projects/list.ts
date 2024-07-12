@@ -1,11 +1,12 @@
-const list = (basePath: string, jwt: string) => {
+const list = async (basePath: string, jwt: string) => {
   console.log('basePath:', basePath);
-  return fetch(`${basePath}/projects`, {
+  const response = await fetch(`${basePath}/projects`, {
     headers: {
       accept: 'application/json',
       Authorization: 'Bearer ' + jwt,
     },
   });
+  return response.json();
 };
 
 export default list;

@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState } from 'react';
 import { Button } from 'reactstrap';
 import { DropdownSelector, FormikInput, GenericModal } from 'tapis-ui/_common';
-import { SubmitWrapper } from 'tapis-ui/_wrappers';
+import { QueryWrapper, SubmitWrapper } from 'tapis-ui/_wrappers';
 import { ToolbarModalProps } from '../Toolbar';
 import { focusManager } from 'react-query';
 import { Column } from 'react-table';
@@ -18,6 +18,8 @@ import useUnsharePublic from 'tapis-hooks/apps/useUnsharePublic';
 import useShare, { ShareUserHookParams } from 'tapis-hooks/apps/useShare';
 import { Form, Formik } from 'formik';
 import { MuiChipsInput } from 'tapis-ui/_common/MuiChipsInput';
+import { useList } from 'upstream-hooks/projects';
+import ProjectSelector from './components/ProjectSelector';
 
 const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
@@ -177,8 +179,10 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
                 <option value="private">Private</option>
                 <option value="public">Public</option>
               </DropdownSelector>
-              <h3> Add users </h3>
+              <h3> Share with users </h3>
               <MuiChipsInput value={users} onChange={setUsers} />
+              <h3> Share with allocation </h3>
+              <ProjectSelector />
             </Form>
           </Formik>
         </div>
