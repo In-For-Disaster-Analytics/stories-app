@@ -29,7 +29,7 @@ const useUpstreamConfig = () => {
       return;
     }
     const expires = new Date(0);
-    Cookies.set('upstream-token', JSON.stringify(resp), { expires });
+    Cookies.set('upstream-token', JSON.stringify(resp));
     await refetch();
   };
 

@@ -11,12 +11,12 @@ export interface UpstreamNewAccessTokenResponse {
   token_type: string;
 }
 // This helper takes the username and password and assembles an API call
-const login = (
+const login = async (
   username: string,
   password: string,
   basePath: string
 ): Promise<UpstreamRespCreateToken> => {
-  const promise: Promise<UpstreamRespCreateToken> = fetch(`${basePath}/token`, {
+  const promise = await fetch(`${basePath}/token`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -27,7 +27,7 @@ const login = (
       password: password,
     }),
   });
-  return promise;
+  return promise.json();
 };
 
 export default login;

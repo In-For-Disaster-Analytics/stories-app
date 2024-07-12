@@ -2,7 +2,7 @@ import { useMutation } from 'react-query';
 import { login } from 'upstream-api/authenticator';
 import QueryKeys from './queryKeys';
 import { UpstreamRespCreateToken } from 'upstream-api/authenticator/login';
-import useUpstreamConfig from 'upstream-hooks/context/useUpstreamConfig';
+import { useUpstreamConfig } from 'upstream-hooks/context';
 
 type LoginHookParams = {
   username: string;
