@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import { Button, Container } from 'reactstrap';
+import { Button, Container, FormGroup } from 'reactstrap';
 import { DropdownSelector, FormikInput, GenericModal } from 'tapis-ui/_common';
 import { QueryWrapper, SubmitWrapper } from 'tapis-ui/_wrappers';
 import { ToolbarModalProps } from '../Toolbar';
@@ -207,29 +207,39 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
           </div>
           <Formik initialValues={initialValues} onSubmit={onSubmit}>
             <Form id="share-form">
-              <h3> General access </h3>
-              <DropdownSelector
-                type={undefined}
-                onChange={(e: any) => {
-                  const value = e.target.value;
-                  if (value === 'public') {
-                    setIsPublishedApp(true);
-                  }
-                  if (value === 'private') {
-                    setIsPublishedApp(false);
-                  }
-                }}
-              >
-                <option value="private">Private</option>
-                <option value="public">Public</option>
-              </DropdownSelector>
-              <h3> Add new users </h3>
-              <MuiChipsInput value={newUsers} onChange={setNewUsers} />
-              <h3> Add new an allocation </h3>
-              <ProjectSelector
-                users={usersFromProjects}
-                setUsers={setUsersFromProjects}
-              />
+              <FormGroup>
+                <h3> General access </h3>
+                <DropdownSelector
+                  type={undefined}
+                  onChange={(e: any) => {
+                    const value = e.target.value;
+                    if (value === 'public') {
+                      setIsPublishedApp(true);
+                    }
+                    if (value === 'private') {
+                      setIsPublishedApp(false);
+                    }
+                  }}
+                >
+                  <option value="private">Private</option>
+                  <option value="public">Public</option>
+                </DropdownSelector>
+              </FormGroup>
+              <FormGroup>
+                <h3> Add new users </h3>
+                <MuiChipsInput
+                  size="small"
+                  value={newUsers}
+                  onChange={setNewUsers}
+                />
+              </FormGroup>
+              <FormGroup>
+                <h3> Add new an allocation </h3>
+                <ProjectSelector
+                  users={usersFromProjects}
+                  setUsers={setUsersFromProjects}
+                />
+              </FormGroup>
               <UserSelector
                 initialUsers={existingUsers}
                 removedUsers={removedUsers}

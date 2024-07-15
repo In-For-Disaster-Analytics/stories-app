@@ -11,7 +11,7 @@ const EndAdornmentClose = styled('div')`
 
 const TextFieldStyled = styled(TextField)((props) => {
   return `
-    max-width: 100%;
+    display: flex;
 
     .MuiInputBase-root {
       display: flex;
@@ -39,8 +39,7 @@ const ChipStyled = styled(Chip)(({ theme, size }) => {
   return `
     max-width: 100%;
     margin: 2px 4px;
-    height: ${size === 'small' ? '26px' : '32px'};
-
+    height: 26px;
     &[aria-disabled="true"] > svg.MuiChip-deleteIcon {
       color: ${theme.palette.action.disabled};
       cursor: default;

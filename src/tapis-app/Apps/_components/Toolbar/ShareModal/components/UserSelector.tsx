@@ -25,7 +25,7 @@ const UserSelector = ({
 
   return (
     <div id="my-element" style={{ height: '200px', overflow: 'scroll' }}>
-      <h3>Manage permissions</h3>
+      <h3>Manage existing permissions</h3>
       Shared with {initialUsers.length} users
       {removedUsers.length > 0 && (
         <button
