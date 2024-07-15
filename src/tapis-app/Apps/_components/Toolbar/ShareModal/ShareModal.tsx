@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Container, FormGroup } from 'reactstrap';
 import { DropdownSelector, FormikInput, GenericModal } from 'tapis-ui/_common';
-import { SubmitWrapper } from 'tapis-ui/_wrappers';
+import { QueryWrapper, SubmitWrapper } from 'tapis-ui/_wrappers';
 import { ToolbarModalProps } from '../Toolbar';
 import { focusManager } from 'react-query';
 import { Column } from 'react-table';
@@ -18,17 +18,27 @@ import useUnsharePublic from 'tapis-hooks/apps/useUnsharePublic';
 import useShare, { ShareUserHookParams } from 'tapis-hooks/apps/useShare';
 import { Form, Formik } from 'formik';
 import { MuiChipsInput } from 'tapis-ui/_common/MuiChipsInput';
+import { useList } from 'upstream-hooks/projects';
+import ProjectSelector from './components/ProjectSelector';
+import UserSelector from './components/UserSelector';
+import { remove } from 'js-cookie';
+import unShareApp from 'tapis-api/apps/unShare';
+import useUnShare from 'tapis-hooks/apps/useUnShare';
 
 const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   const { selectedApps, unselect } = useAppsSelect();
   const { shareAppPublicAsync, reset } = useSharePublic();
   const { unShareAppPublicAsync, reset: resetUnshare } = useUnsharePublic();
   const { shareAppAsync, reset: resetShare } = useShare();
+  const { unShareAppAsync, reset: resetUnShare } = useUnShare();
   const [isPublishedApp, setIsPublishedApp] = useState(false);
   const getAllUsers = selectedApps.map((app) => app.sharedWithUsers);
-  const [users, setUsers] = useState<Array<string>>(
+  const [existingUsers, setExistingUsers] = useState<Array<string>>(
     getAllUsers.filter(String).flat() as Array<string>
   );
+  const [newUsers, setNewUsers] = useState<Array<string>>([]);
+  const [usersFromProjects, setUsersFromProjects] = useState<Array<string>>([]);
+  const [removedUsers, setRemovedUsers] = useState<Array<string>>([]);
   useEffect(() => {
     reset();
   }, [reset]);
@@ -40,6 +50,10 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   useEffect(() => {
     resetShare();
   }, [resetShare]);
+
+  useEffect(() => {
+    resetUnShare();
+  }, [resetUnShare]);
 
   const onComplete = useCallback(() => {
     // Calling the focus manager triggers react-query's
@@ -59,11 +73,11 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
   });
 
   const {
-    run: runUnshare,
-    state: stateUnshare,
-    isLoading: isLoadingUnshare,
-    isSuccess: isSuccessUnshare,
-    error: errorUnshare,
+    run: runUnsharePublic,
+    state: stateUnsharePublic,
+    isLoading: isLoadingUnsharePublic,
+    isSuccess: isSuccessUnsharePublic,
+    error: errorUnsharePublic,
   } = useAppsOperations<ShareHookParams, Apps.RespChangeCount>({
     fn: unShareAppPublicAsync,
     onComplete,
@@ -80,6 +94,17 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     onComplete,
   });
 
+  const {
+    run: unShare,
+    state: stateUnshare,
+    isLoading: isLoadingUnshare,
+    isSuccess: isSuccessUnshare,
+    error: errorUnshare,
+  } = useAppsOperations<ShareUserHookParams, Apps.RespChangeCount>({
+    fn: unShareAppAsync,
+    onComplete,
+  });
+
   const onSubmit = useCallback(() => {
     const operations: Array<ShareHookParams> = selectedApps.map((app) => ({
       id: app.id!,
@@ -88,20 +113,34 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
       runSharePublic(operations);
     }
     if (!isPublishedApp) {
-      runUnshare(operations);
+      runUnsharePublic(operations);
     }
-    if (users.length > 0) {
+    const newMergedUsers = [...usersFromProjects, ...newUsers];
+    if (newMergedUsers.length > 0) {
+      //merge users and usersFromProjects
+      const mergedUsers = [...existingUsers, ...usersFromProjects, ...newUsers];
       const userOperations: Array<ShareUserHookParams> = selectedApps.map(
         (app) => ({
           id: app.id!,
           reqShareUpdate: {
-            users,
+            users: mergedUsers,
           },
         })
       );
       runShare(userOperations);
     }
-  }, [selectedApps, runSharePublic, runUnshare]);
+    if (removedUsers.length > 0) {
+      const userOperations: Array<ShareUserHookParams> = selectedApps.map(
+        (app) => ({
+          id: app.id!,
+          reqShareUpdate: {
+            users: removedUsers,
+          },
+        })
+      );
+      unShare(userOperations);
+    }
+  }, [selectedApps, runSharePublic, runUnsharePublic]);
 
   const removeApps = useCallback(
     (file: Apps.TapisApp) => {
@@ -142,6 +181,7 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     visibility: 'private',
   };
 
+  const sharedCounter = newUsers.length + usersFromProjects.length;
   return (
     <GenericModal
       toggle={() => {
@@ -151,6 +191,15 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
       title={`Share apps`}
       body={
         <div>
+          <div>
+            Pending Actions for Selected Apps:
+            <ul>
+              <li>Unshare with: {removedUsers.length} users </li>
+              <li>
+                Share with: {newUsers.length + usersFromProjects.length} users
+              </li>
+            </ul>
+          </div>
           <div className={styles['files-list-container']}>
             <AppListingTable
               apps={selectedApps}
@@ -161,24 +210,44 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
           </div>
           <Formik initialValues={initialValues} onSubmit={onSubmit}>
             <Form id="share-form">
-              <h3> General access </h3>
-              <DropdownSelector
-                type={undefined}
-                onChange={(e: any) => {
-                  const value = e.target.value;
-                  if (value === 'public') {
-                    setIsPublishedApp(true);
-                  }
-                  if (value === 'private') {
-                    setIsPublishedApp(false);
-                  }
-                }}
-              >
-                <option value="private">Private</option>
-                <option value="public">Public</option>
-              </DropdownSelector>
-              <h3> Add users </h3>
-              <MuiChipsInput value={users} onChange={setUsers} />
+              <FormGroup>
+                <h3> General access </h3>
+                <DropdownSelector
+                  type={undefined}
+                  onChange={(e: any) => {
+                    const value = e.target.value;
+                    if (value === 'public') {
+                      setIsPublishedApp(true);
+                    }
+                    if (value === 'private') {
+                      setIsPublishedApp(false);
+                    }
+                  }}
+                >
+                  <option value="private">Private</option>
+                  <option value="public">Public</option>
+                </DropdownSelector>
+              </FormGroup>
+              <FormGroup>
+                <h3> Add new users </h3>
+                <MuiChipsInput
+                  size="small"
+                  value={newUsers}
+                  onChange={setNewUsers}
+                />
+              </FormGroup>
+              <FormGroup>
+                <h3> Add new an allocation </h3>
+                <ProjectSelector
+                  users={usersFromProjects}
+                  setUsers={setUsersFromProjects}
+                />
+              </FormGroup>
+              <UserSelector
+                initialUsers={existingUsers}
+                removedUsers={removedUsers}
+                setRemovedUsers={setRemovedUsers}
+              />
             </Form>
           </Formik>
         </div>
@@ -186,9 +255,11 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
       footer={
         <SubmitWrapper
           isLoading={false}
-          error={errorSharePublic || errorShare || errorUnshare}
+          error={errorSharePublic || errorShare || errorUnsharePublic}
           success={
-            isSuccessSharePublic || isSuccessUnshare ? `Visibility changed` : ''
+            isSuccessSharePublic || isSuccessUnsharePublic
+              ? `Visibility changed`
+              : ''
           }
           reverse={true}
         >
@@ -199,8 +270,8 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
               isSuccessSharePublic ||
               isLoadingShare ||
               isSuccessShare ||
-              isLoadingUnshare ||
-              isSuccessUnshare ||
+              isLoadingUnsharePublic ||
+              isSuccessUnsharePublic ||
               selectedApps.length === 0
             }
             aria-label="Submit"

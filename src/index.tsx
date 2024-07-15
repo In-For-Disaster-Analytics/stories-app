@@ -6,13 +6,17 @@ import TapisProvider from 'tapis-hooks/provider';
 import 'tapis-ui/index.css';
 import { resolveBasePath } from 'utils/resloveBasePath';
 import reportWebVitals from './reportWebVitals';
+import UpstreamProvider from 'upstream-hooks/provider/UpstreamProvider';
+const upstreamBasePath = 'https://upstream-dso.tacc.utexas.edu';
 
 ReactDOM.render(
   <React.StrictMode>
     <TapisProvider basePath={resolveBasePath()}>
-      <Router>
-        <App />
-      </Router>
+      <UpstreamProvider basePath={upstreamBasePath}>
+        <Router>
+          <App />
+        </Router>
+      </UpstreamProvider>
     </TapisProvider>
   </React.StrictMode>,
   document.getElementById('react-root')

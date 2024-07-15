@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import { useLogin } from 'tapis-hooks/authenticator';
+import { useLogin as useUpstreamLogin } from 'upstream-hooks/authenticator';
 import { useTapisConfig } from 'tapis-hooks/context';
 import { FormikInput } from 'tapis-ui/_common';
 import { SubmitWrapper } from 'tapis-ui/_wrappers';
@@ -9,6 +10,11 @@ import * as Yup from 'yup';
 
 const Login: React.FC = () => {
   const { login, isLoading, error } = useLogin();
+  const {
+    login: loginUpstream,
+    isLoading: isLoadingUpstream,
+    error: errorUpstream,
+  } = useUpstreamLogin();
   const { accessToken } = useTapisConfig();
 
   const onSubmit = ({
@@ -17,7 +23,10 @@ const Login: React.FC = () => {
   }: {
     username: string;
     password: string;
-  }) => login(username, password);
+  }) => {
+    login(username, password);
+    loginUpstream(username, password);
+  };
 
   const loginSchema = Yup.object({
     username: Yup.string().required(),
