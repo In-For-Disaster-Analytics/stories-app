@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, FormGroup, Input, Label } from 'reactstrap';
-import { QueryWrapper } from 'tapis-ui/_wrappers';
-import { useList } from 'upstream-hooks/projects';
+import { FormGroup, Input, Label, Button } from 'reactstrap';
 import './UserSelector.css';
 
 interface UserSelectorProps {
@@ -16,7 +14,7 @@ const UserSelector = ({
   setRemovedUsers,
 }: UserSelectorProps) => {
   const [users, setUsers] = useState(initialUsers);
-  const handleCheckboxChange = (user) => {
+  const handleCheckboxChange = (user: string) => {
     if (users.includes(user)) {
       setUsers(users.filter((u) => u !== user));
       setRemovedUsers([...removedUsers, user]);
@@ -27,8 +25,10 @@ const UserSelector = ({
     <div id="my-element" style={{ height: '200px', overflow: 'scroll' }}>
       <h3>Manage existing permissions</h3>
       Shared with {initialUsers.length} users
-      {removedUsers.length > 0 && (
-        <button
+      {initialUsers.length > 0 && (
+        <Button
+          color="none"
+          outline={true}
           className="link-button"
           onClick={() => {
             setRemovedUsers(users);
@@ -36,7 +36,7 @@ const UserSelector = ({
           }}
         >
           Remove all users
-        </button>
+        </Button>
       )}
       <FormGroup>
         {users &&

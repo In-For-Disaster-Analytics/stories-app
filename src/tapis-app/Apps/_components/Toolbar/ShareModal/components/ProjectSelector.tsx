@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Container, FormGroup, Input, Label } from 'reactstrap';
 import { QueryWrapper } from 'tapis-ui/_wrappers';
+import { Project } from 'upstream-api/projects/types';
 import { useList } from 'upstream-hooks/projects';
 
 interface ProjectSelectorProps {
@@ -9,9 +10,9 @@ interface ProjectSelectorProps {
 }
 
 const ProjectSelector = ({ setUsers, users }: ProjectSelectorProps) => {
-  const [selectedProjects, setSelectedProjects] = useState([]);
-  const { data, isLoading, error } = useList();
-  const handleCheckboxChange = (project) => {
+  const [selectedProjects, setSelectedProjects] = useState<number[]>([]);
+  const { data: projects, isLoading, error } = useList();
+  const handleCheckboxChange = (project: Project) => {
     if (selectedProjects.includes(project.id)) {
       setSelectedProjects(selectedProjects.filter((p) => p !== project.id));
     } else {
@@ -24,8 +25,8 @@ const ProjectSelector = ({ setUsers, users }: ProjectSelectorProps) => {
   return (
     <QueryWrapper isLoading={isLoading} error={error}>
       <FormGroup>
-        {data &&
-          data?.map((project, index) => (
+        {projects &&
+          projects?.map((project, index) => (
             <FormGroup check key={index}>
               <Label check>
                 <Input
@@ -35,9 +36,6 @@ const ProjectSelector = ({ setUsers, users }: ProjectSelectorProps) => {
                 />
                 {project.title}
               </Label>
-              {/* <Button color="danger" size="sm" onClick={() => setCategories(categories.filter(c => c !== category))}>
-                        Remove
-                    </Button> */}
             </FormGroup>
           ))}
       </FormGroup>

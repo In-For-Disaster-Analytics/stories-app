@@ -181,6 +181,7 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
     visibility: 'private',
   };
 
+  const sharedCounter = newUsers.length + usersFromProjects.length;
   return (
     <GenericModal
       toggle={() => {
@@ -191,10 +192,12 @@ const ShareModel: React.FC<ToolbarModalProps> = ({ toggle }) => {
       body={
         <div>
           <div>
-            The following actions will be applied to the selected apps:
+            Pending Actions for Selected Apps:
             <ul>
-              <li>Unshare: {removedUsers.length} users </li>
-              <li>Share: {newUsers.length} users </li>
+              <li>Unshare with: {removedUsers.length} users </li>
+              <li>
+                Share with: {newUsers.length + usersFromProjects.length} users
+              </li>
             </ul>
           </div>
           <div className={styles['files-list-container']}>
